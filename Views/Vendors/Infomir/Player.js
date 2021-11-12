@@ -518,11 +518,12 @@ function updateSeconds(){
     }
     //Debug("#################################3       "+seconds);
 }
-function updatePosition(option){
-    if (option === 'backward') {
+function updatePosition(Option){
+    
+    (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
         if(player.state != 3){
             Position += 1;
-        }
+        
     }
     
 }
