@@ -252,9 +252,9 @@ function PlayVideo(Source){
         }
     } else {
         //Reproduce el video
-        Debug(src);
+        Debug("this source"+Source);
         player.play({
-            uri: src,
+            uri: Source,
             solution: 'auto'
         });
         
