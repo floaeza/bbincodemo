@@ -523,7 +523,7 @@ function UpdatePosition(Option){
     PositionAsset = gSTB.GetPosTimeEx();
     Debug("positionAsset :" + PositionAsset);
     (Option === 'add') ? PositionAsset += 300000: PositionAsset -= 300000;
-   
+    Debug("manda el nuevo tiempo :" + PositionAsset);
     gSTB.SetPosTimeEx(PositionAsset);
     PositionAsset = gSTB.GetPosTimeEx();
 
