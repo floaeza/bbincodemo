@@ -594,7 +594,7 @@ function updateRewFor(){
 function AssetStatus(Duration){
     if(PlayingRecording === true){
         
-        PositionAsset = player.position;
+        PositionAsset = player.GetPosTime();
         Debug('AssetStatus------------->'+ PositionAsset);
         //PositionAsset = stbPlayer.position;
         DurationAsset = parseInt(Duration,10) * 60;
