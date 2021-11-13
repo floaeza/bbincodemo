@@ -525,6 +525,7 @@ function updatePosition(Option){
             Position += 1;
         
     }
+    player.resume();
     
 }
 
