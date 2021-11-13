@@ -211,11 +211,11 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
     function UpdatePosition(Option){
         Debug("entro UpdatePosition amino ")
         PositionAsset = AVMedia.GetPos();
-
+        Debug("positionAsset amino:" + PositionAsset);
         (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
 
         AVMedia.SetPos(PositionAsset);
-
+        Debug("positionAsset amino:" + AVMedia.SetPos(PositionAsset));
         PositionAsset = AVMedia.GetPos();
 
         //AVMedia.Continue();
