@@ -520,12 +520,14 @@ function updateSeconds(){
 }
 function updatePosition(Option){
     
+    PositionAsset = AVMedia.GetPos();
     (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
-        if(player.state != 3){
-            Position += 1;
         
-    }
-    player.resume();
+    
+    AVMedia.SetPos(PositionAsset);
+
+    PositionAsset = AVMedia.GetPos();
+
     
 }
 
