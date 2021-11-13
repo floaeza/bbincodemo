@@ -523,7 +523,8 @@ function UpdatePosition(Option){
     PositionAsset = gSTB.GetPosTimeEx();
     Debug("positionAsset :" + PositionAsset);
     (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
-    player.SetPosTimeEx (PositionAsset);
+    Debug("positionAsset :" +   gSTB.SetPosTimeEx(PositionAsset));
+    gSTB.SetPosTimeEx(PositionAsset);
     PositionAsset = gSTB.GetPosTimeEx();
 
    /*  (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
