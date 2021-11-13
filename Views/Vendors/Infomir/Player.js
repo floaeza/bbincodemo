@@ -520,11 +520,11 @@ function updateSeconds(){
 }
 function UpdatePosition(Option){
     Debug("entro UpdatePosition infomir ")
-    PositionAsset = player.GetPosTimeEx ();
+    PositionAsset = player.GetPosTimeEx();
     Debug("positionAsset :" + PositionAsset);
     (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
     player.SetPosTimeEx (PositionAsset);
-    PositionAsset = player.GetPosTimeEx ();
+    PositionAsset = player.GetPosTimeEx();
 
    /*  (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
         if(player.state != 3){
