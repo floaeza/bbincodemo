@@ -519,6 +519,7 @@ function updateSeconds(){
     //Debug("#################################3       "+seconds);
 }
 function updatePosition(Option){
+    Debug("entro UpdatePosition infomir ")
     PositionAsset = player.GetPosTime();
     Debug("positionAsset :" + PositionAsset);
     player.SetPosTime(PositionAsset);

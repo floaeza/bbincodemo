@@ -209,6 +209,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
     }
     
     function UpdatePosition(Option){
+        Debug("entro UpdatePosition amino ")
         PositionAsset = AVMedia.GetPos();
 
         (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
