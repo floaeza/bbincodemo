@@ -226,7 +226,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
 
     function AssetStatus(Duration){
         if(PlayingRecording === true || PlayingVod === true){
-
+            Debug('AssetStatus---> entro a amino');
             PositionAsset = AVMedia.GetPosition();
            
             DurationAsset = parseInt(Duration,10) * 60;

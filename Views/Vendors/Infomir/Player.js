@@ -593,7 +593,7 @@ function updateRewFor(){
 
 function AssetStatus(Duration){
     if(PlayingRecording === true){
-        
+        Debug('AssetStatus---> entro a infomir');
         PositionAsset = player.GetPosTime();
         Debug('AssetStatus------------->'+ PositionAsset);
         //PositionAsset = stbPlayer.position;
