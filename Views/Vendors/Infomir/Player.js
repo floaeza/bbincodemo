@@ -522,8 +522,8 @@ function UpdatePosition(Option){
     Debug("entro UpdatePosition infomir ")
     PositionAsset = gSTB.GetPosTimeEx();
     Debug("positionAsset :" + PositionAsset);
-    (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
-    Debug("positionAsset :" +   gSTB.SetPosTimeEx(PositionAsset));
+    (Option === 'add') ? PositionAsset += 300000: PositionAsset -= 300000;
+   
     gSTB.SetPosTimeEx(PositionAsset);
     PositionAsset = gSTB.GetPosTimeEx();
 
