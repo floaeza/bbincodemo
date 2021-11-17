@@ -98,9 +98,7 @@
     var ContentFrame            = document.getElementById('ContentFrame'),
         ActiveFrame             = false;
 
-    if(window.tizen === undefined){
-        killProcessTv();
-    }
+    
     // var div = document.getElementById('loadingTV');
     // var parent = div.parentElement;
     // parent.removeChild(div);
@@ -334,44 +332,7 @@ function SetChannel(NewDirection){
     }
     ////Debug('------- SetChannel ->: '+Source + ' ChannelPosition: '+ChannelPosition);
 }
-function killProcessTv(){
-    //alert("Sour");
-    xhr = $.ajax({
-        async: false,
-        cache: false,
-        type: 'POST',
-        url: './././Core/Controllers/DevicesStatus.php',
-        data: { 
-            Option : 'GetKillProcess',
-            MacAddress : MacAddress
-        },
-        success: function (response){
-            resultado = $.parseJSON(response);
-            //alert(resultado[0].kill_process);
-            if(resultado[0].kill_process == '1'){
-                ChannelPosition = resultado[0].channel_pos;
-                setKillProcess();
-            }
-            //alert(ChannelPosition);
-        }
-    }); 
-    xhr = null;
-}
 
-function setKillProcess(){
-    xhr = $.ajax({
-        async: false,
-        cache: false,
-        type: 'POST',
-        url: './././Core/Controllers/DevicesStatus.php',
-        data: { 
-            Option : 'SetKillProcess',
-            MacAddress : MacAddress,
-            Kill: 0
-        }
-    }); 
-    xhr = null;
-}
 
 
 function GetDigitalChannel(){
