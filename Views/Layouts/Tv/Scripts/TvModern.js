@@ -109,6 +109,7 @@ function GetNextJsonEpg(Direction){
  *******************************************************************************/
 
 function OpenEpg(){
+    
     EpgContainer2            = document.createElement('div');
     EpgContainer2.innerHTML = "<div id='EpgContainer'>    <!-- Contiene informacion del programa y el canal, fecha y hora -->    <div id='EpgHeader'>        <div id='EpgWeather'>            <div id='TemperatureGroup'>                <span id='WeatherFarenheit'></span><span>&deg; F/</span>                <span id='WeatherCelsius'></span><span>&deg; C</span>            </div>            <canvas id='WeatherIcon' width='40' height='40'></canvas>            <div id='WeatherSummary'></div>        </div>        <div id='EpgDate'></div>    </div>    <!-- -->    <div id='EpgNowAiring'></div>    <div id='EpgDays'>        <div id='EpgDay'></div>    </div>    <!-- Lista de canales -->    <div id='EpgChannels'>        <div id='ChannelRow1'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow2'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow3'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow4'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow5'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow6'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow7'><div class='ChannelImage'></div><p class='ChannelName'></p></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='EpgHours'>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>    </div>    <!-- Contiene la lista de programas, muestra hora inicio y titulo -->    <div id='EpgPrograms'>        <div id='ProgramRow1'></div>        <div id='ProgramRow2'></div>        <div id='ProgramRow3'></div>        <div id='ProgramRow4'></div>        <div id='ProgramRow5'></div>        <div id='ProgramRow6'></div>        <div id='ProgramRow7'></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='ProgramFocus'></div>    <div id='Extras'></div>    <div id='EpgChannelLogo' class='EpgLogo'></div>    <div id='EpgProgramInfo'>        <div id='EpgTitle'></div>        <div id='EpgDescription'></div>        <div id='EpgTime'></div>        <div id='EpgDuration'></div>        <div id='EpgRating'></div>        <div id='EpgStars'></div>        <div id='EpgEpisode'></div>        <div id='EpgRecording'></div>        <div id='EpgSerie'></div>    </div>    <div id='EpgMainLogo'></div>    <div id='Message'></div></div>";
     EpgContainer2.id = "pruebaEpg";
@@ -122,8 +123,9 @@ function OpenEpg(){
     EpgHours                = document.getElementById('EpgHours');
     EpgHoursNodes           = EpgHours.childNodes;
     EpgInfoContainerNodes   = document.getElementById('EpgProgramInfo').childNodes;
+    
     GetFocusStyle();
-    Debug('OPENEPG2');
+    
     
     if(ActiveEpgContainer === false && EpgDataActive === true){
         // Actualiza el estatus del disco duro
@@ -195,9 +197,13 @@ function OpenEpg(){
 
 function CloseEpg(){
     if(ActiveEpgContainer === true){
-        document.getElementById('pruebaEpg').remove();
-        ActiveEpgContainer = false;
+        var elem = document.getElementById("pruebaEpg");
+        elem.remove();
+        //$('#pruebaEpg').remove();
+        //elem.parentNode.removeChild(elem);
 
+        ActiveEpgContainer = false;
+       
         OnloadProgramsPositions = { 1:-1, 2:-1, 3:-1, 4:-1, 5:-1, 6:-1, 7:-1 };
         FirstProgramsPositions  = { 1:-1, 2:-1, 3:-1, 4:-1, 5:-1, 6:-1, 7:-1 };
         LastProgramsPositions   = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6:-1, 7:-1 };

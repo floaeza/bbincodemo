@@ -15,8 +15,8 @@ function Blue(){
             Debug("[rebootDevice] failed! error code: " + error.code + " error name: " + error.name + "  message " + error.message);
         };
         b2bcontrol.rebootDevice(onSuccess, onError);
-    }else if(typeof(ASTB) !== 'undefined'){
-        ASTB.Reboot();
+    }else {
+        RebootDevice();
     }
 }
 function Green(){
@@ -68,6 +68,7 @@ function Close(){
 
 function Back(){
     if(CurrentModule === 'Tv'){
+        alert('BACK');
         TvClose();
     } else if(CurrentModule === 'Menu'){
         //
