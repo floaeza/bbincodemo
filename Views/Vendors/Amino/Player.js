@@ -254,3 +254,9 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
         var AudioPid = PIDS[positionLanguage+1].AudioPID;
         var Status = AVMedia.SetAudioPID(AudioPid);
     }
+    function rebootInHour(){
+        //HDMIstatus = ENTONE.stb.getHdmiStatus();
+        if(System.HdmiConnected == false && ASTB.GetConfig('SYSTEM.STB_MODEL') !== 'A540'){
+            RebootDevice();
+        }
+    }
