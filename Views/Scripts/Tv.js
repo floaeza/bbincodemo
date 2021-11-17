@@ -943,13 +943,11 @@ function ShowInfo(){
     }
     
     function TvClose(){
-        alert('TV CLOSE');
         if(RecorderMessageActive === false) {
             
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
                     //HideInfo();
-                    alert('Close Epg');
                     CloseEpg();
                 } else if (RecordingOptionsActive === true) {
                     CloseRecordingOptions();

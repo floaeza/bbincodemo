@@ -68,7 +68,6 @@ function Close(){
 
 function Back(){
     if(CurrentModule === 'Tv'){
-        alert('BACK');
         TvClose();
     } else if(CurrentModule === 'Menu'){
         //
