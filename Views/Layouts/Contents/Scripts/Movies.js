@@ -923,10 +923,10 @@ if(Option === 'forward'){
     // @ts-ignore
     Debug('VodOk---> UpdatePosition: add');
     // @ts-ignore
-    UpdatePosition('add');
+    UpdatePositionContent('add');
 } else if(Option === 'backward'){
     // @ts-ignore
-    UpdatePosition('subtract');
+    UpdatePositionContent('subtract');
 } else if(Option === 'pause'){
     // @ts-ignore
     PauseVideo();

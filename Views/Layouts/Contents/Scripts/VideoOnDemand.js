@@ -567,9 +567,9 @@ function SetSpeed(Option){
 Debug('VodOk---> SetSpeed: '+Option);
 if(Option === 'forward'){
     Debug('VodOk---> UpdatePosition: add');
-    UpdatePosition('add');
+    UpdatePositionContent('add');
 } else if(Option === 'backward'){
-    UpdatePosition('subtract');
+    UpdatePositionContent('subtract');
 } else if(Option === 'pause'){
     PauseVideo();
 } else if(Option === 'play'){

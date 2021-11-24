@@ -146,7 +146,7 @@ function SetEpgFile(){
 }
     
 function GetJsonEpg(Sour, rest){
-    xhr = $.ajax({
+    $.ajax({
         cache: false,
         async: false,
         url: ServerSource + Sour,
@@ -186,7 +186,6 @@ function GetJsonEpg(Sour, rest){
             }
         }
     });
-    xhr = null;
 }
 
 
@@ -307,14 +306,16 @@ function SetChannel(NewDirection){
                         //your code
                         if(window.tizen !== undefined){
                             PlayChannel(Source, Port);
-                        }else
-                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                        }else{
+                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */  
+                        }
                     });
                 }else{
                     if(window.tizen !== undefined){
                         PlayChannel(Source, Port);
-                    }else
-                    PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                    }else{
+                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                    }
                 }
                 
                 
@@ -336,60 +337,6 @@ function SetChannel(NewDirection){
 
 
 function GetDigitalChannel(){
-    // ActiveDigitalChannel = true;
-    // var newPATH = 'http://172.22.22.11/BBINCO/TV/';
-    // var GetModule = ChannelsJson[ChannelPosition].INDC;
-
-    //     DigitalSource = Libraries['MultimediaSource'] + GetModule + '/';
-    //     DigitalImgSource = '../../Multimedia/' + GetModule + '/';
-
-    //     ////Debug('GetModule: '+GetModule);
-    // var Identifier;
-    //     $.ajax({
-    //         type: 'POST',
-    //         async: false,
-    //         url: ServerSource + 'Core/Controllers/PY.php',
-    //         data: { 
-    //             Option : 'GetIdentifier',
-    //         },
-    //         success: function (response){
-    //             Identifier = $.parseJSON(response);
-    //         }
-    //     }); 
-    // ////Debug("IDENTIFICADOR EN TV.JS == " + Identifier[0].IDF);
-    // if(Identifier[0].IDF == 'VPL'){
-    //     $.ajax({
-    //         type: 'POST',
-    //         async: false,
-    //         url: newPATH + 'Core/Controllers/Template.php',
-    //         data: { 
-    //             Option : 'getDigitalChannel',
-    //             ModuleName : GetModule
-    //         },
-    //         success: function (response){
-    //             DigitalContent = $.parseJSON(response);
-    //             ////Debug('SetDigitalChannel');
-    //             SetDigitalChannel();
-    //         }
-    //     });   
-    // } else {
-    //     $.ajax({
-    //         type: 'POST',
-    //         async: false,
-    //         url: ServerSource + 'Core/Controllers/Template.php',
-    //         data: { 
-    //             Option : 'getDigitalChannel',
-    //             ModuleName : GetModule
-    //         },
-    //         success: function (response){
-    //             DigitalContent = $.parseJSON(response);
-    //             ////Debug('SetDigitalChannel');
-    //             SetDigitalChannel();
-    //         }
-    //     });    
-        
-    // }
-
     ActiveDigitalChannel = true;
 
     var GetModule = ChannelsJson[ChannelPosition].INDC;
@@ -397,7 +344,6 @@ function GetDigitalChannel(){
         DigitalSource = Libraries['MultimediaSource'] + GetModule + '/';
         DigitalImgSource = '../../Multimedia/' + GetModule + '/';
 
-        ////Debug('GetModule: '+GetModule);
 
     xhr = $.ajax({
         type: 'POST',
@@ -423,7 +369,7 @@ function GetDigitalChannel(){
 var DigitalChannel = document.getElementById('DigitalChannel');
     
 function SetDigitalChannel(){
-    ////Debug('--> SetDigitalChannel');
+    Debug('--> SetDigitalChannel  = ' +ActiveDigitalChannel);
     if(ActiveDigitalChannel === true){
         if(DigitalContent.length > 0){
             var FileType = DigitalContent[IndexDigital].split('.')[1];
@@ -469,6 +415,7 @@ function SetDigitalChannel(){
 
 
 function CloseDigitalChannel(){
+    Debug("CloseDigitalChannel");
     ActiveDigitalChannel = false;
     ImageDigital.src = '';
     ImageDigital.style.display = 'none';

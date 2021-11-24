@@ -99,6 +99,7 @@
                     $DeviceType = 'NONE';
                 } else {
                     // Hay dispositivo grabador, carga funciones para grabar y WholeHomePvr
+                    
                     $DeviceType = 'WHP_HDDN';
                 }
             }else{

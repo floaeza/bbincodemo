@@ -4,8 +4,7 @@
  * @Tipo: Funciones para controlar la guia
  */
 
-var EpgContainer2,
-    EpgContainer,
+var EpgContainer            = document.createElement('div'),
     EpgDay,
     EpgDate,
     EpgChannelLogo,
@@ -17,7 +16,10 @@ var DaysEpg                 = [],
     MaxEpgDay               = 10,
     EpgDayNumber            = 0;
 
+    EpgContainer.id = "EpgContainer";
+
 var generalB = document.getElementsByClassName('GeneralBox');
+    generalB[0].appendChild(EpgContainer);
 
 var TotalPrograms           = 100,
     MaxRows                 = 7,
@@ -109,13 +111,8 @@ function GetNextJsonEpg(Direction){
  *******************************************************************************/
 
 function OpenEpg(){
-    
-    EpgContainer2            = document.createElement('div');
-    EpgContainer2.innerHTML = "<div id='EpgContainer'>    <!-- Contiene informacion del programa y el canal, fecha y hora -->    <div id='EpgHeader'>        <div id='EpgWeather'>            <div id='TemperatureGroup'>                <span id='WeatherFarenheit'></span><span>&deg; F/</span>                <span id='WeatherCelsius'></span><span>&deg; C</span>            </div>            <canvas id='WeatherIcon' width='40' height='40'></canvas>            <div id='WeatherSummary'></div>        </div>        <div id='EpgDate'></div>    </div>    <!-- -->    <div id='EpgNowAiring'></div>    <div id='EpgDays'>        <div id='EpgDay'></div>    </div>    <!-- Lista de canales -->    <div id='EpgChannels'>        <div id='ChannelRow1'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow2'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow3'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow4'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow5'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow6'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow7'><div class='ChannelImage'></div><p class='ChannelName'></p></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='EpgHours'>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>    </div>    <!-- Contiene la lista de programas, muestra hora inicio y titulo -->    <div id='EpgPrograms'>        <div id='ProgramRow1'></div>        <div id='ProgramRow2'></div>        <div id='ProgramRow3'></div>        <div id='ProgramRow4'></div>        <div id='ProgramRow5'></div>        <div id='ProgramRow6'></div>        <div id='ProgramRow7'></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='ProgramFocus'></div>    <div id='Extras'></div>    <div id='EpgChannelLogo' class='EpgLogo'></div>    <div id='EpgProgramInfo'>        <div id='EpgTitle'></div>        <div id='EpgDescription'></div>        <div id='EpgTime'></div>        <div id='EpgDuration'></div>        <div id='EpgRating'></div>        <div id='EpgStars'></div>        <div id='EpgEpisode'></div>        <div id='EpgRecording'></div>        <div id='EpgSerie'></div>    </div>    <div id='EpgMainLogo'></div>    <div id='Message'></div></div>";
-    EpgContainer2.id = "pruebaEpg";
-    EpgContainer2.style.zIndex=10;
-    generalB[0].appendChild(EpgContainer2);
-    EpgContainer            = document.getElementById('EpgContainer');
+    EpgContainer = document.getElementById('EpgContainer');
+    EpgContainer.innerHTML = "<!-- Contiene informacion del programa y el canal, fecha y hora -->    <div id='EpgHeader'>        <div id='EpgWeather'>            <div id='TemperatureGroup'>                <span id='WeatherFarenheit'></span><span>&deg; F/</span>                <span id='WeatherCelsius'></span><span>&deg; C</span>            </div>            <canvas id='WeatherIcon' width='40' height='40'></canvas>            <div id='WeatherSummary'></div>        </div>        <div id='EpgDate'></div>    </div>    <!-- -->    <div id='EpgNowAiring'></div>    <div id='EpgDays'>        <div id='EpgDay'></div>    </div>    <!-- Lista de canales -->    <div id='EpgChannels'>        <div id='ChannelRow1'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow2'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow3'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow4'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow5'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow6'><div class='ChannelImage'></div><p class='ChannelName'></p></div>        <div id='ChannelRow7'><div class='ChannelImage'></div><p class='ChannelName'></p></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='EpgHours'>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>        <div class='HourRow'></div>    </div>    <!-- Contiene la lista de programas, muestra hora inicio y titulo -->    <div id='EpgPrograms'>        <div id='ProgramRow1'></div>        <div id='ProgramRow2'></div>        <div id='ProgramRow3'></div>        <div id='ProgramRow4'></div>        <div id='ProgramRow5'></div>        <div id='ProgramRow6'></div>        <div id='ProgramRow7'></div>    </div>    <!-- Contiene las horas en la guia  -->    <div id='ProgramFocus'></div>    <div id='Extras'></div>    <div id='EpgChannelLogo' class='EpgLogo'></div>    <div id='EpgProgramInfo'>        <div id='EpgTitle'></div>        <div id='EpgDescription'></div>        <div id='EpgTime'></div>        <div id='EpgDuration'></div>        <div id='EpgRating'></div>        <div id='EpgStars'></div>        <div id='EpgEpisode'></div>        <div id='EpgRecording'></div>        <div id='EpgSerie'></div>    </div>    <div id='EpgMainLogo'></div>    <div id='Message'></div>";
     EpgDay              = document.getElementById('EpgDay');
     EpgDate                 = document.getElementById('EpgDate');
     EpgChannelLogo          = document.getElementById('EpgChannelLogo');
@@ -131,12 +128,11 @@ function OpenEpg(){
         // Actualiza el estatus del disco duro
         
         if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'WHP_HDDN' || Device['Type'] === 'PVR_ONLY') {
-            //GetPvrInfo();
+            
             Debug(ActiveEpgContainer +"   "+ EpgDataActive);
             $(document).ready(function(){
                 SetPvrInfo();
             });
-            
             Debug(ActiveEpgContainer +"   "+ EpgDataActive);
 
         }
@@ -146,6 +142,7 @@ function OpenEpg(){
 
         /* Activa bandera, muestra contenedor y asigna la informacion de la cabecera */
         EpgContainer.style.visibility = 'visible';
+    
         EpgNowAiring.innerHTML = 'Now: ' + ChannelsJson[ChannelPosition].CHNL + ' - ' + ChannelsJson[ChannelPosition].INDC.toUpperCase();
         EpgDate.textContent = FormatDateAndHour;
         EpgDay.textContent = 'Today';
@@ -197,11 +194,9 @@ function OpenEpg(){
 
 function CloseEpg(){
     if(ActiveEpgContainer === true){
-        var elem = document.getElementById("pruebaEpg");
-        elem.remove();
-        //$('#pruebaEpg').remove();
-        //elem.parentNode.removeChild(elem);
-
+        var elem = document.getElementById("EpgContainer");
+        elem.innerHTML="";
+        elem.style.visibility = "hidden";
         ActiveEpgContainer = false;
        
         OnloadProgramsPositions = { 1:-1, 2:-1, 3:-1, 4:-1, 5:-1, 6:-1, 7:-1 };

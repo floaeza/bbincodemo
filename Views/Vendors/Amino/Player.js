@@ -50,6 +50,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
             }
 	  Debug('########################### Channelinfo: '+CheckProgram);
         // Detiene el proceso de la reproduccion anterior
+        ShowInfo();
         StopVideo();
 
         // Reproduce el canal actual
@@ -62,7 +63,6 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
         PlayingChannel   = true;
         
         // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
-        ShowInfo();
 
         // Si tiene una fecha ya registrada guarda estadisticas en la BD
         if(StartDateChannel !== ''){

@@ -6,7 +6,6 @@
  */
 
 // Variables globales
-
 var PlayingChannel  = false,
     PlayingVod      = true,
     PauseLive       = false;
@@ -198,10 +197,12 @@ function PlayDigitalChannel(Source){
 
     // Activamos la bandera
     PlayingChannel = true;
+
     // Si tiene una fecha ya registrada guarda estadisticas en la BD
     if(StartDateChannel !== ''){
         SetChannelStatistics();
     }
+
     // Actualiza la fecha inicio de la reproduccion del canal */
     StartDateChannel = new Date();
 }
@@ -252,12 +253,12 @@ function PlayVideo(Source){
         }
     } else {
         //Reproduce el video
-        Debug("this source"+Source);
+
+        Debug(src);
         player.play({
-            uri: Source,
+            uri: src,
             solution: 'auto'
         });
-        
     }
 
     player.onPlayEnd = function () {
@@ -274,7 +275,6 @@ function PlayVideo(Source){
     MaximizeTV();
 
 }
-
 
 
 function GetRaws(Source){
@@ -518,7 +518,12 @@ function updateSeconds(){
     }
     //Debug("#################################3       "+seconds);
 }
-function UpdatePosition(Option){
+function updatePosition(){
+    if(player.state != 3){
+        Position += 1;
+    }
+}
+function UpdatePositionContent(Option){
     Debug("entro UpdatePosition infomir ")
     PositionAsset = gSTB.GetPosTimeEx();
     Debug("positionAsset :" + PositionAsset);
@@ -527,13 +532,6 @@ function UpdatePosition(Option){
     gSTB.SetPosTimeEx(PositionAsset);
     PositionAsset = gSTB.GetPosTimeEx();
 
-   /*  (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
-        if(player.state != 3){
-            Position += 1;
-        
-    } */
-  
-    
 }
 
 
@@ -547,9 +545,9 @@ function ResumeVideo(){
 }
 
 function SpeedVideo(Speed){
-    player.speed = parseInt(Speed);
-    Debug(player.speed);
-    Debug("############3    ID RewFor:"+RewFor + "   E############");
+    //player.speed = parseInt(Speed);
+    //Debug(player.speed);
+    //Debug("############3    ID RewFor:"+RewFor + "   E############");
     if(RewFor === null){
         NewSpeed = Speed;
         RewFor = setInterval(updateRewFor,1000);
@@ -596,8 +594,8 @@ function updateRewFor(){
 
 function AssetStatus(Duration){
     if(PlayingRecording === true){
-        Debug('AssetStatus---> entro a infomir');
-        PositionAsset = player.GetPosTime();
+        
+        PositionAsset = player.position;
         Debug('AssetStatus------------->'+ PositionAsset);
         //PositionAsset = stbPlayer.position;
         DurationAsset = parseInt(Duration,10) * 60;
