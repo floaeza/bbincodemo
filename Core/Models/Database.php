@@ -26,7 +26,7 @@ class Database {
 
             $CamDir = getcwd();
             chdir ('/var/www/config');
-            $config = parse_ini_file("configBBTV_207.ini");
+            $config = parse_ini_file("configBBTV.ini");
             chdir($CamDir);
 
             $this->conexion = new mysqli($config["host"],$config["username"],$config["password"],$config["dbname"]);
