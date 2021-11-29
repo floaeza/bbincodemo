@@ -23,7 +23,7 @@
         xhr = $.ajax({
             cache: false,
             type: 'POST',
-            url: 'http://'+ServerIp+'/BBINCO/TV2/Core/Models/Time.php',
+            url: 'http://'+ServerIp+'BBINCO/TV/Core/Models/Time.php',
             async : false,
             success: function (response) {
                 var Today = $.parseJSON(response),
@@ -76,8 +76,6 @@
                 PvrDate.textContent = FormatHour;
             }
 
-
-
             if(FormatHour === '12:01 AM'){
 
                 SetEpgFile();
@@ -109,9 +107,6 @@
             MenuDate.textContent = FormatDate;
             MenuHour.textContent = FormatHour;
         }
-
-        
-        /* */
 
         //Debug('TimeRunning: '+TimeRunning);
         if(TimeRunning > MaxMinutesRunning){
