@@ -27,7 +27,7 @@
             
         // Elimina la etiqueta igmp o rf, ya que el parametro solo acepta numeros en el string
         var Src = Source.replace('igmp://', '');
-
+        Debug('--> PlayChannel ');
         hcap.channel.requestChangeCurrentChannel({
             'channelType':hcap.channel.ChannelType.IP, 
             'ip':  Src,
