@@ -1,7 +1,9 @@
 // @ts-nocheck
 
 function Red(){
-     location.reload(true);
+    //  location.reload(true);
+    alert('Entro a la funcion green');
+    Browser.Action(7);
 }
 
 function Blue(){
@@ -21,8 +23,6 @@ function Blue(){
 }
 function Green(){
     //alert(JSON.stringify(Browser.GetWindowNames()));
-    alert('Entro a la funcion green');
-    Browser.Action(7);
 }
 
 function Yellow(){
