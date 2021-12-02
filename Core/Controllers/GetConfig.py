@@ -1,11 +1,5 @@
 from telnetlib import DO
-import paramiko
 import xtelnet
-import requests
-import json
-#from datetime import datetime
-import socket
-import base64
 
 with open("/var/www/html/BBINCO/TV/Core/Controllers/ips.txt", "r") as f:
     lines = f.readlines()
@@ -21,12 +15,14 @@ for ips in lines:
     try:
         ##print(ip)
         t.connect(ip, username='root',password='root2root',p=23,timeout=8)
-        output1=t.execute('libconfig-get SETTINGS.DISPLAY_MODE')
-        output2=t.execute('libconfig-get SETTINGS.GFX_RESOLUTION')
-        print(output1)
-        print(output2)
+        output=t.execute('libconfig-get NORFLASH.MAC_ADDRESS')
+        succes = succes + output + ';' + ip + ';'
+        output=t.execute('libconfig-get SETTINGS.GFX_RESOLUTION')
+        succes = succes + output + ';'
+        output=t.execute('libconfig-get SETTINGS.DISPLAY_MODE')
+        succes = succes + output + '\n'
+        print(succes)
         t.close()
-        print("GET CONFIG AMINO: "+ ip)
     except:
         continue
 
