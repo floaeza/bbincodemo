@@ -1,3 +1,4 @@
+// @ts-nocheck
 /* Creado por: Tania Maldonado
  * Fecha: Noviembre 2019
  * Tipo: Reproductor tv
