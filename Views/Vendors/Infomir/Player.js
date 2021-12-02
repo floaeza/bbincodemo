@@ -197,10 +197,12 @@ function PlayDigitalChannel(Source){
 
     // Activamos la bandera
     PlayingChannel = true;
+
     // Si tiene una fecha ya registrada guarda estadisticas en la BD
     if(StartDateChannel !== ''){
         SetChannelStatistics();
     }
+
     // Actualiza la fecha inicio de la reproduccion del canal */
     StartDateChannel = new Date();
 }
@@ -520,6 +522,16 @@ function updatePosition(){
     if(player.state != 3){
         Position += 1;
     }
+}
+function UpdatePositionContent(Option){
+    Debug("entro UpdatePosition infomir ")
+    PositionAsset = gSTB.GetPosTimeEx();
+    Debug("positionAsset :" + PositionAsset);
+    (Option === 'add') ? PositionAsset += 30000: PositionAsset -= 30000;
+    Debug("manda el nuevo tiempo :" + PositionAsset);
+    gSTB.SetPosTimeEx(PositionAsset);
+    PositionAsset = gSTB.GetPosTimeEx();
+
 }
 
 

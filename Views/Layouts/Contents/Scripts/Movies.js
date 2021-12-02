@@ -715,14 +715,18 @@ function ShowPlayingPanel(){
 
 // @ts-ignore
 PlayingTitle.textContent = MoviesList[CurrentMovieID].TTLE;
-   
+Debug('VodOk---> PlayingTitle.textContent');   
+
 UpdateBarStatus();
+Debug('VodOk---> UpdateBarStatus()');
 
 // @ts-ignore
 clearTimeout(BarUpdate);
 
+
 // @ts-ignore
 BarUpdate = setInterval(UpdateBarStatus,1000);
+Debug('VodOk---> setInterval(UpdateBarStatus,1000)');
 
 //SetFocusPlaying('right');
 }
@@ -819,18 +823,23 @@ function SelectPlayingOption(){
             //Reproducir de nuevo
             // StopVideo();
             // PlayingMovie();
-            SetSpeed('backward');  
+            SetSpeed('backward');
+            Debug('VodOk---> SelectPlayingOption SetSpeed backward');  
             break;
         case 2:
             //Play
+            Debug('VodOk---> SelectPlayingOption SetSpeed play');
             SetSpeed('play');
             break;
         case 3:
             //Pausa
+            Debug('VodOk---> SelectPlayingOption SetSpeed pause');
             SetSpeed('pause');
             break;
         case 4:
+            Debug('VodOk---> SelectPlayingOption SetSpeed forward');
             SetSpeed('forward');
+            
             break;
 
     }
@@ -914,10 +923,10 @@ if(Option === 'forward'){
     // @ts-ignore
     Debug('VodOk---> UpdatePosition: add');
     // @ts-ignore
-    UpdatePosition('add');
+    UpdatePositionContent('add');
 } else if(Option === 'backward'){
     // @ts-ignore
-    UpdatePosition('subtract');
+    UpdatePositionContent('subtract');
 } else if(Option === 'pause'){
     // @ts-ignore
     PauseVideo();
@@ -1108,7 +1117,7 @@ if(CurrentFocus === 'Menu'){
 } else if(CurrentFocus === 'Movies'){
     LoadMoviePanel();
 } else if(CurrentFocus === 'MoviePanel'){
-      //ExecOptionMoviePanel();
+      ExecOptionMoviePanel();
     SelectPlayOption();
 } else if(CurrentFocus === 'Playing'){
     SelectPlayingOption();

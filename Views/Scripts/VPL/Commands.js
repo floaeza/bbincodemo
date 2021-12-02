@@ -15,14 +15,14 @@ function Blue(){
             Debug("[rebootDevice] failed! error code: " + error.code + " error name: " + error.name + "  message " + error.message);
         };
         b2bcontrol.rebootDevice(onSuccess, onError);
-    }else if(typeof(ASTB) !== 'undefined'){
-        ASTB.Reboot();
+    }else {
+        RebootDevice();
     }
 }
 function Green(){
     //GoPage('tv.php', 1, 'Tv');
     
-    //alert(gSTB.GetDeviceVendor());
+    //alert(ASTB.GetConfig('SYSTEM.STB_MODEL'));
     //alert(window.location);
     // //alert(JSON.stringify(Browser.GetStats()));
     // var sBrowser, sUsrAg = navigator.userAgent;

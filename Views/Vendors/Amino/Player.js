@@ -50,6 +50,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
             }
 	  Debug('########################### Channelinfo: '+CheckProgram);
         // Detiene el proceso de la reproduccion anterior
+        ShowInfo();
         StopVideo();
 
         // Reproduce el canal actual
@@ -62,7 +63,6 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
         PlayingChannel   = true;
         
         // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
-        ShowInfo();
 
         // Si tiene una fecha ya registrada guarda estadisticas en la BD
         if(StartDateChannel !== ''){
@@ -109,6 +109,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
 
         // Reproduce el video
         AVMedia.Play('src='+ Source);
+        Debug("Se esta reproduciendo exitosamente amino "+Source)
         //setTimeout(getPIDSInfo, 15000);
         // Maximiza el video en caso de que no este en pantalla completa
            MaximizeTV();
@@ -208,12 +209,13 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
     }
     
     function UpdatePosition(Option){
+        Debug("entro UpdatePosition amino ")
         PositionAsset = AVMedia.GetPos();
-
+        Debug("positionAsset amino:" + PositionAsset);
         (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;
 
         AVMedia.SetPos(PositionAsset);
-
+        Debug("positionAsset amino:" + AVMedia.SetPos(PositionAsset));
         PositionAsset = AVMedia.GetPos();
 
         //AVMedia.Continue();
@@ -225,7 +227,7 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
 
     function AssetStatus(Duration){
         if(PlayingRecording === true || PlayingVod === true){
-
+            Debug('AssetStatus---> entro a amino');
             PositionAsset = AVMedia.GetPosition();
            
             DurationAsset = parseInt(Duration,10) * 60;
@@ -251,4 +253,10 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
         var PIDS = AVMedia.GetAudioPIDs();
         var AudioPid = PIDS[positionLanguage+1].AudioPID;
         var Status = AVMedia.SetAudioPID(AudioPid);
+    }
+    function rebootInHour(){
+        //HDMIstatus = ENTONE.stb.getHdmiStatus();
+        if(System.HdmiConnected == false && ASTB.GetConfig('SYSTEM.STB_MODEL') !== 'A540'){
+            RebootDevice();
+        }
     }

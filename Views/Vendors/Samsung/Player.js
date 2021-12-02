@@ -268,7 +268,7 @@ function SpeedVideo(Speed){
 
 }
 
-function UpdatePosition(Option){
+function UpdatePositionContent(Option){
     PositionAsset = 0; /*SAMSUNG API*/
 
     (Option === 'add') ? PositionAsset += 30: PositionAsset -= 30;

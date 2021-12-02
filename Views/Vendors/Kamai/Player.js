@@ -10,7 +10,8 @@
         PlayingVod      = false,
         PlayDigita      = false,
         PauseLive       = false,
-        PauseStatus     = false;
+        PauseStatus     = false,
+        HDMIstatus;
 
     var WindowMaxWidth  = 0,
         WindowMaxHeight = 0,
@@ -265,4 +266,10 @@ Debug('#################################################################');
         }
 
         PositionInfo = null;
+    }
+    function rebootInHour(){
+        //HDMIstatus = ENTONE.stb.getHdmiStatus();
+        //if(HDMIstatus.result.connected == false){
+        //    RebootDevice();
+        //}
     }

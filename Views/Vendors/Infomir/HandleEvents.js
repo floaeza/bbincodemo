@@ -203,7 +203,7 @@ function UpdateDiskInfoInformir(){
                     Debug(tasks[tasks.length-1].id);
                     
                     Debug('New schedule added, streamid = '+tasks[tasks.length-1].id);
-                    Debug('> '+ProgramId + ', '+OperationsList.recording+', '+tasks[tasks.length-1].id);
+                    Debug('> '+ProgramId + ', '+OperationsList.record+', '+tasks[tasks.length-1].id);
                     UpdateProgramStreamIdInformir(ProgramId, OperationsList.recording, tasks[tasks.length-1].id);
                     UpdateProgramStatusInformir(ProgramId, OperationsList.recording, tasks[tasks.length-1].fileName);
                 }

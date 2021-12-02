@@ -726,6 +726,7 @@ function SetFocusOptionRecord(Direction){
 }
 
 function SelectRecordOption(){
+    
 
     switch (RecordsNodesArray[OptionsFocus]) {
         case 1:
@@ -2006,28 +2007,40 @@ function GetRecordingsToRecord(){
 }
 
 function GetPvrInfo(){
-    
     //Debug("MAAAAACC     " + MacAddress)
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         cache: false,
         //async: false,
         url: 'Core/Controllers/Recorder.php',
         data: {
-            Option     : 'GetPvrInfoInfomir',
+            Option     : (typeof(gSTB) !== 'undefined')?'GetPvrInfoInfomir':'GetPvrInfo',
             LocationId : Device['LocationId'],
             MacAddress : MacAddress
         },
         success: function (response){
             DiskInfo = $.parseJSON(response);
-            //alert(JSON.stringify(DiskInfo));
-            //alert(DiskInfo);
+            //alert(JSON.stringify(Device));
+            
             if(DiskInfo.length > 0){
-                SetPvrInfo();
+                if(typeof(gSTB) !== 'undefined'){
+                    if(DiskInfo.length === 1 && DiskInfo[0]['mac_address'] === gSTB.GetDeviceMacAddress()){
+                        storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
+                        USB = storageInfo.result || [];
+                        if(USB.length !== 0){
+                            SetPvrInfo();
+                        }else{
+                            Device['Type']='NONE';
+                        }
+                    }else{
+                        SetPvrInfo();
+                    }
+                }else{
+                    SetPvrInfo();
+                }
             }
         }
     });
-    xhr = null;
 }
 GetPvrInfo();
 function CheckManualRecording(){

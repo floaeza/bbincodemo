@@ -15,7 +15,7 @@ if($GetJson == true){
     $ConfigData  = new Config('system','Libraries');
     $Client = $ConfigData->getConfigByName('Identifier').'/';
     $EpgLogo = $ConfigData->getConfigByName('EpgLogo');
-    $JsonLibraries['EpgLogo'] = '/BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
+    $JsonLibraries['EpgLogo'] = 'BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
 }
 
 $ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
@@ -138,7 +138,7 @@ $JsonLibraries['EpgDaysPath']   = $Libraries['ControllersPath'].'Epg/'.$Client;
 //    $Client = $ConfigData->getConfigByName('Identifier').'/';
 //    $EpgLogo = $ConfigData->getConfigByName('EpgLogo');
 //
-//    $JsonLibraries['EpgLogo'] = '/BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
+//    $JsonLibraries['EpgLogo'] = 'BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
 //}
 //
 //$ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';

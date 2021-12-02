@@ -62,7 +62,7 @@
                 ASTB.Reboot();
             }
             //alert();
-            killProcess();
+            GetInfoDevice();
 
         } else {
             KamaiDeviceInitial();
@@ -154,7 +154,7 @@
         });
 
         xhr = null;
-        killProcess();
+        GetInfoDevice();
     }
 
 /*******************************************************************************
@@ -174,7 +174,7 @@
             if(Model === '7XM') {
                 Hdd         = 'Y';
             }
-            killProcess();
+            GetInfoDevice();
         } else {
             InfomirDeviceInitial();
         }
@@ -212,7 +212,7 @@
                     //gSTB.ExecAction('reboot');
                 }
             }
-            killProcess();
+            GetInfoDevice();
         } else {
             LgDeviceInitial();
         }
@@ -228,47 +228,6 @@
  ******************************************************************************/
     function SetDataInitial() {
         AminoDeviceInitial();
-    }
-    
-
-    function killProcess(){
-        xhr = $.ajax({
-            type: 'POST',
-            url: './././Core/Controllers/DevicesStatus.php',
-            data: { 
-                Option : 'GetKillProcess',
-                MacAddress : MacAddress
-            },
-            success: function (response){
-                resultado = $.parseJSON(response);
-                //alert(resultado[0]);
-                if(resultado[0] == undefined){
-                    GetInfoDevice();
-                }else{
-                    if(String(resultado[0].kill_process) !== '1'){
-                        GetInfoDevice();
-                    }else{
-                        if(resultado[0].ultimo_modulo !== '1'){
-
-                                if(typeof(ASTB) !== 'undefined'){
-                                    location.href = 'menu.php?MacAddress='+MacAddress+'&ModuleId=2'+'&CurrentModule=Menu';
-                                }else{
-                                    window.location.href ='menu.php?MacAddress='+MacAddress+'&ModuleId=2'+'&CurrentModule=Menu';
-                                }
-                        }else{   
-                            if(typeof(ASTB) !== 'undefined'){
-                                location.href='tv.php?MacAddress='+MacAddress+'&ModuleId=1'+'&CurrentModule=Tv';
-                            }else{
-                                window.location.href ='tv.php?MacAddress='+MacAddress+'&ModuleId=1'+'&CurrentModule=Tv';
-                            }
-                            
-                        }
-                    }
-                }
-                
-            }
-        });
-        xhr = null;
     }
 
 /*******************************************************************************

@@ -2281,7 +2281,7 @@ function GetPvrInfo(){
         async: false,
         url: 'Core/Controllers/Recorder.php',
         data: {
-            Option     : 'GetPvrInfo',
+            Option     : (typeof(gSTB) !== 'undefined')?'GetPvrInfoInfomir':'GetPvrInfo',
             // @ts-ignore
             LocationId : Device['LocationId'],
             // @ts-ignore
