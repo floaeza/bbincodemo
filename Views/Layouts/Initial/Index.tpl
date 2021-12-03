@@ -117,11 +117,10 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        xhr = $.ajax({
+        $.ajax({
             type: 'POST',
             url: '[@Time]',
-            cache: false,
-            //async : false,
+            async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
@@ -145,9 +144,6 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
-
-        xhr = null;
-        GetInfoDevice();
     }
 
 /*******************************************************************************
