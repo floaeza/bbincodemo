@@ -53,7 +53,7 @@ function Yellow(){
     //player.speed = 4;
     //Debug(player.speeds);
     alert('Entro a la funcion green');
-    Browser.Action(7);
+    Browser.Action(16);
 }
 
 function Close(){
