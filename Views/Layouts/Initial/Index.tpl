@@ -146,7 +146,6 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
-        GetInfoDevice();
         
     }
 
