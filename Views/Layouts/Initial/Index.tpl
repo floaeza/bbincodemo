@@ -124,10 +124,11 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        $.ajax({
+        xhr = $.ajax({
             type: 'POST',
             url: '[@Time]',
-            async : false,
+            cache: false,
+            //async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
@@ -151,6 +152,9 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+
+        xhr = null;
+        GetInfoDevice();
     }
 
 /*******************************************************************************
@@ -210,7 +214,7 @@
             }
             GetInfoDevice();
         } else {
-            ();
+            LgDeviceInitial();
         }
     }
 
