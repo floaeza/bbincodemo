@@ -37,7 +37,7 @@
     window.addEventListener('load',SetDataInitial,false);
     
     /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
-
+    setTimeout(GetInfoDevice,3000);
 
 
 /*******************************************************************************
@@ -124,10 +124,11 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        $.ajax({
+        xhr = $.ajax({
             type: 'POST',
             url: '[@Time]',
-            async : false,
+            cache: false,
+            //async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
