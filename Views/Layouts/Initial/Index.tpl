@@ -150,7 +150,7 @@
  *  Kamai
  ******************************************************************************/
     function KamaiDevice(){
-        if(typeof(ENTONE) !== 'undefined'){
+         if(typeof(ENTONE) !== 'undefined'){
             MacAddress  = ENTONE.stb.getMacAddress();
             IpAddress   = ENTONE.stb.getIPAddress();
             Firmware    = ENTONE.stb.getSoftwareVersion();
@@ -159,6 +159,11 @@
             Model       = KamaiModels[ENTONE.stb.getHardwareModel()]; // En Integer (49 para Kamai 500x)
             Hdd         = 'N';
             Vendor      = 'Kamai';
+
+            if(Model === '7XM') {
+                Hdd         = 'Y';
+            }
+            GetInfoDevice();
         } else {
             InfomirDevice();
         }
@@ -169,12 +174,34 @@
  ******************************************************************************/
     function InfomirDevice(){
         if(typeof(gSTB) !== 'undefined'){
+            storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
+            USB = storageInfo.result || [];
             MacAddress  = gSTB.GetDeviceMacAddress();
             Firmware    = gSTB.GetDeviceImageDesc();
             Model       = gSTB.GetDeviceModel();
-            Hdd         = 'N';
+            Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)?'Y':'N';
             Vendor      = gSTB.GetDeviceVendor();
             IpAddress   = gSTB.RDir('IPAddress');
+            
+            
+            
+            var CheckTime = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
+            
+            if(typeof(CheckTime) === 'undefined'){
+                gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
+                //gSTB.ExecAction('reboot');
+            } else {
+                var X = CheckTime.split('timezone_conf').pop().split('}')[0]; 
+                X = X.replace('"','');
+                X = X.replace(':','');
+                
+                if(X !== '"America/Mazatlan"'){
+                    gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
+                    document.getElementById('DebugText').innerHTML = X;
+                    //gSTB.ExecAction('reboot');
+                }
+            }
+            GetInfoDevice();
         } else {
             LgDevice();
         }
