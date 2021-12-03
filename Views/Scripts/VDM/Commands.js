@@ -21,6 +21,7 @@ function Blue(){
 }
 function Green(){
     //alert(JSON.stringify(Browser.GetWindowNames()));
+
 }
 
 function Yellow(){
