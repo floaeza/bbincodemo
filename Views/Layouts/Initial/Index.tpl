@@ -60,7 +60,7 @@
             GetInfoDevice();
 
         } else {
-            KamaiDevice();
+            KamaiDeviceInitial();
         }
     }
         
@@ -146,6 +146,7 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+        GetInfoDevice();
     }
 
 /*******************************************************************************
