@@ -290,12 +290,14 @@ var CheckInfo = 0;
         /********** MENU **********/
                 
                 case REMOTE_MENU:
-                    if(timeMenu == 0){
+                    if(timeMenu == 0 &&  showInfoDevi == false){
                         timeMenu = 1;
                         setTimeout(function(){
                             timeMenu = 0;
                         },2000)
                         Menu();
+                    } else if(showInfoDevi == true){
+                        Browser.Action(16);
                     }
                 break;
                 
