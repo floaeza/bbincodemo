@@ -19,7 +19,7 @@ payload = {'Option': 'GetIdentifier'}
 Identifier = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
 IDF = json.loads(Identifier.content)
 IDF = IDF[0]
-
+print(IDF)
 def ls1(path):    
     return [obj for obj in listdir(path) if isfile(path + obj)]
 
