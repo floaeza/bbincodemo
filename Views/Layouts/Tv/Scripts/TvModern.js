@@ -1168,6 +1168,8 @@ function showInfoDevice(){
 function removeInfoDevice(){
     var div = document.getElementById('infoDevice');
     var generalB = document.getElementsByClassName('GeneralBox');
+    Debug('REMOVIENDO');
     div.remove();
+    Debug('supongo que removido');
     showInfoDevi = false;
 }
