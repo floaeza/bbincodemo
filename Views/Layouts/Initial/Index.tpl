@@ -205,7 +205,7 @@
             }
             GetInfoDevice();
         } else {
-            LgDevice();
+            LgDeviceInitial();
         }
     }
 
