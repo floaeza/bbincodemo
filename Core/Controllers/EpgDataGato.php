@@ -45,7 +45,7 @@ $RemoveAmToday     = false;
 $RemoveFirst = true;
 
 /* PONER MANUALMENTE LA IP, YA QUE AL EJECUTAR PHP DESDE LA TERMINAL NO OBTIENE LA IP */
-//$ServerIp = 'localhost';
+//$ServerIp = '10.0.3.10';
 $ServerIp = '172.22.22.10/';
 
 $EpgFolder = 'http://'.$ServerIp.'/EpgChannels/';
