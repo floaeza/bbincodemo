@@ -146,7 +146,7 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
-        GetInfoDevice();
+        
     }
 
 /*******************************************************************************
@@ -168,7 +168,7 @@
             }
             GetInfoDevice();
         } else {
-            InfomirDevice();
+            InfomirDeviceInitial();
         }
     }
     
