@@ -20,7 +20,7 @@
 </html>
 <script>
     /* Carga inicial */
-    window.addEventListener('load',SetData,false);
+    window.addEventListener('load',SetDataInitial,false);
     
     /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
     setTimeout(GetInfoDevice,3000);
@@ -38,7 +38,7 @@
 /*******************************************************************************
  *  AMINO
  ******************************************************************************/
-    function AminoDevice(){
+    function AminoDeviceInitial(){
          if(typeof(ASTB) !== 'undefined'){
             MacAddress  = ASTB.GetMacAddress();
             IpAddress   = ASTB.GetConfig('DHCPC.IPADDR');
@@ -60,14 +60,14 @@
             GetInfoDevice();
 
         } else {
-            KamaiDevice();
+            KamaiDeviceInitial();
         }
     }
         
 /*******************************************************************************
  *  LG
  ******************************************************************************/  
-    function LgDevice(){ 
+    function LgDeviceInitial(){ 
         //hcap.channel.stopCurrentChannel({ /* vacio*/ });
         
         /* Detenemos el canal actual */
@@ -146,12 +146,13 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+        
     }
 
 /*******************************************************************************
  *  Kamai
  ******************************************************************************/
-    function KamaiDevice(){
+    function KamaiDeviceInitial(){
          if(typeof(ENTONE) !== 'undefined'){
             MacAddress  = ENTONE.stb.getMacAddress();
             IpAddress   = ENTONE.stb.getIPAddress();
@@ -167,14 +168,14 @@
             }
             GetInfoDevice();
         } else {
-            InfomirDevice();
+            InfomirDeviceInitial();
         }
     }
     
 /*******************************************************************************
  *  Infomir
  ******************************************************************************/
-    function InfomirDevice(){
+    function InfomirDeviceInitial(){
         if(typeof(gSTB) !== 'undefined'){
             storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
             USB = storageInfo.result || [];
@@ -205,7 +206,7 @@
             }
             GetInfoDevice();
         } else {
-            LgDevice();
+            LgDeviceInitial();
         }
     }
 
@@ -217,8 +218,8 @@
  *  3 - Infomir
  *  4 - Lg
  ******************************************************************************/
-    function SetData() {
-        AminoDevice();
+    function SetDataInitial() {
+        AminoDeviceInitial();
     }
     
 /*******************************************************************************
