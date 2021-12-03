@@ -1167,9 +1167,9 @@ function showInfoDevice(){
 }
 function removeInfoDevice(){
     var div = document.getElementById('infoDevice');
-    var generalB = document.getElementsByClassName('GeneralBox');
+    var generalB = document.getElementsByClassName('GeneralBox')[0];
     Debug('REMOVIENDO');
-    div.remove();
+    generalB.removeChild(generalB.lastChild);
     Debug('supongo que removido');
     showInfoDevi = false;
 }
