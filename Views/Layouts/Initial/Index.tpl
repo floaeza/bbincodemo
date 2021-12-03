@@ -3,9 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" href="[@GeneralStyles]" type="text/css">
+        <link rel='icon' href='./Media/General/icon.png'>
         <script src="[@Jquery]"></script>
         <script src="[@Hcap]"></script>
     </head>
+    
     <body>
         <div class="GeneralBox BackgroundSolid">
             <div class="ContainerIndex" style="background-image: url('[@IndexLogo]') ">
@@ -17,13 +19,8 @@
     </body>
 </html>
 <script>
-    /* Carga inicial */
-    window.addEventListener('load',SetData,false);
+/* Variables generales */
     
-    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
-    setTimeout(GetInfoDevice,3000);
-
-    /* Variables generales */
     var Option      = '[@Option]',
         MacAddress  = '00:00:00:00:00:00',
         IpAddress   = '0.0.0.0',
@@ -31,13 +28,22 @@
         Model       = 'Test',
         Hdd         = 'N',
         Vendor      = 'Generic',
-       KamaiModels = { 49: '500x', 102: '7XM' },
-        xhr;
+        KamaiModels = { 49: '500x', 102: '7XM' },
+        
+
+        var resultado;
+
+    /* Carga inicial */
+    window.addEventListener('load',SetDataInitial,false);
+    
+    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
+    
+
 /*******************************************************************************
  *  AMINO
  ******************************************************************************/
-    function AminoDevice(){
-         if(typeof(ASTB) !== 'undefined'){
+    function AminoDeviceInitial(){
+        if(typeof(ASTB) !== 'undefined'){
             MacAddress  = ASTB.GetMacAddress();
             IpAddress   = ASTB.GetConfig('DHCPC.IPADDR');
             Firmware    = ASTB.GetSoftwareVersion();
@@ -58,14 +64,14 @@
             GetInfoDevice();
 
         } else {
-            KamaiDevice();
+            KamaiDeviceInitial();
         }
     }
         
 /*******************************************************************************
  *  LG
  ******************************************************************************/  
-    function LgDevice(){ 
+    function LgDeviceInitial(){ 
         //hcap.channel.stopCurrentChannel({ /* vacio*/ });
         
         /* Detenemos el canal actual */
@@ -120,7 +126,8 @@
         $.ajax({
             type: 'POST',
             url: '[@Time]',
-            async : false,
+            cache: false,
+            //async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
@@ -144,13 +151,16 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+
+     
+        GetInfoDevice();
     }
 
 /*******************************************************************************
  *  Kamai
  ******************************************************************************/
-    function KamaiDevice(){
-         if(typeof(ENTONE) !== 'undefined'){
+    function KamaiDeviceInitial(){
+        if(typeof(ENTONE) !== 'undefined'){
             MacAddress  = ENTONE.stb.getMacAddress();
             IpAddress   = ENTONE.stb.getIPAddress();
             Firmware    = ENTONE.stb.getSoftwareVersion();
@@ -165,14 +175,14 @@
             }
             GetInfoDevice();
         } else {
-            InfomirDevice();
+            InfomirDeviceInitial();
         }
     }
     
 /*******************************************************************************
  *  Infomir
  ******************************************************************************/
-    function InfomirDevice(){
+    function InfomirDeviceInitial(){
         if(typeof(gSTB) !== 'undefined'){
             storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
             USB = storageInfo.result || [];
@@ -203,7 +213,7 @@
             }
             GetInfoDevice();
         } else {
-            LgDevice();
+            LgDeviceInitial();
         }
     }
 
@@ -215,15 +225,15 @@
  *  3 - Infomir
  *  4 - Lg
  ******************************************************************************/
-    function SetData() {
-        AminoDevice();
+    function SetDataInitial() {
+        AminoDeviceInitial();
     }
-    
+
 /*******************************************************************************
  * Obtiene informacion del dispositivo
  ******************************************************************************/
     function GetInfoDevice(){
-        $.ajax({
+         $.ajax({
             type: 'POST',
             url: '[@Index]',
             data: { 
@@ -265,5 +275,6 @@
                 }
             }
         });
+        
     }
 </script>
