@@ -12,7 +12,7 @@
     $ConfigData   = new Config('system', $CurrentController);
     $PackagesData = new Packages('system', $CurrentController);
     
-    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'UpdateGuide';
+    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'InfomirGrabador';
     $PackageId = !empty($_POST['PackageId']) ? $_POST['PackageId'] : '5';
     $Package_name = !empty($_POST['Package_name']) ? $_POST['Package_name'] : '';
     $Package_description = !empty($_POST['Package_description']) ? $_POST['Package_description'] : '';
@@ -123,10 +123,16 @@
             // pclose($gestor);
             $command = escapeshellcmd('/var/www/html/BBINCO/TV/Core/Controllers/DebugTr.py');
             $output = shell_exec($command);
-            $Result = $output;
+            echo $output;
             // pclose(popen("cd /var/www/html/BBINCO/TV/Core/Controllers && python3 DebugTr.py'","r"));
             // $your_command = 'cd /var/www/html/BBINCO/TV/Core/Controllers && python3 DebugTr.py';
             // shell_exec( $your_command . "> /dev/null 2>/dev/null &" );
+            break;
+        case 'InfomirGrabador':
+            $item=!empty($_POST['item']) ? $_POST['item'] : '10.0.3.61';
+            $command = escapeshellcmd('sudo sudo /usr/bin/python3 InfomirGrabador.py '.$item);
+            $output = shell_exec($command);
+            $Result = $output;
             break;
         case 'UpdateParameter':
             $NewPackage = array(
