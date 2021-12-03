@@ -119,7 +119,7 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        $.ajax({
+        xhr = $.ajax({
             type: 'POST',
             url: '[@Time]',
             async : false,
@@ -146,6 +146,7 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+        xhr = null;
         
     }
 
@@ -226,7 +227,7 @@
  * Obtiene informacion del dispositivo
  ******************************************************************************/
     function GetInfoDevice(){
-        $.ajax({
+        xhr = $.ajax({
             type: 'POST',
             url: '[@Index]',
             data: { 
@@ -268,5 +269,6 @@
                 }
             }
         });
+        xhr = null;
     }
 </script>
