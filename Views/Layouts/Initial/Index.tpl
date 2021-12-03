@@ -3,11 +3,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" href="[@GeneralStyles]" type="text/css">
-        <link rel='icon' href='./Media/General/icon.png'>
         <script src="[@Jquery]"></script>
         <script src="[@Hcap]"></script>
     </head>
-    
     <body>
         <div class="GeneralBox BackgroundSolid">
             <div class="ContainerIndex" style="background-image: url('[@IndexLogo]') ">
@@ -19,8 +17,13 @@
     </body>
 </html>
 <script>
-/* Variables generales */
+    /* Carga inicial */
+    window.addEventListener('load',SetData,false);
     
+    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
+    setTimeout(GetInfoDevice,3000);
+
+    /* Variables generales */
     var Option      = '[@Option]',
         MacAddress  = '00:00:00:00:00:00',
         IpAddress   = '0.0.0.0',
@@ -28,23 +31,13 @@
         Model       = 'Test',
         Hdd         = 'N',
         Vendor      = 'Generic',
-        KamaiModels = { 49: '500x', 102: '7XM' },
-        xhr;
-
-        var resultado;
-
-    /* Carga inicial */
-    window.addEventListener('load',SetDataInitial,false);
-    
-    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
-    setTimeout(GetInfoDevice,3000);
-
+        KamaiModels = { 49: '500x' };
 
 /*******************************************************************************
  *  AMINO
  ******************************************************************************/
-    function AminoDeviceInitial(){
-        if(typeof(ASTB) !== 'undefined'){
+    function AminoDevice(){
+         if(typeof(ASTB) !== 'undefined'){
             MacAddress  = ASTB.GetMacAddress();
             IpAddress   = ASTB.GetConfig('DHCPC.IPADDR');
             Firmware    = ASTB.GetSoftwareVersion();
@@ -65,14 +58,14 @@
             GetInfoDevice();
 
         } else {
-            KamaiDeviceInitial();
+            KamaiDevice();
         }
     }
         
 /*******************************************************************************
  *  LG
  ******************************************************************************/  
-    function LgDeviceInitial(){ 
+    function LgDevice(){ 
         //hcap.channel.stopCurrentChannel({ /* vacio*/ });
         
         /* Detenemos el canal actual */
@@ -124,11 +117,10 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        xhr = $.ajax({
+        $.ajax({
             type: 'POST',
             url: '[@Time]',
-            cache: false,
-            //async : false,
+            async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
@@ -152,15 +144,12 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
-
-        xhr = null;
-        GetInfoDevice();
     }
 
 /*******************************************************************************
  *  Kamai
  ******************************************************************************/
-    function KamaiDeviceInitial(){
+    function KamaiDevice(){
         if(typeof(ENTONE) !== 'undefined'){
             MacAddress  = ENTONE.stb.getMacAddress();
             IpAddress   = ENTONE.stb.getIPAddress();
@@ -170,51 +159,24 @@
             Model       = KamaiModels[ENTONE.stb.getHardwareModel()]; // En Integer (49 para Kamai 500x)
             Hdd         = 'N';
             Vendor      = 'Kamai';
-
-            if(Model === '7XM') {
-                Hdd         = 'Y';
-            }
-            GetInfoDevice();
         } else {
-            InfomirDeviceInitial();
+            InfomirDevice();
         }
     }
     
 /*******************************************************************************
  *  Infomir
  ******************************************************************************/
-    function InfomirDeviceInitial(){
+    function InfomirDevice(){
         if(typeof(gSTB) !== 'undefined'){
-            storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
-            USB = storageInfo.result || [];
             MacAddress  = gSTB.GetDeviceMacAddress();
             Firmware    = gSTB.GetDeviceImageDesc();
             Model       = gSTB.GetDeviceModel();
-            Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)?'Y':'N';
+            Hdd         = 'N';
             Vendor      = gSTB.GetDeviceVendor();
             IpAddress   = gSTB.RDir('IPAddress');
-            
-            
-            
-            var CheckTime = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
-            
-            if(typeof(CheckTime) === 'undefined'){
-                gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
-                //gSTB.ExecAction('reboot');
-            } else {
-                var X = CheckTime.split('timezone_conf').pop().split('}')[0]; 
-                X = X.replace('"','');
-                X = X.replace(':','');
-                
-                if(X !== '"America/Mazatlan"'){
-                    gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
-                    document.getElementById('DebugText').innerHTML = X;
-                    //gSTB.ExecAction('reboot');
-                }
-            }
-            GetInfoDevice();
         } else {
-            LgDeviceInitial();
+            LgDevice();
         }
     }
 
@@ -226,15 +188,15 @@
  *  3 - Infomir
  *  4 - Lg
  ******************************************************************************/
-    function SetDataInitial() {
-        AminoDeviceInitial();
+    function SetData() {
+        AminoDevice();
     }
-
+    
 /*******************************************************************************
  * Obtiene informacion del dispositivo
  ******************************************************************************/
     function GetInfoDevice(){
-        xhr = $.ajax({
+        $.ajax({
             type: 'POST',
             url: '[@Index]',
             data: { 
@@ -247,35 +209,17 @@
                 Vendor      : Vendor
             },
             success: function (response) {
-                
                 var Data = $.parseJSON(response);
 
-                console.log(Data);
-
                 if(Data['Option'] === 'RELOAD'){
-                    var DeviceInfo = ' Mac: '+MacAddress+' Ip: '+IpAddress+' <br> Firmware: '+Firmware+' Model: '+Model+' Vendor : '+Vendor;
+                    var DeviceInfo = ' Mac: '+MacAddress+' Ip: '+IpAddress+' Firmware: '+Firmware+' Model: '+Model+' Vendor : '+Vendor;
                     document.getElementById('DebugText').innerHTML = DeviceInfo;
                     
-                    if(typeof(ASTB) !== 'undefined'){
-                        location.href= Data['ModuleUrl']+'?MacAddress='+MacAddress+'&ModuleId='+Data['ModuleId']+'&CurrentModule='+Data['ModuleName'];
-                        
-                    }else{
-                        window.location.href = Data['ModuleUrl']+'?MacAddress='+MacAddress+'&ModuleId='+Data['ModuleId']+'&CurrentModule='+Data['ModuleName'];
-                        //window.location.href = 'http://172.22.22.10//BBINCO/Admin/Views/Boards/DRIFT.html';
-                    }
-                    
-                } else if(Data['Option'] === 'LICENSE'){
-                    //
+                    window.location.href = Data['ModuleUrl']+'?MacAddress='+MacAddress+'&ModuleId='+Data['ModuleId']+'&CurrentModule='+Data['ModuleName'];
                 } else {
-                    if(typeof(ASTB) !== 'undefined'){
-                        location.href='index.php?Option='+Data['Option'];
-                    }else{
-                        window.location.href = 'index.php?Option='+Data['Option'];
-                        //window.location.href = 'http://172.22.22.10//BBINCO/Admin/Views/Boards/DRIFT.html';
-                    }
+                    window.location.href = 'index.php?Option='+Data['Option'];
                 }
             }
         });
-        xhr = null;
     }
 </script>
