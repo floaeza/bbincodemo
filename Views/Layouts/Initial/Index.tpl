@@ -83,7 +83,7 @@
             'onFailure' : function(f) {
                 console.log('onFailure : errorMessage = ' + f.errorMessage);
             }
-        })
+        });
         
         /* Modelo */  
         var GetModel = {
@@ -91,7 +91,7 @@
             'onSuccess' : function(response_model) {
                 Model = response_model.value;
             }
-        }
+        };
         hcap.property.getProperty(GetModel);
 
         /* Firmware */
@@ -100,7 +100,7 @@
             'onSuccess' : function(response_version) {
                 Firmware = response_version.value;
             }
-        }
+        };
         
         hcap.property.getProperty(GetFirmware);
 
@@ -112,7 +112,7 @@
                 Hdd         = 'N';
                 Vendor      = 'Lg';
             }
-        }
+        };
 
         hcap.network.getNetworkDevice(GetNetwork);
         
@@ -120,7 +120,7 @@
             'onSuccess' : function(s) {
                 IpAddress = s.ip_address;
             }
-        })
+        });
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
@@ -151,7 +151,7 @@
 
                 hcap.time.setLocalTime(ActualDate);
             }
-        })
+        });
 
         xhr = null;
         GetInfoDevice();
