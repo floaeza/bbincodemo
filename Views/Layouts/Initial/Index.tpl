@@ -31,8 +31,8 @@
         Model       = 'Test',
         Hdd         = 'N',
         Vendor      = 'Generic',
-        KamaiModels = { 49: '500x' };
-
+       KamaiModels = { 49: '500x', 102: '7XM' },
+        xhr;
 /*******************************************************************************
  *  AMINO
  ******************************************************************************/
@@ -117,10 +117,11 @@
         
         var Year  = '', Month = '', Day   = '', Min   = '', Hour  = '', Sec   = '';
         
-        $.ajax({
+        xhr = $.ajax({
             type: 'POST',
             url: '[@Time]',
-            async : false,
+            cache: false,
+            //async : false,
             success: function (response) {
                 var Today = $.parseJSON(response);
                     Year  = Today.Year;
@@ -144,6 +145,9 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
+
+        xhr = null;
+        GetInfoDevice();
     }
 
 /*******************************************************************************
