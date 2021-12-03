@@ -298,6 +298,8 @@ var CheckInfo = 0;
                         Menu();
                     } else if(showInfoDevi == true){
                         Browser.Action(16);
+                        showInfoDevi = false;
+                        removeInfoDevice();
                     }
                 break;
                 
