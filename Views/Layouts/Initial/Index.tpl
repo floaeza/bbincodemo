@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
         <link rel="stylesheet" href="[@GeneralStyles]" type="text/css">
-        <link rel='icon' href='./Media/General/icon.png'>
+        
         <script src="[@Jquery]"></script>
         <script src="[@Hcap]"></script>
     </head>
