@@ -297,8 +297,10 @@ var CheckInfo = 0;
                         },2000)
                         Menu();
                     } else if(showInfoDevi == true){
-                        Browser.Action(16);
-                        removeInfoDevice();
+                        if (typeof(ASTB) !== 'undefined') {
+                            Browser.Action(16);
+                            removeInfoDevice();
+                        }
                     }
                 break;
                 
