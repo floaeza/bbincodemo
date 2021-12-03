@@ -19,7 +19,12 @@
     </body>
 </html>
 <script>
-  
+    /* Carga inicial */
+    window.addEventListener('load',SetDataInitial,false);
+    
+    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
+    setTimeout(GetInfoDevice,3000);
+
     /* Variables generales */
     var Option      = '[@Option]',
         MacAddress  = '00:00:00:00:00:00',
@@ -30,16 +35,6 @@
         Vendor      = 'Generic',
        KamaiModels = { 49: '500x', 102: '7XM' },
         xhr;
-
-  /* Carga inicial */
-    window.addEventListener('load',SetDataInitial,false);
-    
-    /* Valida la informacion despues de las posibles cargas por cada tipo de dispositivo */
-    setTimeout(GetInfoDevice,3000);
-
-
-
-
 /*******************************************************************************
  *  AMINO
  ******************************************************************************/
@@ -151,10 +146,8 @@
                 hcap.time.setLocalTime(ActualDate);
             }
         });
-        
-
         GetInfoDevice();
-
+        
     }
 
 /*******************************************************************************
@@ -276,6 +269,5 @@
                 }
             }
         });
-        
     }
 </script>
