@@ -219,7 +219,7 @@ class Devices extends Database {
         $this->connect();
         $this->select("dispositivo_locacion", "*",
                       "dispositivos ON dispositivo_locacion.id_dispositivo = dispositivos.id_dispositivo",
-                      "", "", "", "`id_locacion` = '$LocationId' AND `dispositivos.marca` = 'Infomir' AND `dispositivos.grabador` = '1'");
+                      "pvr_info ON pvr_info.id_locacion = dispositivos.id_locacion", "", "", "`id_locacion` = '$LocationId' AND `dispositivos.marca` = 'Infomir' AND `dispositivos.grabador` = '1'");
         $Result = $this->getResult();
         $this->DeviceRecorder = array();
 
@@ -227,7 +227,6 @@ class Devices extends Database {
             array_push($this->DeviceRecorder, $Row['mac_address']);
 
         endforeach;
-
 
         $this->disconnect();
 

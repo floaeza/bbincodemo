@@ -866,6 +866,7 @@ function ShowInfo(){
  */
 
     function TvOk(){
+        alert(Device['Type']);
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {

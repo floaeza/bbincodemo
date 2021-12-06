@@ -11,6 +11,7 @@
 
 /* Variables contenedores generales */
 var PlayingRecording            = false,
+
     RecordingOptionsActive      = false,
     RecordManualOptionsActive   = false,
     RecordPlayOptionsActive     = false,
@@ -860,13 +861,16 @@ function SelectRecordOption(){
                 //Debug("#################################3"+PlayingRecording);
                 PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
                 // @ts-ignore
-                ShowPvrInfo();
+
+                //ActivePvrInfoContainer = false;
+                
                 Debug('URL>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
                 //* ClosePvr();
                 HidePvr();
                 
-
+                ShowPvrInfo();
                 SetSpeed('play');
+                
             }
             break;
 
@@ -978,7 +982,6 @@ function SelectDeleteOption(){
  *******************************************************************************/
 
 function ShowPvrInfo(){
-    
     if(ActivePvrInfoContainer === false){
         // @ts-ignore
         InfoContainer.style.visibility = 'visible';
@@ -991,9 +994,10 @@ function ShowPvrInfo(){
         // @ts-ignore
         if(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].episode){
             // @ts-ignore
+           
             EpisodeInfo = RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].episode+': ';
         }
-
+        //alert(ActivePvrInfoContainer);
         // @ts-ignore
         InfoContainerNodes[1].innerHTML  = '<p class="RecInfo">REC:</p> ' +RecordingsList[IndexRecordedFocus][0];
         // @ts-ignore
@@ -1316,7 +1320,6 @@ function ClearInfoPanelPvr(){
 function OpenRecordPlayOptions(){
     if(PlayingRecording === true){
         RecordPlayOptionsActive = true;
-
         // @ts-ignore
         RecordPlayOptions.style.visibility = 'visible';
 
@@ -1344,12 +1347,13 @@ function SetFocusOptionRecordPlay(Direction){
 
 function CloseRecordPlayOptions(){
     if(RecordPlayOptionsActive === true){
+
         RecordPlayOptionsActive = false;
 
         OptionsFocus = -1;
 
         // @ts-ignore
-        RecordPlayOptions.style.visibility = 'hidden';
+        RecordPlayOptions.style.visibility = '';
 
         var IndexOptionsNodes = 0;
 
@@ -1357,6 +1361,9 @@ function CloseRecordPlayOptions(){
             // @ts-ignore
             RecordPlayOptionsNodes[OptionsNodesArray[IndexOptionsNodes]].classList.remove('RecordingOptionFocus');
         }
+
+
+
     }
 }
 
@@ -1368,23 +1375,25 @@ function SelectRecordPlayOption(){
             ClearSpeed();
 
             PlayingRecording = true;
-
+            //ActiveInfoContainer = false;
+            //ActivePvrInfoContainer = false;
             // @ts-ignore
             PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
             
 
             // @ts-ignore
-            Debug('URL>>>>>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+            //Debug('URL>>>>>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
 
+            
             ShowPvrInfo();
-
             SetSpeed('play');
+                
             break;
 
         case 3:
             // delete
             OptionPanel = 'Recordings';
-
+            PlayingRecording =  false;
             SetDeleteProgram();
 
             StopVideo();
@@ -1412,18 +1421,17 @@ function SelectRecordPlayOption(){
         break;
 
         case 7:
-            PlayingRecording =  false;
+            //PlayingRecording =  false;
 
-            StopVideo();
+            //StopVideo();
+            //UpdateRtspConnections('substract');
 
-            UpdateRtspConnections('substract');
-
-            HideBarStatus();
+            //HideBarStatus();
 
             // @ts-ignore
-            SetChannel('');
+            //SetChannel('');
 
-            UnhidePvr();
+           // UnhidePvr();
         break;
     }
 
@@ -2281,7 +2289,7 @@ function GetPvrInfo(){
         async: false,
         url: 'Core/Controllers/Recorder.php',
         data: {
-            Option     : (typeof(gSTB) !== 'undefined')?'GetPvrInfoInfomir':'GetPvrInfo',
+            Option     : 'GetPvrInfo',
             // @ts-ignore
             LocationId : Device['LocationId'],
             // @ts-ignore

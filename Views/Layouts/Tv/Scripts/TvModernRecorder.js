@@ -2021,7 +2021,6 @@ function GetPvrInfo(){
         success: function (response){
             DiskInfo = $.parseJSON(response);
             //alert(JSON.stringify(Device));
-            
             if(DiskInfo.length > 0){
                 if(typeof(gSTB) !== 'undefined'){
                     if(DiskInfo.length === 1 && DiskInfo[0]['mac_address'] === gSTB.GetDeviceMacAddress()){
