@@ -70,9 +70,13 @@
 
         if(NUMBER_EVENT === PVR_REC_RECORDING_STARTED || NUMBER_EVENT === PVR_REC_END_OF_STREAM){
             // Actualiza el estado del disco en el grabador y actualiza
+            Debug("Antes UpdateAssetsId");
             UpdateAssetsId();
+            Debug("Despues UpdateAssetsId");
 
+            Debug("Antes UpdateDiskInfo");
             UpdateDiskInfo();
+            Debug("Despues UpdateDiskInfo");
         } else if(NUMBER_EVENT === RTSP_STATUS_END_OF_STREAM || NUMBER_EVENT === PVR_PLAY_END_OF_FILE){
             // Termino reproduccion grabacion
             OpenRecordPlayOptions();
@@ -447,25 +451,26 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
  *******************************************************************************/
 
 if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
-
+    Debug("Antes de HandlerPvr");
     HandlerPvr();
-
+    Debug("Despues de HandlerPvr");
+    Debug("Antes de UpdateDiskInfo");
     UpdateDiskInfo();
-
+    Debug("Despues de UpdateDiskInfo");
+    Debug("Antes de GetProgramsSerie");
     GetProgramsSerie();
+    Debug("Despues de GetProgramsSerie");
 
-    HandlerPvr();
 }
 
 function HandlerPvr(){
+    Debug('-------> HandlerPvr');
 
     UpdateAssetsId();
 
     GetProgramsToSchedule();
 
     GetSchedulesToDelete();
-
-    //Debug('-------> HandlerPvr');
 
     setTimeout(HandlerPvr,50000);
 }

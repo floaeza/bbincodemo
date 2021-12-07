@@ -2,8 +2,8 @@
 
 var n = 0;
 function Red(){
-    var relo = location.href;
-    location.href = relo;
+    //var relo = location.href;
+    //location.href = relo;
 }
 
 function Blue(){
@@ -16,7 +16,7 @@ function Blue(){
         };
         b2bcontrol.rebootDevice(onSuccess, onError);
     }else {
-        RebootDevice();
+        //RebootDevice();
     }
 }
 function Green(){
