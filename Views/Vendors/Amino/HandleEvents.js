@@ -320,7 +320,7 @@ function DeleteProgram(ProgramId){
  *******************************************************************************/
 
 function UpdateProgramAsset(ProgramId, OperationId, AssetId, ActiveRecording){
-
+    Debug("EN UpdateProgramAsset");
     xhr = $.ajax({
         cache: false,
         type: 'POST',
@@ -413,7 +413,7 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
                     Option = (AssetInfo.activeRecording === 0) ? OperationsList.recorded : OperationsList.recording;
 
                     ////Debug(AssetInfo.title +', '+ OperationsList.recorded +', '+  Option +', '+ AssetsIdList[Indexal] +', '+  ActRec);
-
+                    
                     UpdateProgramAsset(AssetInfo.title, Option, AssetsIdList[Indexal], ActRec);
                 }
 
