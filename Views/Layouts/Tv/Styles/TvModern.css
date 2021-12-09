@@ -613,7 +613,7 @@ div#infoDevice {
 div#RecordingOptions {
     width: 30%;
     height: 33%;
-    position: fixed;
+    position: absolute;
     text-align: center;
     background-size: 100% 100%;
     right: 35%;
@@ -628,11 +628,9 @@ div#RecordingOptions {
 
 div.RecordingOptionsButton {
     width: 80%;
-    text-align: center;
     font-size: 30px;
+    line-height: 30px;
     display: inline-block;
-    vertical-align: middle;
-    line-height: normal;
     min-height: 20%;
     border-radius: 5px;
     margin-top: 2.5%;

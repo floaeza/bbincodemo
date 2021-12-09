@@ -181,9 +181,12 @@ function UpdateDiskInfoInformir(){
                 Title = ProgramsToSchedule[Indexps]['titulo_programa'];
                 Fecha = ProgramsToSchedule[Indexps]['fecha_programa'];
                 Source = ProgramsToSchedule[Indexps]['url_canal'];
-                Start = ProgramsToSchedule[Indexps]['utc_inicio'];
-                End = ProgramsToSchedule[Indexps]['utc_final'];
-
+                Start = parseFloat(ProgramsToSchedule[Indexps]['utc_inicio']);
+                End = parseFloat(ProgramsToSchedule[Indexps]['utc_final']);
+                Start =Math.ceil(Start);
+                End = Math.ceil(End);
+                Start = Start.toString();
+                End = End.toString();
                 Debug('>> '+Source +', '+ Title +', '+ Start +', '+ End);
 
                 Debug('ProgramsToSchedule.length: '+ProgramsToSchedule.length);

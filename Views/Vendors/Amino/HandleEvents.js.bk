@@ -70,17 +70,20 @@
 
         if(NUMBER_EVENT === PVR_REC_RECORDING_STARTED || NUMBER_EVENT === PVR_REC_END_OF_STREAM){
             // Actualiza el estado del disco en el grabador y actualiza
-            Debug("INICIA LA ");
+            Debug("Antes UpdateAssetsId");
             UpdateAssetsId();
-            Debug("FUERA DE UpdateAssetsId");
+            Debug("Despues UpdateAssetsId");
+
+            Debug("Antes UpdateDiskInfo");
             UpdateDiskInfo();
+            Debug("Despues UpdateDiskInfo");
         } else if(NUMBER_EVENT === RTSP_STATUS_END_OF_STREAM || NUMBER_EVENT === PVR_PLAY_END_OF_FILE){
             // Termino reproduccion grabacion
             OpenRecordPlayOptions();
             Browser.CacheFlush();
         } else if(NUMBER_EVENT === RTSP_CONNECTION_STOPPED || NUMBER_EVENT === RTSP_CONNECTION_DIED || NUMBER_EVENT === RTSP_CONNECT_FAILED){ 
             // No encuentra la grabacion (Reinicio del PVR o no encuentra la grabacion)
-            //OpenRecordPlayOptions();
+            OpenRecordPlayOptions();
             Browser.CacheFlush();
         } else if(NUMBER_EVENT === CONNECTION_STOPPED){ 
             //
@@ -317,7 +320,7 @@ function DeleteProgram(ProgramId){
  *******************************************************************************/
 
 function UpdateProgramAsset(ProgramId, OperationId, AssetId, ActiveRecording){
-
+    Debug("EN UpdateProgramAsset");
     xhr = $.ajax({
         cache: false,
         type: 'POST',
@@ -377,7 +380,7 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
         //Debug('-------->> UpdateAssetsId');
         
         AssetsIdList = PVR.GetAssetIdList();
-        alert(AssetsIdList);
+        
         if (typeof AssetsIdList !== 'object'){ AssetsCount = 0; } else { AssetsCount = AssetsIdList.count; }
                
         var YesterdayUtcDate = Date.UTC(moment().format('Y'), (moment().format('MM') -2), moment().format('DD'), moment().format('HH'), moment().format('mm'));
@@ -410,7 +413,7 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
                     Option = (AssetInfo.activeRecording === 0) ? OperationsList.recorded : OperationsList.recording;
 
                     ////Debug(AssetInfo.title +', '+ OperationsList.recorded +', '+  Option +', '+ AssetsIdList[Indexal] +', '+  ActRec);
-
+                    
                     UpdateProgramAsset(AssetInfo.title, Option, AssetsIdList[Indexal], ActRec);
                 }
 
@@ -448,24 +451,26 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
  *******************************************************************************/
 
 if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
-
+    Debug("Antes de HandlerPvr");
     HandlerPvr();
-
+    Debug("Despues de HandlerPvr");
+    Debug("Antes de UpdateDiskInfo");
     UpdateDiskInfo();
-
+    Debug("Despues de UpdateDiskInfo");
+    Debug("Antes de GetProgramsSerie");
     GetProgramsSerie();
+    Debug("Despues de GetProgramsSerie");
 
 }
 
 function HandlerPvr(){
+    Debug('-------> HandlerPvr');
 
     UpdateAssetsId();
 
     GetProgramsToSchedule();
 
     GetSchedulesToDelete();
-
-    //Debug('-------> HandlerPvr');
 
     setTimeout(HandlerPvr,50000);
 }
