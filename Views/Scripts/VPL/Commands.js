@@ -2,8 +2,8 @@
 
 var n = 0;
 function Red(){
-    //var relo = location.href;
-    //location.href = relo;
+    var relo = location.href;
+    location.href = relo;
 }
 
 function Blue(){

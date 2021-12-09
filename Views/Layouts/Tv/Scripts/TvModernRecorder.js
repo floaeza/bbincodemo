@@ -20,6 +20,7 @@ var PlayingRecording            = false,
     DeleteOptions               = false,
     RecorderMessageActive       = false,
     FullDisk                    = false,
+    TFR                         = 0,
     xhr;
 
 /* Variables a utilizar con grabador activo */
@@ -215,19 +216,31 @@ function SelectRecordingsOption(){
 
             ADD_SERIE_BCKG = false;
 
-            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== '24'){
-                CheckRecordings();
+            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
+                 CheckRecordings();
+                 SetPvrInfoHours();
+                 if(TFR >95){
+                    ShowRecorderMessage('Full DISK');
+                 }else{
+                    CheckRecordings();
+                 }
             } else {
-                CloseRecordingOptions();
-                OpenManualRecord();
+                 CloseRecordingOptions();
+                 //OpenManualRecord();
+                 ShowRecorderMessage('Not available on this channel');
             }
             break;
 
         case 5:
             //Debug('--- TvOk - 5');
-            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== '24'){
-                AddSerie();
+            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
                 //Debug('--- TvOk - AddSerie');
+                SetPvrInfoHours();
+                if(TFR >85){
+                    ShowRecorderMessage('To big for recorder');
+                }else{
+                    AddSerie();
+                }
             } else {
                 ShowRecorderMessage('Not available on this channel');
             }
@@ -520,7 +533,8 @@ function SetPvrInfoHours(){
     } else {
         FullDisk = false;
     }
-
+    
+    TFR = PercentageSize;
     TotalSize = null;
     Percentage = null;
 }
@@ -530,7 +544,6 @@ function SetPvrInfoHours(){
  *******************************************************************************/
 
 function SetRecordings(Direction){
-
     var Row  = 1,
         Icon  = '',
         Title = '',
@@ -745,13 +758,13 @@ function SelectRecordOption(){
 
                 PlayingRecording = true;
 
-                //* ClosePvr();
+                //ClosePvr();
 
                 HidePvr();
 
                 ShowPvrInfo();
-
                 SetSpeed('play');
+                
             }
             break;
 
@@ -856,13 +869,14 @@ function SelectDeleteOption(){
  *******************************************************************************/
 
 function ShowPvrInfo(){
-    
+    Debug('Esto esta EQUISD '+ActivePvrInfoContainer);
     if(ActivePvrInfoContainer === false){
         
         InfoContainer.style.visibility = 'visible';
         
         ShowBarStatus();
         //Debug('SHOWWWWWWWWWWW');
+        Debug('SHOWWWWWWWWWWWW');
         ActivePvrInfoContainer = true;
         var EpisodeInfo = '';
 
@@ -878,7 +892,7 @@ function ShowPvrInfo(){
         InfoContainerNodes[11].textContent = '';
         InfoContainerNodes[13].textContent = '';
         InfoContainerNodes[15].textContent = EpisodeInfo + RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].description;
-
+        
         clearTimeout(InfoTimer);
 
         InfoTimer = setTimeout(HidePvrInfo,TimeoutInfo);
@@ -1224,17 +1238,17 @@ function SelectRecordPlayOption(){
             break;
 
         case 7:
-            PlayingRecording =  false;
+            // PlayingRecording =  false;
 
-            StopVideo();
+            // StopVideo();
 
-            UpdateRtspConnections('substract');
+            // UpdateRtspConnections('substract');
 
-            HideBarStatus();
+            // HideBarStatus();
 
-            SetChannel('');
+            // SetChannel('');
 
-            UnhidePvr();
+            // UnhidePvr();
             break;
     }
 
@@ -1772,6 +1786,7 @@ function PvrLeft(){
 function PvrOk(){
     if(RecordOptions === true){
         SelectRecordOption();
+        
     } else if(DeleteOptions === true){
         SelectDeleteOption();
     } else if(OptionPanel === 'Recordings') {
