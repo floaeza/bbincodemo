@@ -915,7 +915,10 @@ function ShowInfo(){
         if(PauseLive === true){
             /* Muestra la barra con el detalle de PauseLiveTv */
             SetSpeed('play');
-            ShowInfo();
+            if(PlayingRecording === true){
+                ShowPvrInfo();
+            }else
+                ShowInfo();
         } else if(PlayingRecording === true){
             ShowPvrInfo();
         } else {

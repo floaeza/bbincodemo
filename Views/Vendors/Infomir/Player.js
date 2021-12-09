@@ -496,6 +496,7 @@ function StopVideo(){
         }
     }
     PlayingRecording = false;
+    //PauseLive = false;
 }
 
 function PauseVideo(){
@@ -563,8 +564,9 @@ function SpeedVideo(Speed){
 function updateRewFor(){
     //Debug("############3    "+player.position + "   E############");
     var pos = player.position;
-    if(PauseLive === true){
-        if(parseInt(Position) + (parseInt(NewSpeed)-1) >= parseInt(Position) + (parseInt(seconds) - parseInt(TimeShiftStart))){
+    Debug('PauseLive = '+PauseLive)
+    if(PauseLive === true && PlayingRecording === false){
+        if(parseInt(Position) + (parseInt(NewSpeed)-1) >= parseInt(Position) + (parseInt(seconds) - parseInt(TimeShiftStart)) ){
             Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
             clearInterval(RewFor);
         }else{
@@ -596,7 +598,7 @@ function AssetStatus(Duration){
     if(PlayingRecording === true){
         
         PositionAsset = player.position;
-        Debug('AssetStatus------------->'+ PositionAsset);
+        //Debug('AssetStatus------------->'+ PositionAsset);
         //PositionAsset = stbPlayer.position;
         DurationAsset = parseInt(Duration,10) * 60;
 
@@ -608,15 +610,15 @@ function AssetStatus(Duration){
         
         //DurationAsset = Video.getDuration();
         //DurationAsset = parseInt(Duration,10) * 60;
-        Debug('>>>>>> DurationAsset: '+DurationAsset);
+        //Debug('>>>>>> DurationAsset: '+DurationAsset);
         PositionAsset = Math.round(Position);
-        Debug('>>>>>> PositionAsset: '+PositionAsset);
+        //Debug('>>>>>> PositionAsset: '+PositionAsset);
         // if(DurationAsset !== 0){
             PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
             if(PercentagePosition > 100){
                 PercentagePosition = 100;
             }
-            Debug('>>>>>> PercentagePosition: '+PercentagePosition);
+            //Debug('>>>>>> PercentagePosition: '+PercentagePosition);
             //DurationAsset = DurationAsset * 2;
         // }
         
