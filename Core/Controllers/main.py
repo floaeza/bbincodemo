@@ -92,7 +92,7 @@ def start(day, pos):
                 "MNTS": 1440,
                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                 "STRH": "00:00",
-                "FNLH": "24:00",
+                "FNLH": "00:00",
                 "TVRT": '',
                 "STRS": '',
                 "EPSD": ''
@@ -172,7 +172,7 @@ def start(day, pos):
                                     fin = datetime.strptime("00:59","%H:%M")
                                     parttwo = False
                                 if lista1.index(list) == len(lista1)-1 and parttwo == False:
-                                    fin = datetime.strptime("23:59", "%H:%M")
+                                    fin = datetime.strptime("00:00", "%H:%M")
                                 inicio = inicio - timedelta(hours=int(dif))
                                 fin = fin - timedelta(hours=int(dif))
                                 dur = fin - inicio
@@ -300,7 +300,7 @@ def start(day, pos):
                         "MNTS": 1440,
                         'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                         "STRH": "00:00",
-                        "FNLH": "23:59",
+                        "FNLH": "00:00",
                         "TVRT": '',
                         "STRS": '',
                         "EPSD": ''
@@ -410,14 +410,14 @@ def start(day, pos):
                                     break
                                 ini = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S')
                                 end = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S') + timedelta(minutes=int(table['data-duration']))
-                                if ini > datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S'):
+                                if ini > datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S'):
                                     break
                                 
                                 inimin = (int(ini.hour)*60)+int(ini.minute)
                                 endmin = (int(end.hour)*60)+int(end.minute)
 
-                                if end > datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S'):
-                                    end = datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S')
+                                if end > datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S'):
+                                    end = datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S')
                                     endmin = (int(end.hour)*60)+int(end.minute)
 
                                 if inimin <= endmin:
@@ -483,7 +483,7 @@ def start(day, pos):
                                 "MNTS": dur,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": dataProgramPass[str(conta-1):"STRH"],
-                                "FNLH": '23:59',
+                                "FNLH": '00:00',
                                 "TVRT": table['data-rating'],
                                 "STRS": '',
                                 "EPSD": table['data-episodetitle']
@@ -500,7 +500,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "23:59",
+                                "FNLH": "00:00",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''
@@ -538,7 +538,7 @@ def start(day, pos):
                             "MNTS": 1440,
                             'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                             "STRH": "00:00",
-                            "FNLH": "24:00",
+                            "FNLH": "00:00",
                             "TVRT": '',
                             "STRS": '',
                             "EPSD": ''
@@ -646,7 +646,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "24:00",
+                                "FNLH": "00:00",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''

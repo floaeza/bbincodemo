@@ -38,7 +38,7 @@ var CheckInfo = 0;
         PressedKey = e.which;
         e.preventDefault();
         //alert(PressedKey);
-        Debug("BOTON:  "+PressedKey);
+        //Debug("BOTON:  "+PressedKey);
         if(typeof(gSTB) !== 'undefined' && PressedKey === 9){
             ShiftKey = e.shiftKey;
             if(ShiftKey === true){
@@ -52,20 +52,20 @@ var CheckInfo = 0;
             //alert(PressedKey);
             switch (PressedKey) {
                 case REMOTE_RED:
-                    Debug("BOTON REMOTE_RED");
+                    //Debug("BOTON REMOTE_RED");
                     if(showInfoDevi == false){
                         Red();
                     }
                 break;
                 case REMOTE_BLUE:
-                    Debug("BOTON REMOTE_BLUE");
+                    //Debug("BOTON REMOTE_BLUE");
                     if(showInfoDevi == false){
                         Blue();
                     }
                 break;
 
                 case REMOTE_GREEN:
-                    Debug("BOTON REMOTE_GREEN");
+                    //Debug("BOTON REMOTE_GREEN");
 
                     if(showInfoDevi == false){
                         Green();
@@ -73,7 +73,7 @@ var CheckInfo = 0;
                 break;
 
                 case REMOTE_YELLOW:
-                    Debug("BOTON REMOTE_YELLOW");
+                    //Debug("BOTON REMOTE_YELLOW");
 
                     // if(contInfoDevice == 2 && showInfoDevi == false){
                     //     clearTimeout(timeInfoDevice);
@@ -91,7 +91,7 @@ var CheckInfo = 0;
         /********** NAVEGACION **********/
 
                 case ARROW_KEY_UP:
-                    Debug("BOTON ARROW_KEY_UP");
+                    //Debug("BOTON ARROW_KEY_UP");
 
                     if(contInfoDevice == 0 && showInfoDevi == false){
                         contInfoDevice++;
@@ -115,7 +115,7 @@ var CheckInfo = 0;
                 break;
 
                 case ARROW_KEY_DOWN:
-                    Debug("BOTON ARROW_KEY_DOWN");
+                    //Debug("BOTON ARROW_KEY_DOWN");
 
                     if(contInfoDevice == 1 && showInfoDevi == false){
                         contInfoDevice++;
@@ -139,7 +139,7 @@ var CheckInfo = 0;
                 break;
 
                 case ARROW_KEY_RIGHT:
-                    Debug("BOTON ARROW_KEY_RIGHT");
+                    //Debug("BOTON ARROW_KEY_RIGHT");
 
                     if(contInfoDevice == 4 && showInfoDevi == false){
                         contInfoDevice++;
@@ -165,7 +165,7 @@ var CheckInfo = 0;
                 break;
 
                 case ARROW_KEY_LEFT:
-                    Debug("BOTON ARROW_KEY_LEFT");
+                    //Debug("BOTON ARROW_KEY_LEFT");
 
                     if(contInfoDevice == 5 && showInfoDevi == false){
                         contInfoDevice++;
@@ -191,7 +191,7 @@ var CheckInfo = 0;
                 break;
                 
                 case SMALL_ARROW_UP:
-                    Debug("BOTON SMALL_ARROW_UP");
+                    //Debug("BOTON SMALL_ARROW_UP");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvPageUp();
@@ -199,7 +199,7 @@ var CheckInfo = 0;
                 break;
                 
                 case SMALL_ARROW_DOWN:
-                    Debug("BOTON SMALL_ARROW_DOWN");
+                    //Debug("BOTON SMALL_ARROW_DOWN");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvPageDown();
@@ -209,7 +209,7 @@ var CheckInfo = 0;
         /********** CANAL +/- **********/
 
                 case REMOTE_CHANNEL_UP:
-                    Debug("BOTON REMOTE_CHANNEL_UP");
+                    //Debug("BOTON REMOTE_CHANNEL_UP");
 
                     if (ActiveEpgContainer === true && typeof(ENTONE) !== 'undefined') {
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
@@ -224,7 +224,7 @@ var CheckInfo = 0;
                 break;
 
                 case REMOTE_CHANNEL_DOWN:
-                    Debug("BOTON REMOTE_CHANNEL_DOWN");
+                    //Debug("BOTON REMOTE_CHANNEL_DOWN");
 
                     if (ActiveEpgContainer === true && typeof(ENTONE) !== 'undefined') {
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
@@ -240,7 +240,7 @@ var CheckInfo = 0;
         /********** OPERACIONES **********/
         
                 case REMOTE_OK:
-                    Debug("BOTON REMOTE_OK");
+                    //Debug("BOTON REMOTE_OK");
 
                     //Debug('REMOTE_OK');
                     CheckInfo++;
@@ -263,7 +263,7 @@ var CheckInfo = 0;
                     break;
             
                 case REMOTE_INFO:
-                    Debug("BOTON REMOTE_INFO");
+                    //Debug("BOTON REMOTE_INFO");
 
                     // if(contInfoDevice == 3 && showInfoDevi == false){
                     //     clearTimeout(timeInfoDevice);
@@ -279,7 +279,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_BACK:
-                    Debug("BOTON REMOTE_BACK");
+                    //Debug("BOTON REMOTE_BACK");
 
                     if(showInfoDevi == false){
                         Back();
@@ -290,7 +290,7 @@ var CheckInfo = 0;
                 break;
 
                 case REMOTE_CLOSE:
-                    Debug("BOTON REMOTE_CLOSE");
+                    //Debug("BOTON REMOTE_CLOSE");
 
                     if(showInfoDevi == false){
                         Close();
@@ -300,7 +300,7 @@ var CheckInfo = 0;
                 break;
                 
                 case PREVIOUS_PROGRAM:
-                    Debug("BOTON PREVIOUS_PROGRAM");
+                    //Debug("BOTON PREVIOUS_PROGRAM");
 
                     if(CurrentModule === 'Tv'  && showInfoDevi == false){
                         //Debug('PREVIOUS_PROGRAM');
@@ -322,7 +322,7 @@ var CheckInfo = 0;
         /********** MENU **********/
                 
                 case REMOTE_MENU:
-                    Debug("BOTON REMOTE_MENU");
+                    //Debug("BOTON REMOTE_MENU");
 
                     if(timeMenu == 0 &&  showInfoDevi == false){
                         timeMenu = 1;
@@ -341,7 +341,7 @@ var CheckInfo = 0;
         /********** GRABADOR | PAUSELIVE TV **********/
         
                 case REMOTE_PVR:
-                    Debug("BOTON REMOTE_PVR");
+                    //Debug("BOTON REMOTE_PVR");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         Debug("REMOTE_PVR");
@@ -350,7 +350,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_STOP:
-                    Debug("BOTON REMOTE_STOP");
+                    //Debug("BOTON REMOTE_STOP");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvStop();
@@ -358,7 +358,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_PLAY:
-                    Debug("BOTON REMOTE_PLAY");
+                    //Debug("BOTON REMOTE_PLAY");
 
                     if(typeof(gSTB) !== 'undefined'){
                         
@@ -381,7 +381,7 @@ var CheckInfo = 0;
                 break;
 
                 case REMOTE_PAUSE:
-                    Debug("BOTON REMOTE_PAUSE");
+                    //Debug("BOTON REMOTE_PAUSE");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvPause();
@@ -389,7 +389,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_FORWARD:
-                    Debug("BOTON REMOTE_FORWARD");
+                    //Debug("BOTON REMOTE_FORWARD");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvForward();
@@ -397,7 +397,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_BACKWARD:
-                    Debug("BOTON REMOTE_BACKWARD");
+                    //Debug("BOTON REMOTE_BACKWARD");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvBackward();
@@ -406,7 +406,7 @@ var CheckInfo = 0;
                 break;
                 
                 case REMOTE_RECORD:
-                    Debug("BOTON REMOTE_RECORD");
+                    //Debug("BOTON REMOTE_RECORD");
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvRecord();

@@ -276,6 +276,7 @@ function BuildProgramsRow(SetCurrentHourPosition, CurrentChannelPosition){
     for (HourRows = 1; HourRows <= MaxHourRows; HourRows++) {
 
         if(BuildHoursPositions <= (Hours.length-1)){
+            
             //console.log('__________ [1.1][BuildProgramsRow]:  BuildHoursPositions '+ BuildHoursPositions + ' HourPosition: '+Hours[BuildHoursPositions][1]);
 //                if(BuildHoursPositions >= 0 && BuildHoursPositions <= 12){
 //                    EpgHours.style.backgroundImage	= 'url("./Media/General/def.png")';
@@ -414,7 +415,7 @@ function WriteProgramsRow(CurrentProgramPosition, CurrentChannelPosition, Row){
 
     if(FirstProgramsPositions[Row] === -1){
         FirstProgramsPositions[Row] = CurrentProgramPosition;
-        OnloadProgramsPositions[Row]   = CurrentProgramPosition;
+        OnloadProgramsPositions[Row] = CurrentProgramPosition;
         //console.log('................. 1.0) FirstProgramsPositions[Row] === -1: '+FirstProgramsPositions[Row]);
     } else {
         FirstProgramsPositions[Row] = CurrentProgramPosition;
