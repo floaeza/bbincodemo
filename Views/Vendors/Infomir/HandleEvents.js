@@ -15,6 +15,9 @@ window.stbEvent = {
                 if(Executing === false){
                     UpdateQuickInfoDevice();
                 }
+                if(PlayingRecording == true){
+                    OpenRecordPlayOptions();
+                }
             break;
 
             case 2:
@@ -80,7 +83,7 @@ window.stbEvent = {
                         }
                     }
                     var inre = reco[reco.length - 1];
-                    UpdateProgramOpera(inre.fileName, OperationsList.recording);
+                    UpdateProgramOpera(inre.fileName, OperationsList.recording, 'true');
                     UpdateDiskInfoInformir();
                     break;
             case 34: //Task has been finished successfully.
@@ -95,7 +98,7 @@ window.stbEvent = {
                     }
                     var inre = reco[reco.length - 1];
                     Debug("---------------> EXITOOOO  "+OperationsList.recorded+" <---------------");
-                    UpdateProgramOpera(inre.fileName, OperationsList.recorded);
+                    UpdateProgramOpera(inre.fileName, OperationsList.recorded, 'false');
                     UpdateDiskInfoInformir();
                     break;
             case 35: //Task has been finished with error.
@@ -109,7 +112,7 @@ window.stbEvent = {
                         }
                     }
                     var inre = reco[reco.length - 1];
-                    UpdateProgramOpera(inre.fileName, 2);
+                    UpdateProgramOpera(inre.fileName, 2, 'false');
                     UpdateDiskInfoInformir();
                     break;
         }
@@ -252,13 +255,15 @@ function UpdateDiskInfoInformir(){
                 if(StreamId === 0){
                     DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
                 } if(AssetId > 0 && Active === 0){
-                    ResultDelete = gSTB.RDir('RemoveFile '+ProgramsToDelete[Indexps].file);
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
                     UpdateDiskInfoInformir();
                     if(ResultDelete === "Ok"){
                         DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
                     }
                 } else {
-                    ResultDelete = gSTB.RDir('RemoveFile '+ProgramsToDelete[Indexps].file);
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
                     UpdateDiskInfoInformir();
                     if(Active === 1){
                         UpdateProgramDeleteInformir(ProgramsToDelete[Indexps].id_programa, OperationsList.delete, AssetId);
@@ -307,7 +312,7 @@ function DeleteProgramByFile(file){
  * Actualiza el estatus de la grabacion mediante el Stream Id y el Asset Id
  *******************************************************************************/
 
- function UpdateProgramOpera(file, OperationId){
+ function UpdateProgramOpera(file, OperationId, act){
 
     $.ajax({
         type: 'POST',
@@ -316,6 +321,7 @@ function DeleteProgramByFile(file){
             Option     : 'UpdateProgramOpera',
             File : file,
             OperationId : OperationId,
+            ActiveRecording: act
         },
         success: function (response){
             Debug('----------UpdateProgramOpera----------');
@@ -385,7 +391,7 @@ function UpdateProgramDeleteInformir(ProgramId, OperationId, AssetId){
  *******************************************************************************/
 
  if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
-    
+    pvrManager.SetMaxRecordingCnt(3);
     HandlerPvrInformir();
     Debug("------>DESPUES");
     UpdateDiskInfoInformir();

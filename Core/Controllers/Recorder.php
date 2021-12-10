@@ -434,8 +434,10 @@ switch ($Option){
            
             $File     = !empty($_POST['File']) ? $_POST['File'] : '';
             $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
-    
-            $InfoUpdate =  array ('id_operacion' => $OperationId);
+            $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
+            $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
+            $InfoUpdate =  array ('id_operacion' => $OperationId,
+                                    'grabacion_activa' => $ActiveRecording);
 
             $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';
 

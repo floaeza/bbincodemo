@@ -33,6 +33,7 @@
     // Obtiene el estatus para validar el funcionamiento del dispositivo
     $Status = $DeviceData->getStatus($MacAddress);
     
+    
     // Compara la vigencia para cargar el template adecuado 
     if($CurrentTime > $EffectiveTime || $Status === false){
         $Step = 'Verifyng license, contact your property manager';
@@ -55,10 +56,12 @@
         // Carga las librerias javascript de acuerdo al vendor
         $Vendor = $DeviceData->getVendor($MacAddress);
         $VendorFolder = $Libraries['VendorsPath'].$Vendor;
-        
+        $DeviceId = $DeviceData->getDevice($MacAddress);
+        $Recorders = $DeviceData->getDeviceRecorder($DeviceId['id_dispositivo']);
         
         // Obtiene el tema asignado a la television
         $TvTheme = $DeviceData->getTvTheme($MacAddress);
+
 
         /** CABECERA **/
         $Header = new Templates($Libraries['LayoutsPhpPath'].'Header.tpl'); 
@@ -116,8 +119,9 @@
             
             // Libreria para maniputal el template asignado
             $Footer->set('LayoutScript', $Libraries['TvScripts'].$ModuleInfo['opcion_template'].'.js' );
-            $Footer->set('LayoutRecorderScript', $Libraries['TvScripts'].$ModuleInfo['opcion_template'].$Libraries['Recorder'].'.js' );
-
+            //if(!empty($Recorders)){
+                $Footer->set('LayoutRecorderScript', $Libraries['TvScripts'].$ModuleInfo['opcion_template'].$Libraries['Recorder'].'.js' );
+            //}
             // Librerias javascript por marca
             $Footer->set('Player', $VendorFolder.$Libraries['Player']);
             $Footer->set('EventsScript', $VendorFolder.$Libraries['Events']);

@@ -217,12 +217,13 @@ function SelectRecordingsOption(){
             ADD_SERIE_BCKG = false;
 
             if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
-                 CheckRecordings();
-                 SetPvrInfoHours();
+                 //CheckRecordings();
+                 
                  if(TFR >95){
                     ShowRecorderMessage('Full DISK');
                  }else{
                     CheckRecordings();
+                    SetPvrInfoHours();
                  }
             } else {
                  CloseRecordingOptions();
@@ -235,11 +236,12 @@ function SelectRecordingsOption(){
             //Debug('--- TvOk - 5');
             if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
                 //Debug('--- TvOk - AddSerie');
-                SetPvrInfoHours();
+                
                 if(TFR >85){
                     ShowRecorderMessage('To big for recorder');
                 }else{
                     AddSerie();
+                    SetPvrInfoHours();
                 }
             } else {
                 ShowRecorderMessage('Not available on this channel');
@@ -425,7 +427,7 @@ function SetPvrInfo(){
         }else if(typeof(gSTB) !== 'undefined'){
             storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
             USB = storageInfo.result || [];
-
+            
             TotalSize = (USB[0].size / 1024) / 1024;
             AvailableSize = (USB[0].freeSize / 1024) / 1024;
         }
@@ -440,7 +442,7 @@ function SetPvrInfo(){
     
     AvailableSize  = (AvailableSize / 1024).toFixed(2);
     TotalSize = (TotalSize / 1024).toFixed(2);
-
+    
     var Percentage = (AvailableSize / TotalSize) * 100,
         PercentageSize = (100 - Percentage).toFixed(2);
 
@@ -595,7 +597,7 @@ function SetRecordings(Direction){
                     } else {
                         LastChr = RecordingsList[IndexRecorded][1].url;
 
-                        if(LastChr.substr(LastChr.length - 4) === '0000'){
+                        if(LastChr.substr(LastChr.length - 4) === '0000' || RecordingsList[IndexRecorded][1].id_operacion === '3'){
                             ActiveRec = ' (scheduled)';
                             Icon = '<i class="fa fa-chevron-right" id="IconRecording"></i>';
                         } else {
@@ -2198,6 +2200,7 @@ function CheckManualRecording(){
 }
 
 function CheckRecordings() {
+    
     if(FullDisk === false){
         xhr = $.ajax({
             type: 'POST',
@@ -2383,7 +2386,7 @@ function CheckRecordings() {
                             } else {
                                 if(Date.now()/1000 < ProgramUtcEndDate- 400){
                                     if(Date.now()/1000 < ProgramUtcStartDate+100){
-                                       AddRecord(); 
+                                        AddRecord(); 
                                     }else{
                                         ProgramUtcStartDate = (Date.now()/1000) + 100;
                                         AddRecord(); 
@@ -2396,7 +2399,7 @@ function CheckRecordings() {
                     } else {
                         if(Date.now()/1000 < ProgramUtcEndDate-400){
                             if(Date.now()/1000 < ProgramUtcStartDate-100){
-                               AddRecord(); 
+                                AddRecord(); 
                             }else{
                                 ProgramUtcStartDate = (Date.now()/1000) +100;
                                 AddRecord(); 

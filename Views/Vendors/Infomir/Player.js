@@ -92,6 +92,7 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
             TvPlay();
             SwapPausePlay = true;
             ResumeVideo()
+            idSeconds = setInterval(updateSeconds,1000);
             if(RewFor !== null){
                 clearInterval(RewFor);
                 RewFor = null;
@@ -102,6 +103,7 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
             Position = 0;
             idSeconds = null;
             TvPlay();
+            //SwapPausePlay = true;
             ResumeVideo()
             idSeconds = setInterval(updateSeconds,1000);
             if(RewFor !== null){
@@ -623,4 +625,10 @@ function AssetStatus(Duration){
         // }
         
     }}
+}
+function rebootInHour(){
+    //HDMIstatus = ENTONE.stb.getHdmiStatus();
+    //if(HDMIstatus.result.connected == false){
+    //    RebootDevice();
+    //}
 }

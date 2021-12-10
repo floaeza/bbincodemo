@@ -132,7 +132,7 @@ function SetEpgFile(){
             // } else {
                 SourceEpgFile = Libraries['EpgDaysPath'] + 'epg_' + CurrentDate + '_' + Device['Services']['PackageId'] + '.json';
             // }
-        //////Debug('------- SetEpgFile ->>> SourceEpgFile: ' + SourceEpgFile);
+        Debug('------- SetEpgFile ->>> SourceEpgFile: ' + SourceEpgFile);
         GetJsonEpg(SourceEpgFile, 0);
     } else {
         EpgDataActive = false;
@@ -307,13 +307,16 @@ function SetChannel(NewDirection){
                         if(window.tizen !== undefined){
                             PlayChannel(Source, Port);
                         }else{
-                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */  
+
+                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);  
+                             /* TvFunctions por marca */  
                         }
                     });
                 }else{
                     if(window.tizen !== undefined){
                         PlayChannel(Source, Port);
                     }else{
+                        //alert(Source+Port); 
                         PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
                     }
                 }
@@ -867,6 +870,7 @@ function ShowInfo(){
 
     function TvOk(){
         //alert(Device['Type']);
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -891,8 +895,8 @@ function ShowInfo(){
     }
     
     function TvClose(){
+        
         if(RecorderMessageActive === false) {
-            
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
                     //HideInfo();
@@ -930,6 +934,7 @@ function ShowInfo(){
     }
 
     function TvRight(){
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -948,6 +953,7 @@ function ShowInfo(){
     }
 
     function TvLeft(){
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -966,6 +972,7 @@ function ShowInfo(){
     }
     
     function TvDown(){
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -987,6 +994,7 @@ function ShowInfo(){
     }
     
     function TvPageDown(){
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -1023,6 +1031,7 @@ function ShowInfo(){
     }
     
     function TvPageUp(){
+        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
@@ -1109,7 +1118,8 @@ function ShowInfo(){
     }
     
     function TvRecorder(){
-        Debug(RecorderMessageActive   + "          "+ PlayingRecording);
+        //Debug(RecorderMessageActive   + "          "+ PlayingRecording);
+        
         if(RecorderMessageActive === false) {
             if (PlayingRecording === false) {
                 Debug(Device['Type']);

@@ -377,7 +377,7 @@ function UpdateProgramDelete(ProgramId, OperationId, AssetId){
         //Debug('-------->> UpdateAssetsId');
         
         AssetsIdList = PVR.GetAssetIdList();
-        alert(AssetsIdList);
+        //alert(AssetsIdList);
         if (typeof AssetsIdList !== 'object'){ AssetsCount = 0; } else { AssetsCount = AssetsIdList.count; }
                
         var YesterdayUtcDate = Date.UTC(moment().format('Y'), (moment().format('MM') -2), moment().format('DD'), moment().format('HH'), moment().format('mm'));

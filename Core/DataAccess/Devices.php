@@ -199,7 +199,7 @@ class Devices extends Database {
         $this->connect();
         $this->select("dispositivo_locacion", "*",
                       "dispositivos ON dispositivo_locacion.id_dispositivo = dispositivos.id_dispositivo",
-                      "", "", "", "id_locacion = '$LocationId' AND grabador = 1");
+                      "pvr_info ON dispositivo_locacion.id_locacion = pvr_info.id_locacion", "", "", "dispositivo_locacion.id_locacion = '$LocationId' AND dispositivos.grabador = 1");
         $Result = $this->getResult();
         $this->DeviceRecorder = array();
 

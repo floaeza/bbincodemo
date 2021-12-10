@@ -177,3 +177,9 @@
             PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
         } 
     }
+    function rebootInHour(){
+        //HDMIstatus = ENTONE.stb.getHdmiStatus();
+        //if(HDMIstatus.result.connected == false){
+        //    RebootDevice();
+        //}
+    }

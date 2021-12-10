@@ -292,3 +292,9 @@ function AssetStatus(Duration){
     }
 }
 
+function rebootInHour(){
+    //HDMIstatus = ENTONE.stb.getHdmiStatus();
+    //if(HDMIstatus.result.connected == false){
+    //    RebootDevice();
+    //}
+}
