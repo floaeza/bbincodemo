@@ -59,7 +59,7 @@ div#EpgDescription {
 /********** BACKGROUNDS ***********/
 
 div.BackgroundInfo {
-    background-image: url('Blue/info.png');
+    background-image: url('Brown/info.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
 }
@@ -67,7 +67,7 @@ div.BackgroundInfo {
 div#PvrContainer,
 div#EpgContainer {
     color: #fff;
-    background-image: url('Blue/epg.png');
+    background-image: url('Brown/epg.png');
 }
 
 div#PvrOptions,
@@ -75,7 +75,7 @@ div#PvrDeleteOptions,
 div#RecordPlayOptions,
 div#RecordingManualOptions,
 div#RecordingOptions {
-    background-image: url('Blue/square.png');
+    background-image: url('Brown/square.png');
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     background-size: 100% 100%;
 }
