@@ -76,7 +76,7 @@
                 PvrDate.textContent = FormatHour;
             }
 
-            if(FormatHour === '12:01 AM'){
+            if(FormatHour === '12:01 AM' || FormatHour === '12:01 am'){
 
                 SetEpgFile();
                 //Debug('------------------------------ SetEpgFile -> FormatHour: '+FormatHour);
