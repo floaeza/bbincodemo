@@ -401,7 +401,6 @@ var CheckInfo = 0;
 
                     if(CurrentModule === 'Tv' && showInfoDevi == false){
                         TvBackward();
-
                     }
                 break;
                 

@@ -428,15 +428,19 @@ function WriteProgramsRow(CurrentProgramPosition, CurrentChannelPosition, Row){
         var ProgramStart    = ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].STRH,
             ProgramFinal    = ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].FNLH,
             NextStartHour   = EpgHoursNodes[7].title;
-        NextStartHour++;
-        if(NextStartHour >= 47){ NextStartHour = 46; }
+            NextStartHour++;
+        if(NextStartHour >= 47){ NextStartHour = -1; }
 
         var CurrentStartEpgHour  = Time12to24(EpgHoursNodes[1].textContent),
             CurrentFinalEpgHour  = Time12to24(Hours[(++NextStartHour)][1]),
+            
+            // if(CurrentFinalEpgHour == '00:00'){
+            //     CurrentFinalEpgHour = '23:59';
+            // }
+            
             CompareStartEpgHours = CompareHours(ProgramStart, CurrentStartEpgHour),
             CompareFinalEpgHours = CompareHours(ProgramFinal, CurrentFinalEpgHour),
             Overflow = 0;
-
         //console.log('ProgramStart: ' +ProgramStart + ' ProgramFinal: '+ProgramFinal);
         //console.log('CurrentStart: ' +CurrentStartEpgHour + ' CurrentFinal: '+CurrentFinalEpgHour);
         //console.log('CompareStartEpgHours: ' +CompareStartEpgHours);
@@ -462,18 +466,18 @@ function WriteProgramsRow(CurrentProgramPosition, CurrentChannelPosition, Row){
         } else if(CompareFinalEpgHours === '>'){
             /* Obtiene la hora final del programa para sacar la diferencia */
             NewFormatFinal = moment(ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].STRH, 'HH:mm');
-            NewFormatCurrent = moment(CurrentFinalEpgHour, 'HH:mm');
+            //(CurrentFinalEpgHour == '00:00')? NewFormatCurrent = moment('23:59', 'HH:mm'): NewFormatCurrent = moment(CurrentFinalEpgHour, 'HH:mm');
+            NewFormatCurrent = moment(CurrentFinalEpgHour, 'HH:mm')
             SubstractLenght = Math.abs(NewFormatFinal.diff(NewFormatCurrent, 'hours', true));
             //console.log('................. > 1.1.1) SubstractLenght: '+SubstractLenght);
-
             ProgramWidth = (SubstractLenght * 50);
             //console.log('................. > 1.1.2) ProgramWidth: '+ProgramWidth);
-
             TotalWidth += ProgramWidth;
             //console.log('................. > 1.1.3) TotalWidth: '+TotalWidth);
         } else {
             /* Obtiene la longitud del programa */
             ProgramWidth = (parseFloat(ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].DRTN, 10) * 50);
+            //alert(ProgramWidth);
             //console.log('................. 1.1.4) ProgramWidth: '+ProgramWidth);
 
             /* Suma la longitud contruida */
@@ -524,7 +528,8 @@ function WriteProgramsRow(CurrentProgramPosition, CurrentChannelPosition, Row){
             RowProgramPosition = TotalPrograms;
             //console.log('................. 1.3.3) RowProgramPosition: '+RowProgramPosition);
         }
-        else if(RowProgramPosition === (ChannelsJson[CurrentChannelPosition].P_Length - 1)){
+        else if(RowProgramPosition === (ChannelsJson[CurrentChannelPosition].P_Length -1)){
+            //alert('Ultimo');
             /* Valida si la longitud contruida es mayor a 100 */
             LastProgramsPositions[Row] = RowProgramPosition;
             //console.log('................. 1.3.2) LastProgramsPositions[Row]: '+Row + ' - ' +LastProgramsPositions[Row]);
