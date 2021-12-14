@@ -16,10 +16,10 @@ today = today
 listDays = ["", "", "", "", "", "", ""]
 
 payload = {'Option': 'GetIdentifier'}
-Identifier = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+Identifier = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
 IDF = json.loads(Identifier.content)
 IDF = IDF[0]
-print(IDF)
+
 def ls1(path):    
     return [obj for obj in listdir(path) if isfile(path + obj)]
 
@@ -42,7 +42,7 @@ for n in range(7):
 
 ####Numero de paquetes + 1#########
 payload = {'Option': 'GetAllPackages'}
-Pack = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/Packages.php', data=payload)
+Pack = requests.post('http://localhost/BBINCO/TV/Core/Controllers/Packages.php', data=payload)
 Packages = json.loads(Pack.content)
 
 def start(day, pos):
@@ -51,17 +51,17 @@ def start(day, pos):
     print("Empezo")
     
     payload = {'Option': 'GetVersion'}
-    Version = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+    Version = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     Ver = json.loads(Version.content)
     Ver = Ver[0]
     
     payload = {'Option': 'GetOffsetZone'}
-    Zone = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+    Zone = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     OffSetZone = json.loads(Zone.content)
     OffSetZone = OffSetZone[0]
 
     payload = {'Option': 'GetGatoTime'}
-    GTime = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+    GTime = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     GatoTime = json.loads(GTime.content)
     GatoTime = GatoTime[0]
 
@@ -78,7 +78,7 @@ def start(day, pos):
 
 
         payload = {'Option': 'GetModulesBypackage', 'PackageID': int(Package["id_paquete"])}
-        x = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+        x = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
         channels = json.loads(x.content)
         for channel in channels:
             dataProgradm = {}
@@ -92,7 +92,7 @@ def start(day, pos):
                 "MNTS": 1440,
                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                 "STRH": "00:00",
-                "FNLH": "00:00",
+                "FNLH": "24:00",
                 "TVRT": '',
                 "STRS": '',
                 "EPSD": ''
@@ -122,9 +122,9 @@ def start(day, pos):
         ############################################# PROGAMACION #############################################
         #######################################################################################################
         payload = {'Option': 'GetChannelsInfoBypackage', 'PackageID': int(Package["id_paquete"])}
-        x = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+        x = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
         channels = json.loads(x.content)
-        #print(channels)
+        print(channels)
         
         a = 0
         for channel in channels:
@@ -172,7 +172,7 @@ def start(day, pos):
                                     fin = datetime.strptime("00:59","%H:%M")
                                     parttwo = False
                                 if lista1.index(list) == len(lista1)-1 and parttwo == False:
-                                    fin = datetime.strptime("00:00", "%H:%M")
+                                    fin = datetime.strptime("23:59", "%H:%M")
                                 inicio = inicio - timedelta(hours=int(dif))
                                 fin = fin - timedelta(hours=int(dif))
                                 dur = fin - inicio
@@ -300,7 +300,7 @@ def start(day, pos):
                         "MNTS": 1440,
                         'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                         "STRH": "00:00",
-                        "FNLH": "00:00",
+                        "FNLH": "23:59",
                         "TVRT": '',
                         "STRS": '',
                         "EPSD": ''
@@ -410,14 +410,14 @@ def start(day, pos):
                                     break
                                 ini = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S')
                                 end = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S') + timedelta(minutes=int(table['data-duration']))
-                                if ini > datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S'):
+                                if ini > datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S'):
                                     break
                                 
                                 inimin = (int(ini.hour)*60)+int(ini.minute)
                                 endmin = (int(end.hour)*60)+int(end.minute)
 
-                                if end > datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S'):
-                                    end = datetime.strptime(day.strftime("%Y-%m-%d")+' 00:00:59', '%Y-%m-%d %H:%M:%S')
+                                if end > datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S'):
+                                    end = datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S')
                                     endmin = (int(end.hour)*60)+int(end.minute)
 
                                 if inimin <= endmin:
@@ -483,7 +483,7 @@ def start(day, pos):
                                 "MNTS": dur,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": dataProgramPass[str(conta-1):"STRH"],
-                                "FNLH": '00:00',
+                                "FNLH": '23:59',
                                 "TVRT": table['data-rating'],
                                 "STRS": '',
                                 "EPSD": table['data-episodetitle']
@@ -500,7 +500,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "00:00",
+                                "FNLH": "23:59",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''
@@ -538,7 +538,7 @@ def start(day, pos):
                             "MNTS": 1440,
                             'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                             "STRH": "00:00",
-                            "FNLH": "00:00",
+                            "FNLH": "24:00",
                             "TVRT": '',
                             "STRS": '',
                             "EPSD": ''
@@ -646,7 +646,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "00:00",
+                                "FNLH": "24:00",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''

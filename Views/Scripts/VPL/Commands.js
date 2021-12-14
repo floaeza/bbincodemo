@@ -2,6 +2,10 @@
 
 var n = 0;
 function Red(){
+    if(typeof(gSTB) !== 'undefined'){
+        gSTB.clearMemoryCaches();
+        gSTB.DeleteAllCookies();
+    }
     var relo = location.href;
     location.href = relo;
 }

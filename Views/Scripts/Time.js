@@ -77,10 +77,9 @@
             }
 
             if(FormatHour === '12:01 AM' || FormatHour === '12:01 am'){
-
+                //Actualiza el archivo JSON de la guia.
                 SetEpgFile();
                 //Debug('------------------------------ SetEpgFile -> FormatHour: '+FormatHour);
-
                 if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
                     if(EpgDataActive === true){
                         GetProgramsSerie();
@@ -88,6 +87,7 @@
                 }
             }
 
+            //Reinicia el dispositivo cada hora (Solo si la panatalla está apagada y si no es un grabador)
             if(((FormatHour === '1:00 am' || FormatHour === '1:01 am') || (FormatHour === '2:00 am' || FormatHour === '2:01 am') || (FormatHour === '3:00 am' || FormatHour === '3:01 am') || (FormatHour === '4:00 am' || FormatHour === '4:01 am') || (FormatHour === '5:00 am' || FormatHour === '5:01 am') || (FormatHour === '6:00 am' || FormatHour === '6:01 am') || (FormatHour === '7:00 am' || FormatHour === '7:01 am') || (FormatHour === '8:00 am' || FormatHour === '8:01 am') || (FormatHour === '9:00 am' || FormatHour === '9:01 am')  || (FormatHour === '10:00 am' || FormatHour === '10:01 am') || (FormatHour === '11:00 am' || FormatHour === '11:01 am') || (FormatHour === '12:00 pm' || FormatHour === '12:01 pm') || (FormatHour === '1:00 pm' || FormatHour === '1:01 pm') || (FormatHour === '2:00 pm' || FormatHour === '2:01 pm') || (FormatHour === '3:00 pm' || FormatHour === '3:01 pm') || (FormatHour === '4:00 pm' || FormatHour === '4:01 pm') || (FormatHour === '5:00 pm' || FormatHour === '5:01 pm') || (FormatHour === '6:00 pm' || FormatHour === '6:01 pm') || (FormatHour === '7:00 pm' || FormatHour === '7:01 pm') || (FormatHour === '8:00 pm' || FormatHour === '8:01 pm') || (FormatHour === '9:00 pm' || FormatHour === '9:01 pm') || (FormatHour === '10:00 pm' || FormatHour === '10:01 pm') || (FormatHour === '11:00 pm' || FormatHour === '11:01 pm') || (FormatHour === '12:00 am' || FormatHour === '12:01 am'))){
                 rebootInHour();
             }else if(((FormatHour === '1:00 AM' || FormatHour === '1:01 AM') || (FormatHour === '2:00 AM' || FormatHour === '2:01 AM') || (FormatHour === '3:00 AM' || FormatHour === '3:01 AM') || (FormatHour === '4:00 AM' || FormatHour === '4:01 AM') || (FormatHour === '5:00 AM' || FormatHour === '5:01 AM') || (FormatHour === '6:00 AM' || FormatHour === '6:01 AM') || (FormatHour === '7:00 AM' || FormatHour === '7:01 AM') || (FormatHour === '8:00 AM' || FormatHour === '8:01 AM') || (FormatHour === '9:00 AM' || FormatHour === '9:01 AM')  || (FormatHour === '10:00 AM' || FormatHour === '10:01 AM') || (FormatHour === '11:00 AM' || FormatHour === '11:01 AM') || (FormatHour === '12:00 PM' || FormatHour === '12:01 PM') || (FormatHour === '1:00 PM' || FormatHour === '1:01 PM') || (FormatHour === '2:00 PM' || FormatHour === '2:01 PM') || (FormatHour === '3:00 PM' || FormatHour === '3:01 PM') || (FormatHour === '4:00 PM' || FormatHour === '4:01 PM') || (FormatHour === '5:00 PM' || FormatHour === '5:01 PM') || (FormatHour === '6:00 PM' || FormatHour === '6:01 PM') || (FormatHour === '7:00 PM' || FormatHour === '7:01 PM') || (FormatHour === '8:00 PM' || FormatHour === '8:01 PM') || (FormatHour === '9:00 PM' || FormatHour === '9:01 PM') || (FormatHour === '10:00 PM' || FormatHour === '10:01 PM') || (FormatHour === '11:00 PM' || FormatHour === '11:01 PM') || (FormatHour === '12:00 AM' || FormatHour === '12:01 AM'))){
@@ -133,5 +133,5 @@
     
     /* Agrega intervalo 50000 = 50 segundos*/
     
-    setTimeout(SetDate, 50000);
+    //setTimeout(SetDate, 50000);
 

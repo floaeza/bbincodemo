@@ -611,13 +611,13 @@ div#infoDevice {
 /***************************** [ Recordings ] *****************************/
 
 div#RecordingOptions {
-    width: 30%;
-    height: 33%;
+    width: 25%;
+    height: 36%;
     position: absolute;
     text-align: center;
     background-size: 100% 100%;
     right: 35%;
-    top: 40%;
+    top: 32%;
     border-radius: 10px;
     z-index: 1;
 }
@@ -628,8 +628,8 @@ div#RecordingOptions {
 
 div.RecordingOptionsButton {
     width: 80%;
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 25px;
+    line-height: 50px;
     display: inline-block;
     min-height: 20%;
     border-radius: 5px;
@@ -663,6 +663,7 @@ div#MessageClose  {
     width: 30%;
     left: 35%;
     border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.233);
     text-shadow: 2px 2px 3px rgba(0,0,0,0.4);
     box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
 }
@@ -679,7 +680,6 @@ div#PvrNow {
     font-size: 20px;
     text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
 }
-
 
 div#PvrWeather{
     width: 100%;
