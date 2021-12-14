@@ -186,11 +186,21 @@
             Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)?'Y':'N';
             Vendor      = gSTB.GetDeviceVendor();
             IpAddress   = gSTB.RDir('IPAddress');
-            
-            
-            
+            if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') {
+                $.ajax({
+                        type: "POST",
+                        url: '/BBINCO/TV/Core/Controllers/Packages.php',
+                        data: { 
+                            Option    : 'InitialConfigurationInfomir',
+                            IpAddress : IpAddress,
+                        }, 
+                        async: false,
+                        success: function (response) {
+                        
+                        }
+                    }); 
+             }
             var CheckTime = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
-            
             if(typeof(CheckTime) === 'undefined'){
                 gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
                 //gSTB.ExecAction('reboot');
@@ -198,7 +208,6 @@
                 var X = CheckTime.split('timezone_conf').pop().split('}')[0]; 
                 X = X.replace('"','');
                 X = X.replace(':','');
-                
                 if(X !== '"America/Mazatlan"'){
                     gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
                     document.getElementById('DebugText').innerHTML = X;

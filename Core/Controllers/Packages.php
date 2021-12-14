@@ -25,10 +25,13 @@
     $status_canal = !empty($_POST['status_canal']) ? $_POST['status_canal'] : '0';
     $StationID = !empty($_POST['StationID']) ? $_POST['StationID'] : '88';
     $Channels = !empty($_POST['Channels']) ? $_POST['Channels'] : '';
+    $IpAddress = !empty($_POST['IpAddress']) ? $_POST['IpAddress'] : '';
 
     $ChannelIdArray = !empty($_POST['ChannelIdArray']) ? $_POST['ChannelIdArray'] : '';
 
-    //$Option = 'UpdateGuide';
+    //$IpAddress = '10.0.3.253';
+
+    //$Option = 'InitialConfigurationInfomir';
     
     switch ($Option){
         case 'GetChannels':
@@ -129,6 +132,11 @@
             // pclose(popen("cd /var/www/html/BBINCO/TV/Core/Controllers && python3 DebugTr.py'","r"));
             // $your_command = 'cd /var/www/html/BBINCO/TV/Core/Controllers && python3 DebugTr.py';
             // shell_exec( $your_command . "> /dev/null 2>/dev/null &" );
+            // $IpAddress = '10.0.3.253';
+            // $Commandfiles = 'sudo /usr/bin/python3 InfomirGrabador.py '.$IpAddress;
+            // echo $Commandfiles;
+            // $command = escapeshellcmd($Commandfiles);
+            // $output = shell_exec($command);
             break;
         case 'UpdateParameter':
             $NewPackage = array(
@@ -168,6 +176,12 @@
             break;
         case 'DeletePackageID':
             $PackagesData->deletePackageID($PackageId);
+            break;
+        case 'InitialConfigurationInfomir':
+                    $Commandfiles = 'sudo /usr/bin/python3 InfomirGrabador.py '.$IpAddress.',register';
+                    echo $Commandfiles;
+                    $command = escapeshellcmd($Commandfiles);
+                    $output = shell_exec($command);
             break;
 
     }
