@@ -62,6 +62,7 @@ div.BackgroundInfo {
     background-image: url('Brown/info.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
+    border-radius: 10px;
 }
 
 div#PvrContainer,
@@ -75,7 +76,7 @@ div#PvrDeleteOptions,
 div#RecordPlayOptions,
 div#RecordingManualOptions,
 div#RecordingOptions {
-    background-image: url('Brown/square.png');
+    background-image: url('Brown/square.jpg');
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
     background-size: 100% 100%;
 }
@@ -85,7 +86,7 @@ div#RecordingOptions {
 div#MessageClose,
 .PvrProgramFocus,
 div#ProgramFocus {
-    background-color: rgb(32, 92, 114);
+    background-color: #5f0a00;
     color: #FBAD17;
 }
 
@@ -126,11 +127,11 @@ div#EpgTitle {
 }
 
 div#PanelMessage {
-    background-color: #128ba6;
+    background-color: #5f0a00;
 }
 
 div#BarUsedSize {
-    background: #0396a6;
+    background: #91534c;
     color: #2f414a;
 }
 
@@ -144,7 +145,7 @@ div#TemperatureGroup {
 
 .Program
 {
-    outline: 1px solid rgb(46, 59, 77);
+    outline: 1px solid rgb(77, 46, 46);
 }
 
 /********** PVR ***********/
@@ -192,7 +193,7 @@ div#ChannelRow7 {
 }
 
 div#BarPosition {
-    background-color: rgb(32, 92, 114);
+    background-color: #f55746;
 }
 
 div.BarPosition {

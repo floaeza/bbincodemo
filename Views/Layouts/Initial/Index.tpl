@@ -214,6 +214,9 @@
                     //gSTB.ExecAction('reboot');
                 }
             }
+            if(gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524'){
+                
+            }
             GetInfoDevice();
         } else {
             LgDeviceInitial();
