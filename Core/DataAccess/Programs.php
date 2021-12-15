@@ -157,13 +157,10 @@ class Programs extends Database {
     }
     function updateProgramByFile($File, $ProgramInfo) {
         $this->Function = 'updateProgramByFile';
-
         $this->connect();
         $this->update("pvr_programas", $ProgramInfo, "file = '$File'");
         $this->ProgramsList = $this->getResult();
-
         $this->disconnect();
-
         return $this->ProgramsList;
     }
 

@@ -2145,6 +2145,9 @@ function CheckManualRecording(){
                         if(ProgramUtcStartDate < ProgramUtcStartDate_DB){
                             // 0 Coincidences
                         }
+                        if(ProgramUtcStartDate < ProgramUtcEndDate_DB){
+                            Coincidences++;
+                        }else
                         /* Else esta en el mismo rango de la hora inicio y final */
                         if(ProgramUtcStartDate >= ProgramUtcStartDate_DB && ProgramUtcEndDate <= ProgramUtcEndDate_DB){
                             Coincidences++;
@@ -2353,6 +2356,9 @@ function CheckRecordings() {
                                 if (ProgramUtcStartDate < ProgramUtcStartDate_DB) {
                                     // 0 Coincidences
                                 }
+                                if(ProgramUtcStartDate < ProgramUtcEndDate_DB){
+                                    Coincidences++;
+                                }else
                                 /* Else esta en el mismo rango de la hora inicio y final */
                                 if (ProgramUtcStartDate >= ProgramUtcStartDate_DB && ProgramUtcEndDate <= ProgramUtcEndDate_DB) {
                                     Coincidences++;

@@ -83,7 +83,7 @@ window.stbEvent = {
                         }
                     }
                     var inre = reco[reco.length - 1];
-                    UpdateProgramOpera(inre.fileName, OperationsList.recording, 'true');
+                    UpdateProgramOpera(inre.fileName, '3', 'true');
                     UpdateDiskInfoInformir();
                     break;
             case 34: //Task has been finished successfully.
@@ -98,7 +98,8 @@ window.stbEvent = {
                     }
                     var inre = reco[reco.length - 1];
                     Debug("---------------> EXITOOOO  "+OperationsList.recorded+" <---------------");
-                    UpdateProgramOpera(inre.fileName, OperationsList.recorded, 'false');
+                    
+                    UpdateProgramOpera(inre.fileName, '4', 'false');
                     UpdateDiskInfoInformir();
                     break;
             case 35: //Task has been finished with error.
@@ -112,7 +113,7 @@ window.stbEvent = {
                         }
                     }
                     var inre = reco[reco.length - 1];
-                    UpdateProgramOpera(inre.fileName, 2, 'false');
+                    UpdateProgramOpera(inre.fileName, '2', 'false');
                     UpdateDiskInfoInformir();
                     break;
         }
@@ -157,7 +158,7 @@ function UpdateDiskInfoInformir(){
  * Obtien lista de programas para grabar
  *******************************************************************************/
 
- function GetProgramsToScheduleInformir(){
+function GetProgramsToScheduleInformir(){
     Debug('-------->> GetProgramsToSchedule');
     $.ajax({
         type: 'POST',
@@ -188,6 +189,16 @@ function UpdateDiskInfoInformir(){
                 End = parseFloat(ProgramsToSchedule[Indexps]['utc_final']);
                 Start =Math.ceil(Start);
                 End = Math.ceil(End);
+
+                for(Indexts = Indexps;  Indexts < ProgramsToSchedule.length; Indexts++){
+                    if(Indexts !== Indexps){
+                        var Start2 = parseFloat(ProgramsToSchedule[Indexts]['utc_inicio']);
+                        Start2 =Math.ceil(Start2);
+                        if(Start <= (Start2+20) && Start >= (Start2-10)){
+                            Start = Start + 60;
+                        }
+                    }
+                }
                 Start = Start.toString();
                 End = End.toString();
                 Debug('>> '+Source +', '+ Title +', '+ Start +', '+ End);
@@ -199,6 +210,15 @@ function UpdateDiskInfoInformir(){
                 Debug(USB[0].mountPath+'/'+Title);
                 Source = Source.replace('igmp','udp');
                 Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
+
+                var tas = JSON.parse(pvrManager.GetAllTasks());
+                var reco = [];
+                for(var x = 0; x < tas.length; x++){
+                    if (tas[x].state === 3){
+                        reco.push(tas[x]);
+                    }
+                }
+
                 var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".mp4", Start, End)
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
@@ -207,11 +227,10 @@ function UpdateDiskInfoInformir(){
                 } else {
                     var tasks = JSON.parse(pvrManager.GetAllTasks());
                     Debug(tasks[tasks.length-1].id);
-                    
                     Debug('New schedule added, streamid = '+tasks[tasks.length-1].id);
                     Debug('> '+ProgramId + ', '+OperationsList.record+', '+tasks[tasks.length-1].id);
-                    UpdateProgramStreamIdInformir(ProgramId, OperationsList.recording, tasks[tasks.length-1].id);
-                    UpdateProgramStatusInformir(ProgramId, OperationsList.recording, tasks[tasks.length-1].fileName);
+                    UpdateProgramStreamIdInformir(ProgramId, '3', tasks[tasks.length-1].id);
+                    UpdateProgramStatusInformir(ProgramId, '3', tasks[tasks.length-1].fileName);
                 }
             }
         }
@@ -251,25 +270,17 @@ function UpdateDiskInfoInformir(){
                 StreamId = parseInt(ProgramsToDelete[Indexps].id_stream,10);
                 AssetId  = parseInt(ProgramsToDelete[Indexps].id_asset,10);
                 Active   = parseInt(ProgramsToDelete[Indexps].grabacion_activa,10);
-
-                if(StreamId === 0){
+                Operation = parseInt(ProgramsToDelete[Indexps].id_operacion,10);
+                
+                if(Active === 0 || Operation === 4){
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
+                    UpdateDiskInfoInformir();
                     DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
-                } if(AssetId > 0 && Active === 0){
-                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
-                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
-                    UpdateDiskInfoInformir();
-                    if(ResultDelete === "Ok"){
-                        DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
-                    }
                 } else {
-                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
-                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
+                    pvrManager.RemoveTask(StreamId,3);
                     UpdateDiskInfoInformir();
-                    if(Active === 1){
-                        UpdateProgramDeleteInformir(ProgramsToDelete[Indexps].id_programa, OperationsList.delete, AssetId);
-                    } else {
-                        DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
-                    }
+                    DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa); 
                 }
             }
         }
@@ -360,7 +371,7 @@ function UpdateProgramStreamIdInformir(ProgramId, OperationId, StreamId){
             Option     : 'UpdateProgramStreamId',
             ProgramId : ProgramId,
             OperationId : OperationId,
-            StreamId : StreamId
+            StreamId : (StreamId == 0)? '0':StreamId
         },
         success: function (response){
             Debug('----------UpdateProgramStreamid----------');

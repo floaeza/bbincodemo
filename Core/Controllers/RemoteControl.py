@@ -9,7 +9,7 @@ from datetime import date
 from datetime import datetime
 
 # Use a service account
-cred = credentials.Certificate('/var/www/html/BBINCO/TV/Views/Scripts/FireBase/serviceAccountKey.json')
+cred = credentials.Certificate('/var/www/html/BBINCO/TV3/Views/Scripts/FireBase/serviceAccountKey.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
@@ -17,8 +17,8 @@ stbDic = []
 users_ref = db.collection(u'PaquetesVPL')
 docs = users_ref.stream()
 payload = {'Option': 'GetIdentifier'}
-Identifier = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/PY.php', data=payload)
-#Identifier = requests.post('http://bbinco.fortiddns.com:669/BBINCO/TV/Core/Controllers/PY.php', data=payload)
+Identifier = requests.post('http://10.0.3.10/BBINCO/TV3/Core/Controllers/PY.php', data=payload)
+#Identifier = requests.post('http://bbinco.fortiddns.com:669/BBINCO/TV3/Core/Controllers/PY.php', data=payload)
 IDF = json.loads(Identifier.content)
 IDF = IDF[0]
 
@@ -33,7 +33,7 @@ jsons = []
 
 for i in range(1,100):
     try:
-        with open('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+identificador+'/epg_'+fechajson+'_'+str(i)+'.json') as file:
+        with open('/var/www/html/BBINCO/TV3/Core/Controllers/Epg/'+identificador+'/epg_'+fechajson+'_'+str(i)+'.json') as file:
             jsons.append(json.load(file))
     except:
         numPaquetes = i-1
@@ -64,8 +64,8 @@ def on_snapshot(col_snapshot, changes, read_time):
             if stb['status'] == 'pending':
                 #print('Ejecutando Orden 66')
                 payload = {'Option': 'InsertControl', 'mac_address': stb['mac_address'], 'guest':stb['guest'], 'IDGuest':stb['IDGuest'], 'orden':stb['order'], 'status':'pendingServer'}
-                var = requests.post('http://10.0.3.10/BBINCO/TV/Core/Controllers/Firebase.php', data=payload)
-                #requests.post('http://bbinco.fortiddns.com:669/BBINCO/TV/Core/Controllers/Firebase.php', data=payload)
+                var = requests.post('http://10.0.3.10/BBINCO/TV3/Core/Controllers/Firebase.php', data=payload)
+                #requests.post('http://bbinco.fortiddns.com:669/BBINCO/TV3/Core/Controllers/Firebase.php', data=payload)
                 #print(json.loads(var.content))
                 update = db.collection(identificador).document(f'{change.document.id}')
                 update.update({u'status': 'pendingServer'})
