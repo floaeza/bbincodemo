@@ -4039,7 +4039,7 @@ class PHPMailer
             $result = php_uname('n');
         }
         if (!static::isValidHost($result)) {
-            return 'localhost.localdomain';
+            return '10.0.3.10.localdomain';
         }
 
         return $result;

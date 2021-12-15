@@ -92,7 +92,7 @@ def start(day, pos):
                 "MNTS": 1440,
                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                 "STRH": "00:00",
-                "FNLH": "24:00",
+                "FNLH": "23:59",
                 "TVRT": '',
                 "STRS": '',
                 "EPSD": ''
@@ -538,7 +538,7 @@ def start(day, pos):
                             "MNTS": 1440,
                             'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                             "STRH": "00:00",
-                            "FNLH": "24:00",
+                            "FNLH": "23:59",
                             "TVRT": '',
                             "STRS": '',
                             "EPSD": ''
@@ -646,7 +646,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "24:00",
+                                "FNLH": "23:59",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''
@@ -697,5 +697,3 @@ def deleteline(slinea, day):
     f.close()
 for pos in range(len(listDays)):
     start(listDays[pos], pos)
-
-

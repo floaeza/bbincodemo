@@ -341,6 +341,10 @@ function BuildProgramsRow(SetCurrentHourPosition, CurrentChannelPosition){
  *******************************************************************************/
 
 function LoadCurrentDataPosition(HourPosition, CurrentChannelPosition){
+    if(HourPosition>47){
+        HourPosition = 47;
+    }
+    
     var NewProgramPosition = 0,
         CurrentHour     = Hours[HourPosition][0],
         StartHour       = '',

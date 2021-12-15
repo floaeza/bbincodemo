@@ -91,7 +91,7 @@
     
                 //location.replace(Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule);
                 //  if(typeof(ASTB) !== 'undefined'){
-                //      Browser.Go('http://10.110.0.111/BBINCO/TV/' + Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule)
+                //      Browser.Go('http://10.0.3.10/BBINCO/TV/' + Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule)
                 //  }else{
                 if(typeof(ASTB) !== 'undefined'){
                     location.href= Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule;
