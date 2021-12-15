@@ -2,8 +2,12 @@
 
 var n = 0;
 function Red(){
-    //var relo = location.href;
-    //location.href = relo;
+    if(typeof(gSTB) !== 'undefined'){
+        gSTB.clearMemoryCaches();
+        gSTB.DeleteAllCookies();
+    }
+    var relo = location.href;
+    location.href = relo;
 }
 
 function Blue(){
@@ -16,44 +20,17 @@ function Blue(){
         };
         b2bcontrol.rebootDevice(onSuccess, onError);
     }else {
-        //RebootDevice();
+        RebootDevice();
     }
 }
 function Green(){
-    //GoPage('tv.php', 1, 'Tv');
     
-    //alert(ASTB.GetConfig('SYSTEM.STB_MODEL'));
-    //alert(window.location);
-    // //alert(JSON.stringify(Browser.GetStats()));
-    // var sBrowser, sUsrAg = navigator.userAgent;
-
-    // if(sUsrAg.indexOf("Chrome") > -1) {
-    //     sBrowser = "Google Chrome \n\n --- " + navigator.appName + "\n\n --- "+ navigator.appVersion + " \n\n---" +navigator.userAgent;
-    // } else if (sUsrAg.indexOf("Safari") > -1) {
-    //     sBrowser = "Apple Safari  \n\n --- " + navigator.appName + "\n\n --- "+ navigator.appVersion + " \n\n---" +navigator.userAgent;
-    // } else if (sUsrAg.indexOf("Opera") > -1) {
-    //     sBrowser = "Opera \n\n --- " + navigator.appName + "\n\n --- "+ navigator.appVersion + " \n\n---" +navigator.userAgent;
-    // } else if (sUsrAg.indexOf("Firefox") > -1) {
-    //     sBrowser = "Mozilla Firefox \n\n --- " + navigator.appName + "\n\n --- "+ navigator.appVersion + " \n\n---" +navigator.userAgent;
-    // } else if (sUsrAg.indexOf("MSIE") > -1) {
-    //     sBrowser = "Microsoft Internet Explorer \n\n --- " + navigator.appName + "\n\n --- "+ navigator.appVersion + " \n\n---" +navigator.userAgent;
-    // }
-
-    // alert("Usted está utilizando: " + sBrowser);
     
 }
 
 function Yellow(){
-    // @ts-nocheck
-    //var f = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
-    //Debug(f);
-    //var g = gSTB.SetEnv('{ "timezone_conf":"America/Mexico_City" }');
-    //Debug(g);
 
-    //player.speed = 4;
-    //Debug(player.speeds);
-    //alert('Entro a la funcion green');
-    //Browser.Action(16);
+    
 }
 
 function Close(){
