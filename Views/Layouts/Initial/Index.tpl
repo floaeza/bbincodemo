@@ -189,7 +189,7 @@
             if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') {
                 $.ajax({
                         type: "POST",
-                        url: '/BBINCO/TV3/Core/Controllers/Packages.php',
+                        url: '/BBINCO/TV/Core/Controllers/Packages.php',
                         data: { 
                             Option    : 'InitialConfigurationInfomir',
                             IpAddress : IpAddress,
