@@ -25,13 +25,13 @@ $ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
     }
 
 $JsonLibraries['ServerRoot']        = 'http://'.$ServerIp.'/';
-$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV/';
+$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/bbincotv/';
 $JsonLibraries['MediaSource']       = 'http://'.$ServerIp.'/BBINCO/';
 $JsonLibraries['MultimediaSource']  = 'http://'.$ServerIp.'/Multimedia/';
 $JsonLibraries['MoviesSource']      = 'http://'.$ServerIp.'/vod/mvs/';
 $JsonLibraries['SeriesSource']      = 'http://'.$ServerIp.'/vod/srs/';
 
-$ServerSource = 'http://'.$ServerIp.'/BBINCO/TV/';
+$ServerSource = 'http://'.$ServerIp.'/BBINCO/bbincotv/';
 
 
 /* Views */
@@ -147,7 +147,7 @@ $JsonLibraries['EpgDaysPath']   = $Libraries['ControllersPath'].'Epg/'.$Client;
 //    $ServerIp = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
 //}
 //
-//$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV/';
+//$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/bbincotv/';
 //$JsonLibraries['MultimediaSource']  = 'http://'.$ServerIp.'/Multimedia/';
 //$JsonLibraries['MoviesSource']      = 'http://'.$ServerIp.'/vod/mvs/';
 //$JsonLibraries['SeriesSource']      = 'http://'.$ServerIp.'/vod/srs/';

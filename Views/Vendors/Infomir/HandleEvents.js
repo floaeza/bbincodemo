@@ -82,15 +82,9 @@ window.stbEvent = {
             case 39: //Task started recording.
                     EventString = 'STATUS_START_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
-                    var tas = JSON.parse(pvrManager.GetAllTasks());
-                    var reco = [];
-                    for(var x = 0; x < tas.length; x++){
-                        if (tas[x].state === 2){
-                            reco.push(tas[x]);
-                        }
-                    }
-                    var inre = reco[reco.length - 1];
                     alert(info);
+                    var id = info['id'];
+                    alert(id);
                     UpdateProgramOpera(inre.fileName, '3', 'true');
                     UpdateDiskInfoInformir();
                     break;
@@ -280,8 +274,8 @@ function GetProgramsToScheduleInformir(){
                 Active   = parseInt(ProgramsToDelete[Indexps].grabacion_activa,10);
                 Operation = parseInt(ProgramsToDelete[Indexps].id_operacion,10);
                 
-                if(Active === 0 || Operation === 4){
-                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'"');
+                if(Active === 0 && Operation === 4){
+                    ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file);
                     ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.ts"');
                     UpdateDiskInfoInformir();
                     DeleteProgramInformir(ProgramsToDelete[Indexps].id_programa);
