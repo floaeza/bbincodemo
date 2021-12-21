@@ -82,39 +82,24 @@ window.stbEvent = {
             case 39: //Task started recording.
                     EventString = 'STATUS_START_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
-                    alert(info);
-                    var id = info['id'];
-                    alert(id);
+                    var info2 = JSON.parse(info);
+                    var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
                     UpdateProgramOpera(inre.fileName, '3', 'true');
                     UpdateDiskInfoInformir();
                     break;
             case 34: //Task has been finished successfully.
                     EventString = 'STATUS_END_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
-                    var tas = JSON.parse(pvrManager.GetAllTasks());
-                    var reco = [];
-                    for(var x = 0; x < tas.length; x++){
-                        if (tas[x].state === 4){
-                            reco.push(tas[x]);
-                        }
-                    }
-                    var inre = reco[reco.length - 1];
-                    Debug("---------------> EXITOOOO  "+OperationsList.recorded+" <---------------");
-                    
+                    var info2 = JSON.parse(info);
+                    var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
                     UpdateProgramOpera(inre.fileName, '4', 'false');
                     UpdateDiskInfoInformir();
                     break;
             case 35: //Task has been finished with error.
                     EventString = 'STATUS_ERROR_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
-                    var tas = JSON.parse(pvrManager.GetAllTasks());
-                    var reco = [];
-                    for(var x = 0; x < tas.length; x++){
-                        if (tas[x].state === 3){
-                            reco.push(tas[x]);
-                        }
-                    }
-                    var inre = reco[reco.length - 1];
+                    var info2 = JSON.parse(info);
+                    var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
                     UpdateProgramOpera(inre.fileName, '2', 'false');
                     UpdateDiskInfoInformir();
                     break;

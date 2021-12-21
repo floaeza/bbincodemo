@@ -597,7 +597,7 @@ function SetRecordings(Direction){
                         Icon = '<i class="fa fa-circle" id="IconRecording"></i>';
                     } else {
                         LastChr = RecordingsList[IndexRecorded][1].url;
-
+                        //alert(RecordingsList[IndexRecorded][1][0]);
                         if(LastChr.substr(LastChr.length - 4) === '0000' || RecordingsList[IndexRecorded][1].id_operacion === '3'){
                             ActiveRec = ' (scheduled)';
                             Icon = '<i class="fa fa-chevron-right" id="IconRecording"></i>';
