@@ -1,5 +1,12 @@
 // @ts-nocheck
-
+var Indexps     = 0,
+    NewSchedule = [],
+    ProgramId   = '',
+    Title       = '',
+    Fecha       = '',
+    Source      = '',
+    Start       = '',
+    End         = '';
 window.stbEvent = {
     onEvent: function ( event, info ) {
 
@@ -83,6 +90,7 @@ window.stbEvent = {
                         }
                     }
                     var inre = reco[reco.length - 1];
+                    alert(info);
                     UpdateProgramOpera(inre.fileName, '3', 'true');
                     UpdateDiskInfoInformir();
                     break;
@@ -170,14 +178,14 @@ function GetProgramsToScheduleInformir(){
         success: function (response){
             ProgramsToSchedule = $.parseJSON(response);
 
-            var Indexps     = 0,
-                NewSchedule = [],
-                ProgramId   = '',
-                Title       = '',
-                Fecha       = '',
-                Source      = '',
-                Start       = '',
-                End         = '';
+            Indexps     = 0;
+            NewSchedule = [];
+            ProgramId   = '';
+            Title       = '';
+            Fecha       = '';
+            Source      = '';
+            Start       = '';
+            End         = '';
 
             for(Indexps = 0;  Indexps < ProgramsToSchedule.length; Indexps++){
 
