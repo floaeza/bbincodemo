@@ -197,17 +197,15 @@ class Devices extends Database {
         $this->Function = 'getDeviceRecorder';
 
         $this->connect();
-        $this->select("dispositivo_locacion", "*",
-                      "dispositivos ON dispositivo_locacion.id_dispositivo = dispositivos.id_dispositivo",
-                      "pvr_info ON dispositivo_locacion.id_locacion = pvr_info.id_locacion", "", "", "dispositivo_locacion.id_locacion = '$LocationId' AND dispositivos.grabador = 1");
+        $this->select("pvr_info", "*",
+                      "dispositivo_locacion ON dispositivo_locacion.id_locacion = pvr_info.id_locacion",
+                      "dispositivos ON dispositivos.id_dispositivo = dispositivo_locacion.id_dispositivo", "", "", "pvr_info.id_locacion = '$LocationId' AND dispositivos.grabador = '1'");
         $Result = $this->getResult();
         $this->DeviceRecorder = array();
 
         foreach ($Result as $Row):
             array_push($this->DeviceRecorder, $Row['mac_address']);
-
         endforeach;
-
 
         $this->disconnect();
 
@@ -217,9 +215,9 @@ class Devices extends Database {
         $this->Function = 'getDeviceRecorderInfomir';
 
         $this->connect();
-        $this->select("dispositivo_locacion", "*",
-                      "dispositivos ON dispositivo_locacion.id_dispositivo = dispositivos.id_dispositivo",
-                      "pvr_info ON pvr_info.id_locacion = dispositivos.id_locacion", "", "", "`id_locacion` = '$LocationId' AND `dispositivos.marca` = 'Infomir' AND `dispositivos.grabador` = '1'");
+        $this->select("pvr_info", "*",
+                      "dispositivo_locacion ON dispositivo_locacion.id_locacion = pvr_info.id_locacion",
+                      "dispositivos ON dispositivos.id_dispositivo = dispositivo_locacion.id_dispositivo", "", "", "pvr_info.id_locacion = '$LocationId' AND dispositivos.marca = 'Infomir' AND dispositivos.grabador = '1'");
         $Result = $this->getResult();
         $this->DeviceRecorder = array();
 

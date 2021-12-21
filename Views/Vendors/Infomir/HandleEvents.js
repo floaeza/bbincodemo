@@ -190,12 +190,12 @@ function GetProgramsToScheduleInformir(){
                 Start =Math.ceil(Start);
                 End = Math.ceil(End);
 
-                for(Indexts = Indexps;  Indexts < ProgramsToSchedule.length; Indexts++){
+                for(Indexts = 0;  Indexts < ProgramsToSchedule.length; Indexts++){
                     if(Indexts !== Indexps){
                         var Start2 = parseFloat(ProgramsToSchedule[Indexts]['utc_inicio']);
                         Start2 =Math.ceil(Start2);
                         if(Start <= (Start2+20) && Start >= (Start2-10)){
-                            Start = Start + 60;
+                            Start = Start2 + 60;
                         }
                     }
                 }

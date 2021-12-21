@@ -116,10 +116,7 @@
     setTimeout(SetEpgFile,200);
     /* Carga inicial para reproducir canal por primera vez */
     //setTimeout(SetChannel,1800, '');
-    
 function SetEpgFile(){
-    
-
     /* Consulta la fecha actual cada vez que actualiza la guia */
     CurrentDateFormat = new Date();
     CurrentDate = CurrentDateFormat.yyyymmdd();
@@ -140,8 +137,6 @@ function SetEpgFile(){
         //////Debug('------- EpgDataActive: FALSE');
         GetJsonChannels();
     }
-
-
     SetChannel('');
 }
     

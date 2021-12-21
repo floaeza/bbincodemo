@@ -199,7 +199,7 @@
                         
                         }
                     }); 
-             }
+            }
             var CheckTime = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
             if(typeof(CheckTime) === 'undefined'){
                 gSTB.SetEnv('{ "timezone_conf":"America/Mazatlan" }');
@@ -213,9 +213,6 @@
                     document.getElementById('DebugText').innerHTML = X;
                     //gSTB.ExecAction('reboot');
                 }
-            }
-            if(gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524'){
-                
             }
             GetInfoDevice();
         } else {

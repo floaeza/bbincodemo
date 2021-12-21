@@ -409,6 +409,7 @@ function SetOptionPanel(){
 
 function SetPvrInfo(){
     //Device['MacAddressPvr'].length
+    DiskInfoIndex = 0;
     var AvailableSize  = 0,
         TotalSize = 0;
     if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
@@ -434,23 +435,23 @@ function SetPvrInfo(){
     } else {
         ////Debug("Current Module TV");
         //alert(gSTB.GetDeviceModel());
+        
         // @ts-ignore
-        AvailableSize  = (parseInt(DiskInfo[DiskInfoIndex].espacio_disponible,10) / 1024);
+        AvailableSize  = (parseInt(DiskInfo[DiskInfoIndex].espacio_disponible,10)/1024);
         // @ts-ignore
-        TotalSize = (parseInt(DiskInfo[DiskInfoIndex].espacio_total,10) / 1024);
+        TotalSize = (parseInt(DiskInfo[DiskInfoIndex].espacio_total,10)/1024);
     }
     
     AvailableSize  = (AvailableSize / 1024).toFixed(2);
     TotalSize = (TotalSize / 1024).toFixed(2);
-    
     var Percentage = (AvailableSize / TotalSize) * 100,
         PercentageSize = (100 - Percentage).toFixed(2);
-
+    
     PvrDiskInfoNodes[1].textContent = AvailableSize + ' GB available of ' + TotalSize + ' GB';
+    
     //PvrDiskInfoNodes[5].textContent = PercentageSize + '%';
     //PvrDiskInfoNodes[5].style.width = PercentageSize + '%';
     PercentageText.textContent = PercentageSize + '%';
-
     PercentageCircle.className = 'c100 center p'+Math.round(PercentageSize);
 
 //#da7848 naranja
@@ -2049,11 +2050,14 @@ function GetPvrInfo(){
                             Device['Type']='NONE';
                         }
                     }else{
+                        Device['Type'] = 'WHP_HDDN';
                         SetPvrInfo();
                     }
                 }else{
                     SetPvrInfo();
                 }
+            }else{
+                Device['Type']='NONE';
             }
         }
     });

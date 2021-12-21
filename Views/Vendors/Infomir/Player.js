@@ -25,12 +25,9 @@ if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
     player2.videoWindowMode = 0;
     player2.aspectConversion = 5;    
 }
-
 var Swap            = false,
     Playlist        = '',
     IndexPlaylist   = -1;
-
-
 var idSeconds       = null,
     idPosition      = null,
     RewFor          = null,
@@ -48,7 +45,6 @@ GetWindowMinSize();
  * 0 	graphic window
  * 1 	video window   */
 
-
 gSTB.SetTopWin(0);
 
 var storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
@@ -62,7 +58,6 @@ if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (U
 }
 
 var Ext = gSTB.StandBy(false);
-
 
 /* *****************************************************************************
  * Reproductor de canal
@@ -111,8 +106,6 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
                 RewFor = null;
             }
         }
-        //clearInterval(id);
-        //alert(id);
         seconds = 0;
     }
     if(Port){
@@ -121,7 +114,6 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
     // Detiene el proceso de la reproduccion anterior
     Source = Source.replace('igmp','udp');
     Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
-    
     // Detiene el proceso de la reproduccion anterior
     StopVideo();
     Debug("Source "+ Source +" Port "+CheckPort);
@@ -417,21 +409,6 @@ function SwapPlayers(){
  * ****************************************************************************/
 
 function GetWindowFullSize(){
-//        WindowMaxWidth   = player.viewport['width'];
-//        WindowMaxHeight  = player.viewport['height'];
-//
-//        Debug(WindowMaxWidth);
-//        Debug(WindowMaxHeight);
-    var display = stbDisplayManager.list[0];
-
-    WindowMaxWidth   = display.width;
-    WindowMaxHeight  = display.height;
-
-    Debug(WindowMaxWidth);
-    Debug(WindowMaxHeight);
-}
-
-function GetWindowFullSize(){
     WindowMaxWidth   = window.screen.width;
     WindowMaxHeight  = window.screen.height;
 }
@@ -445,20 +422,8 @@ function GetWindowMinSize(){
  * Funcion para poner TV en pantalla completa
  * ****************************************************************************/
 
-function MaximizeTV(){
-    //gSTB.SetViewport(WindowMaxWidth, WindowMaxHeighc, 0, 0);
-    //player.setViewport({x: 0, y: 0, width: WindowMaxWidth, height: WindowMaxHeight});
-    //gSTB.SetViewport(3840, 2160, 0, 0);
-    //Debug("Maximizar");
-    
-    
+function MaximizeTV(){   
      player.fullscreen = true;
-    // if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
-    //     player2.fullscreen = true;
-    // }
-    
-    
-    //Debug(JSON.stringify(player.viewport));
 }
 
 /* *****************************************************************************
@@ -466,15 +431,6 @@ function MaximizeTV(){
  * ****************************************************************************/
 
 function MinimizeTV(){
-    //gSTB.SetViewport(WindowMinWidth, WindowMinHeight, 15, 60);
-    //player.setViewport({x: 15, y: 60, width: WindowMinWidth, height: WindowMinHeight});
-
-    //    if(window.screen.width === 1280){
-    //        gSTB.SetViewport(WindowMinWidth, WindowMinHeight, 40, 80);
-    //    } else {
-    //        gSTB.SetViewport(WindowMinWidth, WindowMinHeight, 15, 60);
-    //    }
-
     player.setViewport({x: (20*WindowMaxWidth)/100, y: (8*WindowMaxWidth)/100, width: WindowMinWidth, height: WindowMinHeight});
 }
 
@@ -534,10 +490,7 @@ function UpdatePositionContent(Option){
     Debug("manda el nuevo tiempo :" + PositionAsset);
     gSTB.SetPosTimeEx(PositionAsset);
     PositionAsset = gSTB.GetPosTimeEx();
-
 }
-
-
 
 function ResumeVideo(){
     if(RewFor !== null){
