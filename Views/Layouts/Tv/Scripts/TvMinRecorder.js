@@ -2301,8 +2301,29 @@ function GetPvrInfo(){
             // @ts-ignore
             Debug(DiskInfo);
             if(DiskInfo.length > 0){
-                SetPvrInfo();
+                if(typeof(gSTB) !== 'undefined'){
+                    if(DiskInfo.length === 1 && DiskInfo[0]['mac_address'] === gSTB.GetDeviceMacAddress()){
+                        storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
+                        USB = storageInfo.result || [];
+                        if(USB.length !== 0){
+                            SetPvrInfo();
+                        }else{
+                            Device['Type']='NONE';
+                        }
+                    }else{
+                        Device['Type'] = 'WHP_HDDN';
+                        SetPvrInfo();
+                    }
+                }else{
+                    SetPvrInfo();
+                }
+            }else{
+                Device['Type']='NONE';
             }
+            
+            // if(DiskInfo.length > 0){
+            //     SetPvrInfo();
+            // }
         }
     });
 }
