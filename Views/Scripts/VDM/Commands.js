@@ -1,7 +1,13 @@
 // @ts-nocheck
 
+var n = 0;
 function Red(){
-     location.reload(true);
+    if(typeof(gSTB) !== 'undefined'){
+        gSTB.clearMemoryCaches();
+        gSTB.DeleteAllCookies();
+    }
+    var relo = location.href;
+    location.href = relo;
 }
 
 function Blue(){
@@ -13,26 +19,18 @@ function Blue(){
             Debug("[rebootDevice] failed! error code: " + error.code + " error name: " + error.name + "  message " + error.message);
         };
         b2bcontrol.rebootDevice(onSuccess, onError);
-    }else if(typeof(ASTB) !== 'undefined'){
-        ASTB.Reboot();
+    }else {
+        RebootDevice();
     }
-
-    
 }
 function Green(){
-    //alert(JSON.stringify(Browser.GetWindowNames()));
-
+    
+    
 }
 
 function Yellow(){
-    // @ts-nocheck
-    //var f = gSTB.GetEnv('{ "varList":["timezone_conf"] }');
-    //Debug(f);
-    //var g = gSTB.SetEnv('{ "timezone_conf":"America/Mexico_City" }');
-    //Debug(g);
 
-    //player.speed = 4;
-    //Debug(player.speeds);
+    
 }
 
 function Close(){
@@ -66,15 +64,13 @@ function Menu(){
     if(CurrentModule !== 'Menu' && Device['Services']['ActiveMenu'] === true){
         //alert("Menu");
         Debug('----------- GOPAGE');
-        //SE MANDA LLAMAR DOS VECES A PROPOSITO, NO CAMBIAR
-        //SE MANDA LLAMAR DOS VECES A PROPOSITO, NO CAMBIAR
-        //SE MANDA LLAMAR DOS VECES A PROPOSITO, NO CAMBIAR
         //if(CurrentModule == 'Tv'){
            //document.getElementById('loadingTV').style.display = "block"; 
         //}
         
+        //GoPage('menu.php', Device['MenuId'], 'Menu');
         GoPage('menu.php', Device['MenuId'], 'Menu');
-        GoPage('menu.php', Device['MenuId'], 'Menu');
+        
     } else if(CurrentModule === 'Tv' && Device['Services']['ActiveMenu'] === false){
         Debug('----------- TV RECORDER');
         TvRecorder();

@@ -8,7 +8,7 @@ function Red(){
 
 function Blue(){
     // var Up = 0;
-    // Up = ASTB.Upgrade('http://10.0.3.10//bbinco_28_x4x_611.mcfs');
+    // Up = ASTB.Upgrade('http://10.0.3.9//bbinco_28_x4x_611.mcfs');
     // alert(Up);
     if(typeof(ASTB) !== 'undefined'){
         ASTB.Reboot();

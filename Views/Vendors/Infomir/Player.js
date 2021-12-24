@@ -106,7 +106,6 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
                 RewFor = null;
             }
         }
-        seconds = 0;
     }
     if(Port){
         CheckPort = ':' + Port;
@@ -131,19 +130,6 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
             program: ProgramIdPosition
         }); 
     }
-    
-
-    player.onTracksInfo = function () {
-        Debug('Information on audio and video tracks of the media content is received.');
-    };
-
-    player.onPlayStart = function () {
-        Debug('Video playback has begun.');
-    };
-
-    player.onPlayError = function () {
-        Debug('Video playback error.');
-    };
 
     // Maximiza el video en caso de que no este en pantalla completa
     MaximizeTV();
@@ -414,8 +400,8 @@ function GetWindowFullSize(){
 }
 
 function GetWindowMinSize(){
-    WindowMinWidth   = ((window.screen.width)*50)/100;
-    WindowMinHeight  = ((window.screen.height)*50)/100;
+    WindowMinWidth   = ((window.screen.width)*0.7);
+    WindowMinHeight  = ((window.screen.height)*0.7);
 }
 
 /* *****************************************************************************
@@ -431,7 +417,7 @@ function MaximizeTV(){
  * ****************************************************************************/
 
 function MinimizeTV(){
-    player.setViewport({x: (20*WindowMaxWidth)/100, y: (8*WindowMaxWidth)/100, width: WindowMinWidth, height: WindowMinHeight});
+    player.setViewport({x: (40*WindowMaxWidth)/100, y: (11*WindowMaxWidth)/100, width: WindowMinWidth*1.5, height: WindowMinHeight*1.5});
 }
 
 /* *****************************************************************************
@@ -521,9 +507,10 @@ function updateRewFor(){
     var pos = player.position;
     Debug('PauseLive = '+PauseLive)
     if(PauseLive === true && PlayingRecording === false){
-        if(parseInt(Position) + (parseInt(NewSpeed)-1) >= parseInt(Position) + (parseInt(seconds) - parseInt(TimeShiftStart)) ){
+        if(parseInt(Position) + (parseInt(NewSpeed)-1) >=parseInt(seconds) || (parseInt(Position) + (parseInt(NewSpeed)-1) <=parseInt(TimeShiftStart)+2)){
             Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
             clearInterval(RewFor);
+            TvPlay();
         }else{
             if(NewSpeed<0){
                 player.position += (parseInt(NewSpeed)-1);
