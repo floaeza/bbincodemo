@@ -199,6 +199,7 @@ div#ChannelRow4,
 div#ChannelRow5 {
     height: 20%;
     width: 100%;
+    overflow: hidden;
 }
 
 /***************************** [INFO] *****************************/
