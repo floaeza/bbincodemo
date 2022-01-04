@@ -46,7 +46,7 @@ window.stbEvent = {
             case 5:
                 //Error when opening the content: content not found on the server or connection with the server was rejected
                 EventString = 'STATUS_ERROR_STREAM';
-
+                Debug(EventString);
                 if(Executing === false){
                     UpdateQuickInfoDevice();
                 }
@@ -177,15 +177,6 @@ function GetProgramsToScheduleInformir(){
                 Start =Math.ceil(Start);
                 End = Math.ceil(End);
 
-                for(Indexts = 0;  Indexts < ProgramsToSchedule.length; Indexts++){
-                    if(Indexts !== Indexps){
-                        var Start2 = parseFloat(ProgramsToSchedule[Indexts]['utc_inicio']);
-                        Start2 =Math.ceil(Start2);
-                        if(Start <= (Start2+20) && Start >= (Start2-10)){
-                            Start = Start2 + 60;
-                        }
-                    }
-                }
                 Start = Start.toString();
                 End = End.toString();
                 Debug('>> '+Source +', '+ Title +', '+ Start +', '+ End);
@@ -206,7 +197,7 @@ function GetProgramsToScheduleInformir(){
                     }
                 }
 
-                var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".mp4", Start, End)
+                var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".ts", Start, End)
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
                     Debug('> Fail new schedule');
@@ -394,17 +385,18 @@ function UpdateProgramDeleteInformir(ProgramId, OperationId, AssetId){
     Debug("------>DESPUES");
     UpdateDiskInfoInformir();
     Debug("------>DESPUES UPDATE");
-    GetProgramsSerie();
+    //GetProgramsSerie();
     Debug("------>DESPUES GET PROGRAM");
 
 }
 
 function HandlerPvrInformir(){
-        
+    
+    GetProgramsSerie();
+
     GetProgramsToScheduleInformir();
 
     GetSchedulesToDeleteInformir();
-    Debug('-------> HandlerPvrInformir <-------');
     
     setTimeout(HandlerPvrInformir,30000);
     

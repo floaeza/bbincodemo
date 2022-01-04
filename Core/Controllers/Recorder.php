@@ -159,6 +159,7 @@ switch ($Option){
                         'id' => $ProgramsRecorded[$i]['id_programa'],
                         'url' => $Url,
                         'file' => $ProgramsRecorded[$i]['file'],
+                        'operacion' => $ProgramsRecorded[$i]['id_operacion'],
                         'description' => $Utilities->CleanString($ProgramsRecorded[$i]['descripcion_programa']),
                         'episode' => $Utilities->CleanString($ProgramsRecorded[$i]['titulo_episodio']),
                         'rating' => $ProgramsRecorded[$i]['estrellas_rating'],

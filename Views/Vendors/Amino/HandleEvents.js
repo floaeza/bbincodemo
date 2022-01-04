@@ -466,6 +466,8 @@ function HandlerPvr(){
     GetSchedulesToDelete();
 
     //Debug('-------> HandlerPvr');
+    
+    GetProgramsSerie();
 
     setTimeout(HandlerPvr,50000);
 }

@@ -233,6 +233,7 @@ function PlayVideo(Source){
                 Debug('Information on audio and video tracks of the media content is received.');
                 Debug(JSON.stringify(player.metadataInfo));
             };
+            //stbPlayerManager.setBufferSize(200000, 15000000);
         }
     } else {
         //Reproduce el video
@@ -503,7 +504,7 @@ function SpeedVideo(Speed){
         RewFor = null;
         NewSpeed = Speed;
         RewFor = setInterval(updateRewFor,1000);
-    }
+    } 
 }
 function updateRewFor(){
     //Debug("############3    "+player.position + "   E############");
@@ -522,13 +523,17 @@ function updateRewFor(){
             }
             
             Position = parseInt(Position) + parseInt(NewSpeed);
-            Debug("############3    player.position "+parseInt(player.position) + "   E############");
+            Debug("############3    player.position "+parseInt(player.position) + "############");
         }
     }else{
         if(parseInt(player.position) + parseInt(NewSpeed) >= player.duration || parseInt(player.position) + parseInt(NewSpeed) <= 0){
-            //Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
+            Debug("############3    Se Pasa: "+parseInt(player.duration) + "############");
             clearInterval(RewFor);
+            TvPlay();
         }else{
+            Debug("Position "+ player.position);
+            Debug("NewSpeed "+ NewSpeed);
+            Debug("Duration "+ player.duration);
             player.position += parseInt(NewSpeed);
             Position = parseInt(Position) + parseInt(NewSpeed);
             //Debug("############3    player.position "+parseInt(player.position) + "   E############");
