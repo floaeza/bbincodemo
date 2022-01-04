@@ -2,13 +2,13 @@
 
 function Red(){
     //alert(PressedKey);
-    //location.reload(true);
+    location.reload(true);
     //alert('TEST2');
 }
 
 function Blue(){
     // var Up = 0;
-    // Up = ASTB.Upgrade('http://10.0.3.9//bbinco_28_x4x_611.mcfs');
+    // Up = ASTB.Upgrade('http://10.0.3.10//bbinco_28_x4x_611.mcfs');
     // alert(Up);
     if(typeof(ASTB) !== 'undefined'){
         ASTB.Reboot();
@@ -18,10 +18,7 @@ function Blue(){
 }
 
 function Green(){
-    //player.play({
-    //    uri: 'http://10.0.3.205:8080//media/USB-E0D55EA574F1F4718944A9E1-1/378_Diseñando tu Amor_undefined.mp4',
-    //    solution: 'auto'
-    //});
+    alert(player.durationMs);
 }
 
 function Yellow(){

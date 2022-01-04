@@ -294,6 +294,7 @@ div#EpgDay {
 div.ChannelName {
     width: 28%;
     float: left;
+    
     padding-bottom: 0.5%;
     text-transform: uppercase;
 }
@@ -356,6 +357,7 @@ div.Rating {
 p.ChannelName {
     width: 76%;
     height: 100%;
+    overflow:hidden;
     float: right;
     margin: 0;
     white-space: nowrap;

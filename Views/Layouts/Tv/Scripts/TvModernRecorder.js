@@ -8,7 +8,6 @@
  * - WHP_HDDN [STB sin HDD, ubicacion HABITACION, VILLA O RESIDENCIA con STB grabador]
  * - NONE     [STB sin HDD, ubicacion DEFAULT || ubicacion sin STB grabador]
  */
-
 /* Variables contenedores generales */
 var PlayingRecording            = false,
     RecordingOptionsActive      = false,
@@ -20,8 +19,7 @@ var PlayingRecording            = false,
     DeleteOptions               = false,
     RecorderMessageActive       = false,
     FullDisk                    = false,
-    TFR                         = 0,
-    xhr;
+    TFR                         = 0;
 
 /* Variables a utilizar con grabador activo */
 if(Device['Type'] !== 'NONE'){
@@ -234,6 +232,7 @@ function SelectRecordingsOption(){
 
         case 5:
             //Debug('--- TvOk - 5');
+            //ShowRecorderMessage('This function is not available, This function is not available, we're sorry for the inconvenience');
             if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
                 //Debug('--- TvOk - AddSerie');
                 
@@ -788,7 +787,7 @@ function SelectRecordOption(){
  *******************************************************************************/
 
 function UpdateRtspConnections(OprRtsp){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
         data: {
@@ -802,7 +801,6 @@ function UpdateRtspConnections(OprRtsp){
             ////Debug($.parseJSON(response));
         }
     });
-    xhr = null;
 }
 
 /*******************************************************************************
@@ -872,7 +870,6 @@ function SelectDeleteOption(){
  *******************************************************************************/
 
 function ShowPvrInfo(){
-    Debug('Esto esta EQUISD '+ActivePvrInfoContainer);
     if(ActivePvrInfoContainer === false){
         
         InfoContainer.style.visibility = 'visible';
@@ -1888,7 +1885,7 @@ function AddSerie(){
         //Debug('---- AddSerie');
         SetMacAddressPvr();
 
-        xhr = $.ajax({
+        $.ajax({
             type: 'POST',
             url: 'Core/Controllers/Recorder.php',
             data: {
@@ -1907,7 +1904,6 @@ function AddSerie(){
                 GetProgramsSerie();
             }
         });
-        xhr = null;
     } else {
         ShowRecorderMessage('Your disk is almost full, delete some recordings');
     }
@@ -1940,7 +1936,6 @@ function GetProgramsSerie(){
                 for(IndexP = 0; IndexP < ChannelsJson[Position].P_Length; IndexP++){
                     if(SeriesList[IndexS].titulo === ChannelsJson[Position].PROGRAMS[IndexP].TTLE){
                         //Debug('*-*-*-*-*- Encontro coincidencia: '+ChannelsJson[Position].PROGRAMS[IndexP].TTLE + ' ' +ChannelsJson[Position].PROGRAMS[IndexP].DBKY);
-
                         REC_CHNL_POS = Position;
                         REC_PROG_POS = IndexP;
                         Debug('::::::::::::::::::::::::: GetProgramsSerie::: ');
@@ -1957,7 +1952,7 @@ function GetProgramsSerie(){
  * Agrega programa
  *******************************************************************************/
 function GetRecordings(){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         cache: false,
         async: false,
@@ -1972,11 +1967,10 @@ function GetRecordings(){
             RecordingsList = $.parseJSON(response);
         }
     });
-    xhr = null;
 }
 
 function GetSchedules(){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         cache: false,
         async: false,
@@ -1989,11 +1983,10 @@ function GetSchedules(){
             SchedulesList = $.parseJSON(response);
         }
     });
-    xhr = null;
 }
 
 function GetSeries(){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         cache: false,
         //async: false,
@@ -2006,11 +1999,10 @@ function GetSeries(){
             SeriesList = $.parseJSON(response);
         }
     });
-    xhr = null;
 }
 
 function GetRecordingsToRecord(){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
         data: {
@@ -2021,7 +2013,6 @@ function GetRecordingsToRecord(){
             RecordingsToCheck = $.parseJSON(response);
         }
     });
-    xhr = null;
 }
 
 function GetPvrInfo(){
@@ -2064,7 +2055,7 @@ function GetPvrInfo(){
 }
 GetPvrInfo();
 function CheckManualRecording(){
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         cache: false,
         //async: false,
@@ -2203,13 +2194,12 @@ function CheckManualRecording(){
             }
         }
     });
-    xhr = null;
 }
 
 function CheckRecordings() {
     
     if(FullDisk === false){
-        xhr = $.ajax({
+        $.ajax({
             type: 'POST',
             //async: false,
             cache: false,
@@ -2421,7 +2411,6 @@ function CheckRecordings() {
                 }
             }
         });
-        xhr = null;
     } else {
         ShowRecorderMessage('Your disk is almost full, delete some recordings');
     }
@@ -2431,7 +2420,7 @@ function CheckRecordings() {
 function AddRecord(){
     SetMacAddressPvr();
 
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
         data: {
@@ -2461,7 +2450,6 @@ function AddRecord(){
             //Debug('AddRecord '+MacAddressPvr+' - '+ChannelsJson[REC_CHNL_POS].PROGRAMS[REC_PROG_POS].TTLE);
         }
     });
-    xhr = null;
 }
 
 /*******************************************************************************
@@ -2479,7 +2467,7 @@ function SetDeleteProgram(){
         ProgramId = SchedulesList[IndexScheduleFocus][IndexScheduleProgFocus].id;
     }
 
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
         data: {
@@ -2527,7 +2515,6 @@ function SetDeleteProgram(){
             }
         }
     });
-    xhr = null;
 }
 
 /*******************************************************************************
@@ -2538,7 +2525,7 @@ function DeleteSerie(){
     LastPvrRowFocus = PvrRowFocus ;
 
     //Debug('IndexSerieFocus: '+IndexSerieFocus);
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
         data: {
@@ -2565,14 +2552,13 @@ function DeleteSerie(){
             }
         }
     });
-    xhr = null
 }
 
 function GetWeatherPvr(){
 
     PvrDate.textContent = FormatDateAndHour;
 
-    xhr = $.ajax({
+    $.ajax({
         type: 'GET',
         url: 'Core/Controllers/Weather.php',
         success: function (response) {
@@ -2580,7 +2566,6 @@ function GetWeatherPvr(){
             SetIconPvr();
         }
     });
-    xhr = null;
 }
 
 function SetIconPvr(){
