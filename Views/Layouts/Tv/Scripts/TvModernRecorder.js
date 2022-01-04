@@ -232,19 +232,19 @@ function SelectRecordingsOption(){
 
         case 5:
             //Debug('--- TvOk - 5');
-            //ShowRecorderMessage('This function is not available, This function is not available, we're sorry for the inconvenience');
-            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
-                //Debug('--- TvOk - AddSerie');
+            ShowRecorderMessage("This function is not available, This function is not available, we're sorry for the inconvenience");
+            // if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
+            //     //Debug('--- TvOk - AddSerie');
                 
-                if(TFR >85){
-                    ShowRecorderMessage('To big for recorder');
-                }else{
-                    AddSerie();
-                    SetPvrInfoHours();
-                }
-            } else {
-                ShowRecorderMessage('Not available on this channel');
-            }
+            //     if(TFR >85){
+            //         ShowRecorderMessage('To big for recorder');
+            //     }else{
+            //         AddSerie();
+            //         SetPvrInfoHours();
+            //     }
+            // } else {
+            //     ShowRecorderMessage('Not available on this channel');
+            // }
             break;
 
         case 7:
@@ -597,7 +597,7 @@ function SetRecordings(Direction){
                     } else {
                         LastChr = RecordingsList[IndexRecorded][1].url;
                         //alert(RecordingsList[IndexRecorded][1][0]);
-                        if(LastChr.substr(LastChr.length - 4) === '0000' || RecordingsList[IndexRecorded][1].id_operacion === '3'){
+                        if(LastChr.substr(LastChr.length - 4) === '0000' || RecordingsList[IndexRecorded][1].operacion === '3'){
                             ActiveRec = ' (scheduled)';
                             Icon = '<i class="fa fa-chevron-right" id="IconRecording"></i>';
                         } else {
@@ -606,6 +606,7 @@ function SetRecordings(Direction){
                     }
                     //Debug('** '+RecordingsList[IndexRecorded][1].duration);
                     PvrListNodes[Row].innerHTML = '\u00A0'+ Icon + ' '+ RecordingsList[IndexRecorded][IndexProgram] + ActiveRec + '<p class="RowDur">'+TimeConvert( RecordingsList[IndexRecorded][1].duration)+'</p>';
+                    
                 }
 
 
@@ -748,26 +749,30 @@ function SelectRecordOption(){
             ClearSpeed();
 
             GetPvrInfo();
-
-            if(parseInt(DiskInfo[DiskInfoIndex].rtsp_conexiones) >= 4){
-                ShowRecorderMessage('All connections to your recorder are active, please wait or close a connection');
-            } else {
-                UpdateRtspConnections('add');
-
-                PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
-
-                //Debug('URL>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
-
-                PlayingRecording = true;
-
-                //ClosePvr();
-
-                HidePvr();
-
-                ShowPvrInfo();
-                SetSpeed('play');
-                
+            if(typeof(gSTB) !== 'undefined' && RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4'){
+                ShowRecorderMessage('This recording is not yet available');
+            }else{
+                if(parseInt(DiskInfo[DiskInfoIndex].rtsp_conexiones) >= 4){
+                    ShowRecorderMessage('All connections to your recorder are active, please wait or close a connection');
+                } else {
+                    UpdateRtspConnections('add');
+    
+                    PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+    
+                    //Debug('URL>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+    
+                    PlayingRecording = true;
+    
+                    //ClosePvr();
+    
+                    HidePvr();
+    
+                    ShowPvrInfo();
+                    SetSpeed('play');
+                    
+                }
             }
+            
             break;
 
         case 3:
@@ -1935,7 +1940,8 @@ function GetProgramsSerie(){
             if(ChannelsJsonToday.length === 0){
                 for(IndexP = 0; IndexP < ChannelsJson[Position].P_Length; IndexP++){
                     if(SeriesList[IndexS].titulo === ChannelsJson[Position].PROGRAMS[IndexP].TTLE){
-                        //Debug('*-*-*-*-*- Encontro coincidencia: '+ChannelsJson[Position].PROGRAMS[IndexP].TTLE + ' ' +ChannelsJson[Position].PROGRAMS[IndexP].DBKY);
+                        Debug('*-*-*-*-*- Encontro coincidencia: '+ChannelsJson[Position].PROGRAMS[IndexP].TTLE + ' ' +ChannelsJson[Position].PROGRAMS[IndexP].DBKY);
+                        
                         REC_CHNL_POS = Position;
                         REC_PROG_POS = IndexP;
                         Debug('::::::::::::::::::::::::: GetProgramsSerie::: ');
