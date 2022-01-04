@@ -428,7 +428,6 @@ function SetPvrInfo(){
         }else if(typeof(gSTB) !== 'undefined'){
             storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
             USB = storageInfo.result || [];
-            
             TotalSize = (USB[0].size / 1024) / 1024;
             AvailableSize = (USB[0].freeSize / 1024) / 1024;
         }
@@ -1206,7 +1205,6 @@ function SelectRecordPlayOption(){
             PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
 
             //Debug('URL>>>>>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
-
             ShowPvrInfo();
 
             SetSpeed('play');

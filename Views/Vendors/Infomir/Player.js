@@ -206,11 +206,12 @@ function PlayVideo(Source){
     if(conti == true){
         PlayingRecording = true;
     }
+    
     //Debug(Source);
     if(CurrentModule === 'Tv'){
         if(Source.indexOf('pvr') !== -1 || Source.indexOf('rtsp') !== -1){
             GetRaws(Source);
-
+        
             LengthPlaylist = Playlist.length;
             Debug('--------------->>> '+Playlist[IndexPlaylist]);
             //Reproduce el video
@@ -220,11 +221,13 @@ function PlayVideo(Source){
             });
         }else{
             //alert(Source);
+            Source = Source.replace(/\s+/g, '');
             Debug('--------------->>> '+Source);
             //Reproduce el video
+            //alert(Source);
             player.play({
                 uri: Source,
-                solution: 'auto'
+                solution: 'ffrt3'
             });
             player.onTracksInfo = function () {
                 Debug('Information on audio and video tracks of the media content is received.');
