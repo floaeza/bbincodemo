@@ -232,19 +232,19 @@ function SelectRecordingsOption(){
 
         case 5:
             //Debug('--- TvOk - 5');
-            ShowRecorderMessage("This function is not available, This function is not available, we're sorry for the inconvenience");
-            // if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
-            //     //Debug('--- TvOk - AddSerie');
+            //ShowRecorderMessage("This function is not available, This function is not available, we're sorry for the inconvenience");
+            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
+                //Debug('--- TvOk - AddSerie');
                 
-            //     if(TFR >85){
-            //         ShowRecorderMessage('To big for recorder');
-            //     }else{
-            //         AddSerie();
-            //         SetPvrInfoHours();
-            //     }
-            // } else {
-            //     ShowRecorderMessage('Not available on this channel');
-            // }
+                if(TFR >85){
+                    ShowRecorderMessage('To big for recorder');
+                }else{
+                    AddSerie();
+                    SetPvrInfoHours();
+                }
+            } else {
+                ShowRecorderMessage('Not available on this channel');
+            }
             break;
 
         case 7:
@@ -2059,7 +2059,9 @@ function GetPvrInfo(){
         }
     });
 }
+
 GetPvrInfo();
+
 function CheckManualRecording(){
     $.ajax({
         type: 'POST',
@@ -2356,7 +2358,7 @@ function CheckRecordings() {
                                 if (ProgramUtcStartDate < ProgramUtcStartDate_DB) {
                                     // 0 Coincidences
                                 }
-                                if(ProgramUtcStartDate < ProgramUtcEndDate_DB){
+                                if(ProgramUtcStartDate <= ProgramUtcEndDate_DB && ProgramUtcStartDate >= ProgramUtcStartDate_DB){
                                     Coincidences++;
                                 }else
                                 /* Else esta en el mismo rango de la hora inicio y final */
