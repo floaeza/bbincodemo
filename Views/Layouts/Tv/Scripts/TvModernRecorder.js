@@ -2166,8 +2166,6 @@ function CheckManualRecording(){
                     ////Debug('Coincidences: '+Coincidences);
                     ////Debug('-------------------------------------------------------------------');
                 }
-
-
                 if(Coincidences >= 2){
                     if(ADD_SERIE_BCKG === false){
                         ShowRecorderMessage('Reached the limit of recordings at the same time');

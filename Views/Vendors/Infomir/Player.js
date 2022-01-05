@@ -421,7 +421,11 @@ function MaximizeTV(){
  * ****************************************************************************/
 
 function MinimizeTV(){
-    player.setViewport({x: (40*WindowMaxWidth)/100, y: (11*WindowMaxWidth)/100, width: WindowMinWidth*1.5, height: WindowMinHeight*1.5});
+    player.setViewport({x: 
+        (20*WindowMaxWidth)/100, 
+        y: (7.7*WindowMaxWidth)/100, 
+        width: WindowMinWidth*1.5,
+         height: WindowMinHeight*1.5});
 }
 
 /* *****************************************************************************
