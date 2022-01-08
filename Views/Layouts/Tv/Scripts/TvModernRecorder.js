@@ -232,19 +232,19 @@ function SelectRecordingsOption(){
 
         case 5:
             //Debug('--- TvOk - 5');
-            //ShowRecorderMessage("This function is not available, This function is not available, we're sorry for the inconvenience");
-            if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
-                //Debug('--- TvOk - AddSerie');
+            ShowRecorderMessage("This function is not available, we're sorry for the inconvenience");
+            // if(ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DRTN !== 24){
+            //     //Debug('--- TvOk - AddSerie');
                 
-                if(TFR >85){
-                    ShowRecorderMessage('To big for recorder');
-                }else{
-                    AddSerie();
-                    SetPvrInfoHours();
-                }
-            } else {
-                ShowRecorderMessage('Not available on this channel');
-            }
+            //     if(TFR >85){
+            //         ShowRecorderMessage('To big for recorder');
+            //     }else{
+            //         AddSerie();
+            //         SetPvrInfoHours();
+            //     }
+            // } else {
+            //     ShowRecorderMessage('Not available on this channel');
+            // }
             break;
 
         case 7:
@@ -289,7 +289,7 @@ function OpenPvr(){
         Debug("#############OPENPVR##########");
         IndexRecordedFocus  = -1;
         IndexRecordedProgFocus = 0;
-
+        GetSchedules();
         GetRecordings();
 
         HidePvrInfo();
@@ -397,13 +397,14 @@ function SetOptionPanel(){
         SetFocusSchedules();
 
         CurrentPvrOption.textContent = 'To be recorded';
-    } else if(OptionPanel === 'Series'){
-        SetSeries('');
+    } 
+    // else if(OptionPanel === 'Series'){
+    //     SetSeries('');
 
-        SetFocusSeries();
+    //     SetFocusSeries();
 
-        CurrentPvrOption.textContent = OptionPanel;
-    }
+    //     CurrentPvrOption.textContent = OptionPanel;
+    // }
 }
 
 function SetPvrInfo(){
@@ -470,7 +471,7 @@ function SetPvrInfo(){
 
 function SetPvrInfoHours(){
     //Device['MacAddressPvr'].length
-
+    
     var AvailableSize  = 0,
         TotalSize = 0;
 
@@ -955,7 +956,7 @@ function SetSchedules(Direction){
 
 
         for (Row = 1; Row <= 17; Row++) {
-
+        
             IndexSchedule++;
 
             if(Row === 1){
@@ -970,10 +971,10 @@ function SetSchedules(Direction){
                     Icon = '<i class="fa fa-file-o"></i>';
                     Title = 'rec';
                 }
-
-                PvrListNodes[Row].innerHTML = Icon + ' '+ SchedulesList[IndexSchedule][IndexProgram];
-                PvrListNodes[Row].title = Title + ','+IndexSchedule+',1';
-
+                //if (SchedulesList[IndexSchedule][1].active === '0') {
+                    PvrListNodes[Row].innerHTML = Icon + ' '+ SchedulesList[IndexSchedule][IndexProgram];
+                    PvrListNodes[Row].title = Title + ','+IndexSchedule+',1';
+                //}
                 Row++;
             } else {
                 PvrListNodes[Row].innerHTML = '';
@@ -996,7 +997,6 @@ function SetSchedules(Direction){
         }
 
         for (Row = 1; Row <= 17; Row++) {
-
             if(IndexProgram < SchedulesList[IndexScheduleFocus].length){
 
                 if(SchedulesList[IndexScheduleFocus][IndexProgram].episode !== ''){
@@ -1769,15 +1769,16 @@ function PvrLeft(){
 
             OptionPanel = 'Recordings';
 
-        } else if(OptionPanel === 'Series'){
+        } 
+        // else if(OptionPanel === 'Series'){
 
-            IndexScheduleFocus      = -1;
-            IndexScheduleProgFocus  = 0;
+        //     IndexScheduleFocus      = -1;
+        //     IndexScheduleProgFocus  = 0;
 
-            GetSchedules();
+        //     GetSchedules();
 
-            OptionPanel = 'Schedules';
-        }
+        //     OptionPanel = 'Schedules';
+        // }
 
         SetOptionPanel();
     }
@@ -2201,7 +2202,6 @@ function CheckManualRecording(){
 }
 
 function CheckRecordings() {
-    
     if(FullDisk === false){
         $.ajax({
             type: 'POST',
@@ -2214,7 +2214,7 @@ function CheckRecordings() {
             },
             success: function (response) {
                 RecordingsToCheck = $.parseJSON(response);
-
+                GetRecordings();
                 //Debug('--------------------------------------->>0');
                 //Debug(REC_CHNL_POS);
                 //Debug(REC_PROG_POS);
@@ -2376,8 +2376,7 @@ function CheckRecordings() {
                             ////Debug('Coincidences: '+Coincidences);
                             ////Debug('-------------------------------------------------------------------');
                         }
-
-
+                        
                         if (SameDatabasekey === true) {
                             if (ADD_SERIE_BCKG === false) {
                                 ShowRecorderMessage('Program already added');
@@ -2390,10 +2389,20 @@ function CheckRecordings() {
                             } else {
                                 if(Date.now()/1000 < ProgramUtcEndDate- 400){
                                     if(Date.now()/1000 < ProgramUtcStartDate+100){
-                                        AddRecord(); 
+                                        //AddRecord();
+                                        if (getActiveRecordings(RecordingsList)) {
+                                            ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                        }else{
+                                            AddRecord();
+                                        } 
                                     }else{
                                         ProgramUtcStartDate = (Date.now()/1000) + 100;
-                                        AddRecord(); 
+                                        //AddRecord(); 
+                                        if (getActiveRecordings(RecordingsList)) {
+                                            ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                        }else{
+                                            AddRecord();
+                                        }
                                     }
                                 }else{
                                     ShowRecorderMessage('This program has already ended');
@@ -2403,10 +2412,20 @@ function CheckRecordings() {
                     } else {
                         if(Date.now()/1000 < ProgramUtcEndDate-400){
                             if(Date.now()/1000 < ProgramUtcStartDate-100){
-                                AddRecord(); 
+                                //AddRecord(); 
+                                if (getActiveRecordings(RecordingsList)) {
+                                    ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                }else{
+                                    AddRecord();
+                                }
                             }else{
                                 ProgramUtcStartDate = (Date.now()/1000) +100;
-                                AddRecord(); 
+                                //AddRecord(); 
+                                if (getActiveRecordings(RecordingsList)) {
+                                    ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                }else{
+                                    AddRecord();
+                                }
                             }
                         }else{
                             ShowRecorderMessage('This program has already ended');
@@ -2420,10 +2439,20 @@ function CheckRecordings() {
     }
 }
 
+//Utilidades
+function getActiveRecordings(RecordingsToOpen){
+    var flag = false;
+    for (var index = 0; index < RecordingsToOpen.length; index++) {
+        if (RecordingsToOpen[index][1].active === '1') {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+}
 
 function AddRecord(){
     SetMacAddressPvr();
-
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',

@@ -131,7 +131,7 @@ function UpdateDiskInfoInformir(){
             LocationId : Device['LocationId'],
             MacAddress : gSTB.GetDeviceMacAddress(),
             TotalSize : USB[0].size / 1024,
-            AvailableSize : USB[0].freeSize / 1024,
+            AvailableSize : USB[0].freeSize / 1024, 
             SizeRecords : '320'
         },
         success: function (response){

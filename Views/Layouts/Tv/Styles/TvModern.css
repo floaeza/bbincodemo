@@ -22,7 +22,6 @@ div#BarCircle {
 div.Quality,
 div.Duration,
 div#EpgStars,
-div#PvrProgramDuration,
 div#PvrProgramEpisode,
 div#PvrProgramStars,
 #WeatherSummary,
@@ -31,7 +30,8 @@ div#EpgEpisode,
 div#EpgDuration,
 div#EpgSerie,
 div.Time,
-div.ChannelName
+div.ChannelName,
+div#PvrProgramDescription
 {
     display: none;
 }
@@ -841,7 +841,7 @@ div#PvrInfo{
 div#PvrProgramTitle {
     width: 68%;
     height: 4%;
-    margin-top:0.5%;
+    margin-top:1.5%;
     margin-left: 0.5%;
     position: fixed;
     overflow: hidden;
@@ -853,7 +853,7 @@ div#PvrProgramTitle {
 div#PvrProgramDate{
     width: 40%;
     height: 4%;
-    margin-top: 3%;
+    margin-top: 5.7%;
     margin-left: 0.5%;
     position: fixed;
     overflow: hidden;
