@@ -2389,20 +2389,20 @@ function CheckRecordings() {
                             } else {
                                 if(Date.now()/1000 < ProgramUtcEndDate- 400){
                                     if(Date.now()/1000 < ProgramUtcStartDate+100){
-                                        //AddRecord();
-                                        if (getActiveRecordings(RecordingsList)) {
-                                            ShowRecorderMessage('Not available at this moment, contact to your operator');
-                                        }else{
-                                            AddRecord();
-                                        } 
+                                        AddRecord();
+                                        // if (getActiveRecordings(RecordingsList)) {
+                                        //     ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                        // }else{
+                                        //     AddRecord();
+                                        // } 
                                     }else{
                                         ProgramUtcStartDate = (Date.now()/1000) + 100;
-                                        //AddRecord(); 
-                                        if (getActiveRecordings(RecordingsList)) {
-                                            ShowRecorderMessage('Not available at this moment, contact to your operator');
-                                        }else{
-                                            AddRecord();
-                                        }
+                                        AddRecord(); 
+                                        // if (getActiveRecordings(RecordingsList)) {
+                                        //     ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                        // }else{
+                                        //     AddRecord();
+                                        // }
                                     }
                                 }else{
                                     ShowRecorderMessage('This program has already ended');
@@ -2412,20 +2412,20 @@ function CheckRecordings() {
                     } else {
                         if(Date.now()/1000 < ProgramUtcEndDate-400){
                             if(Date.now()/1000 < ProgramUtcStartDate-100){
-                                //AddRecord(); 
-                                if (getActiveRecordings(RecordingsList)) {
-                                    ShowRecorderMessage('Not available at this moment, contact to your operator');
-                                }else{
-                                    AddRecord();
-                                }
+                                AddRecord(); 
+                                // if (getActiveRecordings(RecordingsList)) {
+                                //     ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                // }else{
+                                //     AddRecord();
+                                // }
                             }else{
                                 ProgramUtcStartDate = (Date.now()/1000) +100;
-                                //AddRecord(); 
-                                if (getActiveRecordings(RecordingsList)) {
-                                    ShowRecorderMessage('Not available at this moment, contact to your operator');
-                                }else{
-                                    AddRecord();
-                                }
+                                AddRecord(); 
+                                // if (getActiveRecordings(RecordingsList)) {
+                                //     ShowRecorderMessage('Not available at this moment, contact to your operator');
+                                // }else{
+                                //     AddRecord();
+                                // }
                             }
                         }else{
                             ShowRecorderMessage('This program has already ended');
