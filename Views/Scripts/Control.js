@@ -16,7 +16,8 @@ var PressedKey      = 0,
     timeMenu        = 0,
     showInfoDevi  = false,
     timeInfoDevice  = null,
-    contInfoDevice  = 0;
+    contInfoDevice  = 0,
+    DelayChangeChannel = false;
 
     document.addEventListener('keydown',KeyHandler,false);
     
@@ -217,7 +218,13 @@ var CheckInfo = 0;
                         }
                     }else{
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
-                            TvChannelUp();
+                            if(DelayChangeChannel == false){
+                                DelayChangeChannel = true;
+                                TvChannelUp();
+                                setTimeout(function(){
+                                    DelayChangeChannel = false;
+                                },500);
+                            }
                         }
                     }
                     
@@ -232,7 +239,14 @@ var CheckInfo = 0;
                         }
                     }else{
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
-                            TvChannelDown();
+                            if(DelayChangeChannel == false){
+                                DelayChangeChannel = true;
+                                TvChannelDown();
+                                setTimeout(function(){
+                                    DelayChangeChannel = false;
+                                },500);
+                            }
+                            //TvChannelDown();
                         }
                     }
                 break;

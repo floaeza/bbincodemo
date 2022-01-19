@@ -261,7 +261,7 @@
             //alert(Source);
             player.play({
                 uri: Source,
-                solution: 'auto'
+                solution: 'ffrt3'
             });
         }
 

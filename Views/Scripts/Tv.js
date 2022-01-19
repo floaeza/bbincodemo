@@ -1136,7 +1136,7 @@ function ShowInfo(){
                         ////Debug('ActiveInfoContainer' + ActiveInfoContainer);
                         HideInfo();
                     }
-                    Debug('(((((((((((((((TvRecorder(((((((((((((((');
+                    //Debug('(((((((((((((((TvRecorder(((((((((((((((');
                     OpenPvr();
                 }
             } else {

@@ -240,7 +240,7 @@ class PHPMailer
      * The hostname to use in the Message-ID header and as default HELO string.
      * If empty, PHPMailer attempts to find one with, in order,
      * $_SERVER['SERVER_NAME'], gethostname(), php_uname('n'), or the value
-     * '10.0.3.10.localdomain'.
+     * '10.0.3.9.localdomain'.
      *
      * @see PHPMailer::$Helo
      *
@@ -280,7 +280,7 @@ class PHPMailer
      *
      * @var string
      */
-    public $Host = '10.0.3.10';
+    public $Host = '10.0.3.9';
 
     /**
      * The default SMTP server port.
@@ -4022,7 +4022,7 @@ class PHPMailer
 
     /**
      * Get the server hostname.
-     * Returns '10.0.3.10.localdomain' if unknown.
+     * Returns '10.0.3.9.localdomain' if unknown.
      *
      * @return string
      */

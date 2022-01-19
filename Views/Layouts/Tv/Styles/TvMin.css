@@ -358,6 +358,7 @@ div#ChannelRow7 {
     height: 19.3%;
     width: 100%;
     margin-bottom: 1%;
+    overflow: hidden;
 }
 
 /***************************** [INFO] *****************************/
