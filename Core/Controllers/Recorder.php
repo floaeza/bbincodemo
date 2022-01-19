@@ -261,7 +261,12 @@ switch ($Option){
             $Response = array('Delete' => false, 'Message' => 'There was a problem, try again later');
         }
         break;
+    case 'UpdateSerie':
 
+        $SerieId = !empty($_POST['SerieId']) ? $_POST['SerieId'] : '';
+        $Result = $SeriesData->updateSerie($SerieId);
+        
+        break;
     case 'GetPvrInfo':
         $Response = $DiskData->getPvrInfo($LocationId, $MacAddress);
         break;

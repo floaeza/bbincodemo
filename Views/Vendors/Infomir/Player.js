@@ -258,9 +258,9 @@ function PlayVideo(Source){
     } else {
         //Reproduce el video
 
-        Debug(src);
+        //alert(Source);
         player.play({
-            uri: src,
+            uri: Source,
             solution: 'auto'
         });
     }
@@ -489,14 +489,13 @@ function updatePosition(){
         Position += 1;
     }
 }
-function UpdatePositionContent(Option){
-    Debug("entro UpdatePosition infomir ")
-    PositionAsset = gSTB.GetPosTimeEx();
-    Debug("positionAsset :" + PositionAsset);
-    (Option === 'add') ? PositionAsset += 30000: PositionAsset -= 30000;
-    Debug("manda el nuevo tiempo :" + PositionAsset);
-    gSTB.SetPosTimeEx(PositionAsset);
-    PositionAsset = gSTB.GetPosTimeEx();
+
+function UpdatePositionVod(Option){
+    PositionAssetVod = gSTB.GetPosTimeEx();
+    (Option === 'add') ? PositionAssetVod += 30000: PositionAssetVod -= 30000;
+    gSTB.SetPosTimeEx(PositionAssetVod);
+    PositionAssetVod = gSTB.GetPosTimeEx();
+    Debug(PositionAssetVod); 
 }
 
 function ResumeVideo(){
@@ -590,6 +589,21 @@ function AssetStatus(Duration){
         // }
         
     }}
+}
+function AssetStatusVod(Duration){
+    //alert(Duration);
+    if(PlayingRecording === true || PlayingVod === true){
+       PositionAsset = gSTB.GetPosTime();
+        DurationAsset = parseInt(Duration,10) * 60;
+        PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);     
+    }else if (PauseLive === true){
+        DurationAsset = Math.round(seconds);
+        PositionAsset = Math.round(Position);
+        PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
+        if(PercentagePosition > 100){
+            PercentagePosition = 100;
+        }
+    }
 }
 function rebootInHour(){
     //HDMIstatus = ENTONE.stb.getHdmiStatus();

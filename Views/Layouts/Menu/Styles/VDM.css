@@ -1,0 +1,145 @@
+div#MenuBackgroun {
+    display: block;
+    background: url('../../../../../Media/Menu/VDM/VDM.png');
+    background-size: 100%;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+ul.horizontal{
+    margin:0;
+    padding:0;
+}
+
+ul.horizontal li{
+    display:block;
+    float:left;
+    padding:0 10px;
+}
+
+div#MenuContainer {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    color: rgb(0, 0, 0);
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    text-align: center;
+    font-size: 36px;
+}
+
+.MenuList.focus{
+    width: 102%;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 37%, rgba(56,59,255,1) 100%); 
+    border: 0px solid white;
+}
+
+div.MenuList{
+    border-radius: 10px; 
+    margin-top: 10%; 
+    color: white;
+    border: 3px solid white;
+    width: 100%;
+    text-align: center;
+    font-size: 50%;
+}
+
+
+div#MenuListMain{
+    position: fixed;
+    width: 30%;
+    height: 30%;
+    display: inline;
+    font-size: 100px;
+    bottom: 10%;
+    left: 5%;
+}
+
+div#MenuWeather,
+div#MenuHourMenu,
+div#MenuDateHeader, .MenuNodes{
+    font-family: Arial, Helvetica, sans-serif;
+}
+#WeatherIcon {
+    float: left;
+}
+
+div#MenuWeather {
+    background-color: rgba(0, 0, 0, 0.438);
+    width: 25%;
+    height: 9%;
+    border-radius: 15px;
+    font-size: 85%;
+    position: absolute;
+    text-shadow: 4px 4px 10px rgba(233, 232, 232, 0.5);
+    padding: 1%;
+    right: 10%;
+    top: 18%;
+}
+
+div#WeatherSummary {
+    float: right;
+    width: 40%;
+    text-align: left;
+    white-space: nowrap;
+    display: none;
+}
+
+div#TemperatureGroup {
+    position: absolute;
+    right: 2%;
+    width: 25%;
+    bottom: 20%;
+    color: white;
+    font-size: 80%;
+}
+
+div#MenuHourMenu {
+    width: 70%;
+    top: 10%;
+    font-size: 130%;
+    left: 2%;
+    color: rgb(255, 255, 255);
+    text-shadow: 4px 4px 10px rgba(233, 232, 232, 0.5);
+}
+
+@font-face {
+    font-family: 'Curantyle-Bold-Bold';
+    src:url('Custom-Fonts/Curantyle-Bold-Bold/Curantyle-Bold-Bold.ttf.woff') format('woff'),
+        url('Custom-Fonts/Curantyle-Bold-Bold/Curantyle-Bold-Bold.ttf.svg#Curantyle-Bold-Bold') format('svg'),
+        url('Custom-Fonts/Curantyle-Bold-Bold/Curantyle-Bold-Bold.ttf.eot'),
+        url('Custom-Fonts/Curantyle-Bold-Bold/Curantyle-Bold-Bold.ttf.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Dominator-Medium';
+    src:url('Custom-Fonts/Dominator-Medium/Dominator-Medium.ttf.woff') format('woff'),
+        url('Custom-Fonts/Dominator-Medium/Dominator-Medium.ttf.svg#Dominator-Medium') format('svg'),
+        url('Custom-Fonts/Dominator-Medium/Dominator-Medium.ttf.eot'),
+        url('Custom-Fonts/Dominator-Medium/Dominator-Medium.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Street-Bold-Compressed';
+    src:url('Custom-Fonts/Street-Bold-Compressed/Street-Bold-Compressed.ttf.woff') format('woff'),
+        url('Custom-Fonts/Street-Bold-Compressed/Street-Bold-Compressed.ttf.svg#Street-Bold-Compressed') format('svg'),
+        url('Custom-Fonts/Street-Bold-Compressed/Street-Bold-Compressed.ttf.eot'),
+        url('Custom-Fonts/Street-Bold-Compressed/Street-Bold-Compressed.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Bohemian-typewriter';
+    src:url('Custom-Fonts/Bohemian-typewriter/Bohemian-typewriter.ttf.woff') format('woff'),
+        url('Custom-Fonts/Bohemian-typewriter/Bohemian-typewriter.ttf.svg#Bohemian-typewriter') format('svg'),
+        url('Custom-Fonts/Bohemian-typewriter/Bohemian-typewriter.ttf.eot'),
+        url('Custom-Fonts/Bohemian-typewriter/Bohemian-typewriter.ttf.eot?#iefix') format('embedded-opentype'); 
+    font-weight: normal;
+    font-style: normal;
+}

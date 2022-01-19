@@ -34,14 +34,16 @@ function Yellow(){
 }
 
 function Close(){
-    if(CurrentModule === 'Tv'){
+    if(CurrentModuleTest === 'Tv'){
         TvClose();
-    } else if(CurrentModule === 'Menu'){
+    } else if(CurrentModuleTest === 'Menu'){
         //
-    } else if(CurrentModule === 'Movies'){
-        VodClose();
-    } else if(CurrentModule === 'Moods'){
+    } else if(CurrentModuleTest === 'Moods'){
         MoodsClose();
+    }else{
+        if(Device['Services']['ActiveMenu'] === true){
+            GoPage('menu.php', Device['MenuId'], 'Menu');
+        }
     }
 }
 
@@ -51,11 +53,13 @@ function Back(){
     } else if(CurrentModule === 'Menu'){
         //
     } else if(CurrentModule === 'Movies'){
-        VodClose();
+        moviesClose();
     } else if(CurrentModule === 'Moods'){
         MoodsClose();
     }else{
-        GoPage('menu.php', Device['MenuId'], 'Menu');
+        if(Device['Services']['ActiveMenu'] === true){
+            GoPage('menu.php', Device['MenuId'], 'Menu');
+        }
     }
 }
 

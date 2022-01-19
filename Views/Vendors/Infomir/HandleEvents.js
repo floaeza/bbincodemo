@@ -62,6 +62,11 @@ window.stbEvent = {
             case 5:
                 //Error when opening the content: content not found on the server or connection with the server was rejected
                 EventString = 'STATUS_ERROR_STREAM';
+                if(gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:5b'){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_PLAYING '+URLLog);
+                }
                 Debug(EventString);
                 if(Executing === false){
                     UpdateQuickInfoDevice();

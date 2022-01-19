@@ -104,7 +104,7 @@
                 rebootInHour();
             }
 
-            MenuDate.textContent = FormatDate;
+            //MenuDate.textContent = FormatDate;
             MenuHour.textContent = FormatHour;
         }
 
@@ -129,7 +129,7 @@
  * Activa timer para que se ejecute cada minuto (60000 milisegundos = 60 segundos)
  *******************************************************************************/
     /* Lo ejecuta la primera vez que carga */
-    setTimeout(SetDate,500);
+    setTimeout(SetDate,800);
     
     /* Agrega intervalo 50000 = 50 segundos*/
     

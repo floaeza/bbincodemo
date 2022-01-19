@@ -1939,15 +1939,16 @@ function GetProgramsSerie(){
             if(ChannelsJsonToday.length === 0){
                 for(IndexP = 0; IndexP < ChannelsJson[Position].P_Length; IndexP++){
                     if(SeriesList[IndexS].titulo === ChannelsJson[Position].PROGRAMS[IndexP].TTLE){
-                        Debug('*-*-*-*-*- Encontro coincidencia: '+ChannelsJson[Position].PROGRAMS[IndexP].TTLE + ' ' +ChannelsJson[Position].PROGRAMS[IndexP].DBKY);
+                        //Debug('*-*-*-*-*- Encontro coincidencia: '+ChannelsJson[Position].PROGRAMS[IndexP].TTLE + ' ' +ChannelsJson[Position].PROGRAMS[IndexP].DBKY);
                         
                         REC_CHNL_POS = Position;
                         REC_PROG_POS = IndexP;
-                        Debug('::::::::::::::::::::::::: GetProgramsSerie::: ');
+                        //Debug('::::::::::::::::::::::::: GetProgramsSerie::: '+ IndexP);
                         CheckRecordings();
                     }
                 }
             }
+            updateSeries(SeriesList[IndexS].id_serie);
         }
     }
     Debug("-------> GetProgramsSerie");
@@ -2216,8 +2217,8 @@ function CheckRecordings() {
                 RecordingsToCheck = $.parseJSON(response);
                 GetRecordings();
                 //Debug('--------------------------------------->>0');
-                //Debug(REC_CHNL_POS);
-                //Debug(REC_PROG_POS);
+                Debug(REC_CHNL_POS);
+                Debug(REC_PROG_POS);
 
                 // Convierte a UTC el tiempo inicio de la grabacion que se quiere agregar
                 var ProgramYear = ChannelsJson[REC_CHNL_POS].DTNU.slice(0, 4),
@@ -2570,8 +2571,6 @@ function SetDeleteProgram(){
 
 function DeleteSerie(){
     LastPvrRowFocus = PvrRowFocus ;
-
-    //Debug('IndexSerieFocus: '+IndexSerieFocus);
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
@@ -2600,6 +2599,23 @@ function DeleteSerie(){
         }
     });
 }
+
+
+function updateSeries(id_serie){
+    //alert(id_serie);
+    $.ajax({
+        type: 'POST',
+        url: 'Core/Controllers/Recorder.php',
+        data: {
+            Option  : 'updateSerie',
+            SerieId : id_serie
+        },
+        success: function (response){
+            //Debug(parseJSON(response));
+        }
+    });
+}
+
 
 function GetWeatherPvr(){
 

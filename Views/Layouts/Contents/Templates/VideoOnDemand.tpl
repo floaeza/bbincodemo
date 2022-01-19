@@ -12,10 +12,9 @@
     
     <div id='PlayingOptions'>
         
-        <div class='ButtonPlaying'><i class='fa fa-undo-alt'></i></div>
-        <div class='ButtonPlaying'><i class='fa fa-play'></i></div>
-        <div class='ButtonPlaying'><i class='fa fa-pause'></i></div>
-        <div class='ButtonPlaying'><i class='fa fa-redo-alt'></i></div>
+        <div class='ButtonPlaying'><i class='fa fa-backward'></i></div>
+        <div class='ButtonPlaying'><i class='fa fa-play'></i><i class='fa fa-pause'></i></div>
+        <div class='ButtonPlaying'><i class='fa fa-forward'></i></div>
     </div>
 </div>
 
@@ -33,20 +32,30 @@
     </div>
 
     <div id='PanelLeft'>
-        <div id='Filter'></div>
+        
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+        <div class='OptionsFilter'></div>
+               
         <div id='ListFilters'>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
-            <div class='OptionsFilter'></div>
+            
         </div>
     </div>
 
     <div id='PanelRight'>
-        <div class='MoviesRow'></div>
         <div class='MoviesRow'></div>
         <div class='MoviesRow'></div>
     </div>
@@ -61,7 +70,7 @@
     <div class='MovieDuration'></div>
     <div class='Genders'></div>
     <div class='Year'></div>
-    <div class='Rating'></div>
+     <div class='Rating'></div> 
     <div class='MovieDescription'></div>
     
     <div class='Director'></div>
