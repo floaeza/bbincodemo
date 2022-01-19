@@ -286,7 +286,7 @@ function HideRecorderMessage(){
 
 function OpenPvr(){
     if(RecordingPanel === false){
-        Debug("#############OPENPVR##########");
+        //Debug("#############OPENPVR##########");
         IndexRecordedFocus  = -1;
         IndexRecordedProgFocus = 0;
         GetSchedules();
@@ -557,9 +557,9 @@ function SetRecordings(Direction){
         Debug('IF ALL');
         if(IndexRecordedFocus === -1){
             IndexRecorded = -1;
-            Debug('IndexRecordedFocus  ==  -1   ' + RecordingsList.length );
+            //Debug('IndexRecordedFocus  ==  -1   ' + RecordingsList.length );
         } else {
-            Debug('IndexRecordedFocus  !!==  -1');
+            //Debug('IndexRecordedFocus  !!==  -1');
             IndexRecorded = IndexRecordedFocus;
 
             if (Direction === 'up'){
@@ -581,7 +581,7 @@ function SetRecordings(Direction){
             }
         
             if(IndexRecorded < RecordingsList.length){
-                Debug('IndexRecorded < RecordingsList.length');
+                //Debug('IndexRecorded < RecordingsList.length');
                 if(RecordingsList[IndexRecorded].length > 2){
                     Icon = '<i class="fa fa-folder-open"></i>';
                     Title = 'serie';
@@ -2354,7 +2354,7 @@ function CheckRecordings() {
                                 if (ProgramUtcStartDate < ProgramUtcStartDate_DB) {
                                     // 0 Coincidences
                                 }
-                                if(ProgramUtcStartDate <= ProgramUtcEndDate_DB && ProgramUtcStartDate >= ProgramUtcStartDate_DB){
+                                if(ProgramUtcStartDate < ProgramUtcEndDate_DB && ProgramUtcStartDate >= ProgramUtcStartDate_DB){
                                     Coincidences++;
                                 }else
                                 /* Else esta en el mismo rango de la hora inicio y final */
@@ -2449,6 +2449,20 @@ function getActiveRecordings(RecordingsToOpen){
         }
     }
     return flag;
+}
+function setInfomirLog(DataPVRLog){
+    $.ajax({
+        type: 'POST',
+        url: 'Core/Controllers/Recorder.php',
+        data: {
+            Option: 'SendLog',
+            LogInfo: DataPVRLog
+        },
+        success: function (response) {
+            Debug('Log set');
+        }
+    });
+
 }
 
 function AddRecord(){

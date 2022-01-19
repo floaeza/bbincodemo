@@ -434,10 +434,13 @@ switch ($Option){
     case 'UpdateProgramOpera':
            
             $File     = !empty($_POST['File']) ? $_POST['File'] : '';
+            $Id     = !empty($_POST['Id']) ? $_POST['Id'] : '0';
             $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
             $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
             $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
+            
             $InfoUpdate =  array ('id_operacion' => $OperationId,
+                                    'id_stream'  => $Id,
                                     'grabacion_activa' => $ActiveRecording);
 
             $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';
@@ -532,6 +535,14 @@ switch ($Option){
 
         $Response = array($Result, $TypeResult);
     break;
+    case 'SendLog':
+        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : '';
+
+        $Commandfiles = 'sudo /usr/bin/python3 CreateLog.py '.$LogInfo;
+        echo $Commandfiles;
+        $command = escapeshellcmd($Commandfiles);
+        $output = shell_exec($command);
+        break;
 
 }
 

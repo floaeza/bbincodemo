@@ -8,7 +8,8 @@
 // Variables globales
 var PlayingChannel  = false,
     PlayingVod      = true,
-    PauseLive       = false;
+    PauseLive       = false,
+    URLLog          = '';
 
 var WindowMaxWidth  = 0,
     WindowMaxHeight = 0,
@@ -113,6 +114,12 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
     // Detiene el proceso de la reproduccion anterior
     Source = Source.replace('igmp','udp');
     Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
+    URLLog = Source;
+    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+        var x24Today = new Date();	
+        var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+        setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
+    }
     // Detiene el proceso de la reproduccion anterior
     StopVideo();
     Debug("Source "+ Source +" Port "+CheckPort);
@@ -147,6 +154,19 @@ function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
 
     // Actualiza la fecha inicio de la reproduccion del canal */
     StartDateChannel = new Date();
+}
+function PlayChannel2(url){
+    if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+        player.play({
+            uri: url,
+            solution: 'extTimeShift'
+        });
+    }else{
+        player.play({
+            uri: url,
+            solution: 'auto'
+        }); 
+    }
 }
 
 /* *****************************************************************************
@@ -356,10 +376,6 @@ function DualPlay(){
 }
 
 function SwapPlayers(){
-
-//            player2.videoWindowMode = 1;
-//            player.videoWindowMode = 2;
-
     Debug('--------------> SwapPlayers > Swap = '+Swap);
     if(Swap === false){
         Debug('--------------> SwapPlayers > FALSE ');
@@ -369,8 +385,6 @@ function SwapPlayers(){
         Debug('--------------> SwapPlayers > stbPlayerManager.swap ');
         Swap = true;
         Debug('--------------> SwapPlayers > Swap = '+Swap);
-
-
         IndexPlaylist++;
         if(IndexPlaylist < LengthPlaylist){
             player.play({
@@ -392,7 +406,6 @@ function SwapPlayers(){
         }
     }
 }
-
 
 /* *****************************************************************************
  * Obtiene los tamanos maximos y minimos de la pantalla

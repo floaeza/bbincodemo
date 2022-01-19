@@ -25,7 +25,16 @@ function Blue(){
 }
 function Green(){
     
-    
+    var x24Today = new Date();	
+    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+    //var info2 = JSON.parse(info);
+    //var tasks   = JSON.parse(pvrManager.GetAllTasks());
+    //ShowRecorderMessage(tasks.lenght);
+    var inre = JSON.parse(pvrManager.GetTaskByID(0));
+    var name = inre.fileName, url = inre.url, endTime = inre.endTime, errorCode = inre.errorCode;
+    pvrManager.RemoveTask(0,1);
+    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',SIMULATION_ERROR_RECORD '+'-10');
+    restartTask(name, url, endTime, errorCode);
 }
 
 function Yellow(){
