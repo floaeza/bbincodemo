@@ -324,7 +324,9 @@ switch ($Option){
     case 'CheckProgramsToSchedule':
         $Response = $ProgramsData->getProgramsToSchedule($MacAddress);
         break;
-
+    case 'CheckProgramsToScheduleAfterReboot':
+        $Response = $ProgramsData->getProgramsToScheduleAfterReboot($MacAddress);
+        break;
     case 'UpdateProgramStatus':
 
         $ProgramId   = !empty($_POST['ProgramId']) ? $_POST['ProgramId'] : '';
@@ -439,10 +441,13 @@ switch ($Option){
     case 'UpdateProgramOpera':
            
             $File     = !empty($_POST['File']) ? $_POST['File'] : '';
+            $Id     = !empty($_POST['Id']) ? $_POST['Id'] : '0';
             $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
             $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
             $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
+            
             $InfoUpdate =  array ('id_operacion' => $OperationId,
+                                    'id_stream'  => $Id,
                                     'grabacion_activa' => $ActiveRecording);
 
             $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';

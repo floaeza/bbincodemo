@@ -1,4 +1,5 @@
 import sys
+# ip ='10.0.3.253'
 
 parametro = ' '.join(sys.argv[1:])
 parametro = parametro.strip()
@@ -23,3 +24,5 @@ except:
     file = open("/var/www/html/BBINCO/TV/Core/Controllers/logInformir.txt", "w")
     file.write(log + parametro[0] + ' | ' + parametro[1] + ' | ' + parametro[2] + ' | ' + parametro[3]+ '\n')
     file.close()
+
+

@@ -143,6 +143,19 @@ class Programs extends Database {
 
         return $this->ProgramsList;
     }
+    function getProgramsToScheduleAfterReboot($MacAddress) {
+        $this->Function = 'getProgramsToScheduleAfterReboot';
+
+        $this->connect();
+        $this->select("pvr_programas", "id_programa, file, titulo_programa, url_canal, utc_inicio, utc_final",
+            "", "", "", "",
+            "mac_address_pvr = '".$MacAddress."' AND id_operacion = '3' AND grabacion_activa = '0'");
+        $this->ProgramsList = $this->getResult();
+
+        $this->disconnect();
+
+        return $this->ProgramsList;
+    }
 
     function updateProgram($ProgramId, $ProgramInfo) {
         $this->Function = 'updateProgram';
