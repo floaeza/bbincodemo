@@ -890,24 +890,25 @@ function ShowInfo(){
     }
     
     function TvClose(){
-        
         if(RecorderMessageActive === false) {
             if (ActiveEpgContainer === true) {
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
-                    //HideInfo();
                     CloseEpg();
                 } else if (RecordingOptionsActive === true) {
                     CloseRecordingOptions();
                 } else if (RecordManualOptionsActive === true) {
                     CloseManualRecord();
                 }
-
             } else if (RecordingPanel === true) {
                 PvrClose();
+            }else{
+                ReturnLastChannel();
+                Debug('Se cambia de canal');
             }
         } else {
             HideRecorderMessage();
         }
+        
     }
     
     function TvInfo(){

@@ -25,10 +25,7 @@ class VideoOnDemand extends Database {
         } else {
             $this->select("vod_peliculas", "*","","","","","$Where"," '$Like' ","","$OrderBy $Order");
         }
-        
-        
         $this->VideoOnDemandList = $this->getResult();
-
         $this->disconnect();
 
         return $this->VideoOnDemandList;
@@ -127,16 +124,12 @@ class VideoOnDemand extends Database {
         
         return $this->VideoOnDemandList;
     }
-    
     function GetGendersList(){
         $this->Function = 'getGendersList';
         
-        $this->connect();
-        
+        $this->connect();   
         $this->select("vod_generos", "genero");
-        
         $Result= $this->getResult();
-        
         $this->VideoOnDemandList = array();
         foreach ($Result as $Row):
             array_push($this->VideoOnDemandList,$Row['genero']);
@@ -144,6 +137,23 @@ class VideoOnDemand extends Database {
 
         $this->disconnect();
 
+        return $this->VideoOnDemandList;
+    }
+
+    function GetMoviesByGender($Gender) {
+        $this->Function = 'getMoviesByGender';
+        
+        $this->connect();
+        $this->select("vod_pelicula_genero", "*", 
+                      "vod_peliculas ON vod_pelicula_genero.id_pelicula = vod_peliculas.id_pelicula", 
+                      "vod_generos ON vod_pelicula_genero.id_genero = vod_generos.id_genero","","",
+                      "genero = '".$Gender."' "
+                );
+
+        $this->VideoOnDemandList = $this->getResult();
+
+        $this->disconnect();
+        
         return $this->VideoOnDemandList;
     }
 }

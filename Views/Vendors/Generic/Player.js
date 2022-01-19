@@ -168,7 +168,11 @@
 
         }
     }
+    function AssetStatusVod(Duration){
+        if(PlayingRecording === true){
 
+        }
+    }
     function rebootInHour(){
         //HDMIstatus = ENTONE.stb.getHdmiStatus();
         //if(HDMIstatus.result.connected == false){

@@ -60,6 +60,20 @@ class Series extends Database {
         return $this->SeriesList;
     }
     
+    function updateSerie($SerieId) {
+        $this->Function = 'updateSerie';
+        
+        $this->connect();
+        $array = array("id_operacion" => 3);
+        $this->update("pvr_series", $array, "id_serie = '$SerieId'");
+        
+        $this->SeriesList = $this->getResult();
+        
+        $this->disconnect();
+
+        return $this->SeriesList;
+    }
+
     function getSeries($LocationId) {
         $this->Function = 'getSeries';
         

@@ -424,6 +424,20 @@
          }
     
 ///**/
+function SecondsToTimeVod(time) {
+    var hr = ~~((time/1000) / 3600),
+        min = ~~((time/1000) / 60),
+        sec = ~~((time/1000) % 60),
+        sec_min = '',
+        hrs = 0;
+    //alert(hr + " " + min + " " + sec);
+    if (hr > 0) {
+        sec_min += '' + hr + 'h ' + (min < 10 ? '0' : '');
+    }
+    sec_min += '' + (min - (60*hr)) + ':' + (sec < 10 ? '0' : '');
+    sec_min += '' + sec;
+    return sec_min+ ' min';
+}
 
 function secondsToString(seconds) {
     var hour = Math.floor(seconds / 3600);

@@ -18,7 +18,11 @@ window.stbEvent = {
             case 1:
                 //The player reached the end of the media content or detected a discontinuity of the stream
                 EventString = 'STATUS_END_OF_STREAM';
-
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
+                }
                 if(Executing === false){
                     UpdateQuickInfoDevice();
                 }
@@ -30,14 +34,22 @@ window.stbEvent = {
             case 2:
                 //Information on audio and video tracks of the media content is received
                 EventString = 'STATUS_PLAYING';
-
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',INFORMATION_RECEIVED '+URLLog);
+                }
                 Debug("---------------> " + EventString + " <---------------");
             break;
 
             case 4:
                 //Video and/or audio playback has begun
                 EventString = 'STATUS_PLAYING';
-
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_PLAYING '+URLLog);
+                }
                 if(Executing === false){
                     UpdateQuickInfoDevice();
                 }
@@ -46,6 +58,11 @@ window.stbEvent = {
             case 5:
                 //Error when opening the content: content not found on the server or connection with the server was rejected
                 EventString = 'STATUS_ERROR_STREAM';
+                if(gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:5b'){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_PLAYING '+URLLog);
+                }
                 Debug(EventString);
                 if(Executing === false){
                     UpdateQuickInfoDevice();
@@ -80,28 +97,39 @@ window.stbEvent = {
                 Debug('TimeShift mode is enabled. TimeShift data:', info);
                 break;
             case 39: //Task started recording.
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                     EventString = 'STATUS_START_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
                     var info2 = JSON.parse(info);
                     var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
                     UpdateProgramOpera(inre.fileName, '3', 'true');
                     UpdateDiskInfoInformir();
+                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_START_RECORD '+inre.fileName);
+
                     break;
             case 34: //Task has been finished successfully.
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                     EventString = 'STATUS_END_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
                     var info2 = JSON.parse(info);
                     var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
                     UpdateProgramOpera(inre.fileName, '4', 'false');
                     UpdateDiskInfoInformir();
+                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_END_RECORD '+inre.fileName);
                     break;
             case 35: //Task has been finished with error.
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                     EventString = 'STATUS_ERROR_RECORD';
                     Debug("---------------> " + EventString + " <---------------");
                     var info2 = JSON.parse(info);
                     var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
+                    Debug(inre.errorCode);
                     UpdateProgramOpera(inre.fileName, '2', 'false');
                     UpdateDiskInfoInformir();
+                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Hour+',STATUS_ERROR_RECORD '+inre.errorCode);
                     break;
         }
     },
@@ -131,7 +159,7 @@ function UpdateDiskInfoInformir(){
             LocationId : Device['LocationId'],
             MacAddress : gSTB.GetDeviceMacAddress(),
             TotalSize : USB[0].size / 1024,
-            AvailableSize : USB[0].freeSize / 1024,
+            AvailableSize : USB[0].freeSize / 1024, 
             SizeRecords : '320'
         },
         success: function (response){
@@ -213,7 +241,7 @@ function GetProgramsToScheduleInformir(){
             }
         }
     });
-    Debug('--------<< GetProgramsToSchedule');
+    //Debug('--------<< GetProgramsToSchedule');
 }
 
 
@@ -224,7 +252,7 @@ function GetProgramsToScheduleInformir(){
 
  function GetSchedulesToDeleteInformir(){
     
-    Debug('-------->> GetSchedulesToDelete');
+    //Debug('-------->> GetSchedulesToDelete');
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
@@ -264,7 +292,7 @@ function GetProgramsToScheduleInformir(){
         }
     });
     
-    Debug('--------<< GetSchedulesToDelete');
+    //Debug('--------<< GetSchedulesToDelete');
 }
 
 /*******************************************************************************
@@ -313,7 +341,7 @@ function DeleteProgramByFile(file){
             ActiveRecording: act
         },
         success: function (response){
-            Debug('----------UpdateProgramOpera----------');
+            //Debug('----------UpdateProgramOpera----------');
             Debug(response);
         }
     });
@@ -334,14 +362,14 @@ function UpdateProgramStatusInformir(ProgramId, OperationId, file){
             file : file,
         },
         success: function (response){
-            Debug('----------UpdateProgramStatusInformir----------');
+            //Debug('----------UpdateProgramStatusInformir----------');
             Debug(response);
         }
     });
 }
 
 function UpdateProgramStreamIdInformir(ProgramId, OperationId, StreamId){
-    Debug('--------->> UpdateProgramStreamid= '+ ProgramId + ', ' + OperationId + ', '+StreamId);
+    //Debug('--------->> UpdateProgramStreamid= '+ ProgramId + ', ' + OperationId + ', '+StreamId);
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
@@ -352,7 +380,7 @@ function UpdateProgramStreamIdInformir(ProgramId, OperationId, StreamId){
             StreamId : (StreamId == 0)? '0':StreamId
         },
         success: function (response){
-            Debug('----------UpdateProgramStreamid----------');
+            //Debug('----------UpdateProgramStreamid----------');
             Debug(response);
         }
     });
@@ -370,7 +398,7 @@ function UpdateProgramDeleteInformir(ProgramId, OperationId, AssetId){
             AssetId : AssetId
         },
         success: function (response){
-            Debug('----------UpdateProgramDelete----------');
+            //Debug('----------UpdateProgramDelete----------');
             Debug(response);
         }
     });

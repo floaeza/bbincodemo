@@ -261,7 +261,12 @@ switch ($Option){
             $Response = array('Delete' => false, 'Message' => 'There was a problem, try again later');
         }
         break;
+    case 'UpdateSerie':
 
+        $SerieId = !empty($_POST['SerieId']) ? $_POST['SerieId'] : '';
+        $Result = $SeriesData->updateSerie($SerieId);
+        
+        break;
     case 'GetPvrInfo':
         $Response = $DiskData->getPvrInfo($LocationId, $MacAddress);
         break;
@@ -532,6 +537,14 @@ switch ($Option){
 
         $Response = array($Result, $TypeResult);
     break;
+    case 'SendLog':
+        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : '';
+
+        $Commandfiles = 'sudo /usr/bin/python3 CreateLog.py '.$LogInfo;
+        echo $Commandfiles;
+        $command = escapeshellcmd($Commandfiles);
+        $output = shell_exec($command);
+        break;
 
 }
 

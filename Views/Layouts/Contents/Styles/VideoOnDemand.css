@@ -128,16 +128,28 @@ div#Filter {
 }
 
 div.OptionsFilter {
+    
     width: 90%;
     text-align: center;
     font-size: 40px;
     line-height: normal;
     margin: 5%;
-    height: 19%;
+    height: 5%;
     border-radius: 5px;
     font-family: bebas;
 }
-
+div.OptionsFilterFocus {
+    
+    width: 90%;
+    background: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 40px;
+    line-height: normal;
+    margin: 5%;
+    height: 5%;
+    border-radius: 5px;
+    font-family: bebas;
+}
 /***************************** [ Peliculas derecha ] *****************************/
 
 
@@ -166,7 +178,25 @@ div.RowPoster img{
 
 div.RowPoster h3 {
     margin: 0;
+    color: #000;
+}
+div.RowGenre h6 {
+    margin: 0;
+    font-size: 33px;
+    border-radius: 10px;
     color: #fff;
+}
+div.RowGenreFocus h6 {
+    margin: 0;
+    font-size: 33px;
+    background: #fff;
+    border-radius: 10px;
+    color: rgb(0, 0, 0);
+}
+div.Category h6 {
+    margin-bottom: 00.5%;
+    font-size: 28px;
+    color: rgb(2, 163, 168);
 }
 
 /***************************** [ Panel pelicula ] *****************************/
