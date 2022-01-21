@@ -178,10 +178,10 @@
             $PackagesData->deletePackageID($PackageId);
             break;
         case 'InitialConfigurationInfomir':
-                    $Commandfiles = 'sudo /usr/bin/python3 InfomirGrabador.py '.$IpAddress.',register';
-                    echo $Commandfiles;
-                    $command = escapeshellcmd($Commandfiles);
-                    $output = shell_exec($command);
+            $Commandfiles = 'sudo /usr/bin/python3 /var/www/html/BBINCO/TV/Core/Controllers/InfomirGrabador.py '.$IpAddress.',register';
+            echo $Commandfiles;
+            $command = escapeshellcmd($Commandfiles);
+            $output = shell_exec($command);
             break;
 
     }

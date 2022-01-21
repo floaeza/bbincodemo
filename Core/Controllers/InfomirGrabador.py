@@ -9,6 +9,7 @@ print(parametro)
 
 parametro = parametro.split(',')
 
+
 if parametro[1] == 'register':
     client = paramiko.SSHClient()
     #client.load_system_host_keys()
@@ -16,10 +17,13 @@ if parametro[1] == 'register':
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.load_system_host_keys()
     client.connect(hostname=parametro[0], port='22', username='root',password='930920')
-    stdin, stdout, stderr = client.exec_command('cd /ram/media/* && mkdir -p records/ && httpd -p 8080 -h /media/')
+    stdin, stdout, stderr = client.exec_command("cd /ram/media/* && mkdir -p records/ && httpd -p 8080 -h /media")
     lines = stdout.readlines()
     # stdin, stdout, stderr = client.exec_command('mkdir records/')
     # lines = stdout.readlines()
+
+    #cd /ram/media/* && mkdir -p records/ && 
+
     print(lines)
     stdin.close()
     stdout.close()
@@ -32,7 +36,7 @@ elif parametro[1] == 'loading':
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.load_system_host_keys()
     client.connect(hostname=parametro[0], port='22', username='root',password='930920')
-    stdin, stdout, stderr = client.exec_command('httpd -p 8080 -h /media/')
+    stdin, stdout, stderr = client.exec_command('httpd -p 8080 -h /media')
     lines = stdout.readlines()
     # stdin, stdout, stderr = client.exec_command('mkdir records/')
     # lines = stdout.readlines()

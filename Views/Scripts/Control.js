@@ -223,7 +223,7 @@ var CheckInfo = 0;
                                 TvChannelUp();
                                 setTimeout(function(){
                                     DelayChangeChannel = false;
-                                },500);
+                                },1000);
                             }
                         }
                     }
@@ -244,7 +244,7 @@ var CheckInfo = 0;
                                 TvChannelDown();
                                 setTimeout(function(){
                                     DelayChangeChannel = false;
-                                },500);
+                                },1000);
                             }
                             //TvChannelDown();
                         }

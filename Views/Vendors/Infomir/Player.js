@@ -114,11 +114,11 @@
         // Detiene el proceso de la reproduccion anterior
         Source = Source.replace('igmp','udp');
         Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
-        URLLog = Source;
+        URLLog = Source+CheckPort;
         if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
             var x24Today = new Date();	
             var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-            setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
+            setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog+CheckPort);
         }
         // Detiene el proceso de la reproduccion anterior
         StopVideo();
@@ -176,25 +176,26 @@
     function PlayDigitalChannel(Source){
         // Detiene el proceso de la reproduccion anterior
         StopVideo();
-
+        Debug('HASTA AQUI TODO BIEN STOP');
         // Reproduce el video
+        Debug('Digital '+ Source);
         player.play({
             uri: Source,
-            solution: 'auto'
+            solution: 'ffrt3'
         });
-
-        player.onPlayStart = function () {
-            ImageDigital.src = '';
-            ImageDigital.style.display = 'none';
-        };
+        Debug('HASTA AQUI TODO BIEN PLAY');
+        //player.onPlayStart = function () {
+            //ImageDigital.src = '';
+            //ImageDigital.style.display = 'none';
+        //};
 
         player.onPlayEnd = function () {
-            SetDigitalChannel();
+            GetDigitalChannel();
         };
-
+        Debug('HASTA AQUI TODO BIEN ONEND');
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
-
+        Debug('HASTA AQUI TODO BIEN MAXIMIZE');
         // Activamos la bandera
         PlayingChannel = true;
 
@@ -202,9 +203,10 @@
         if(StartDateChannel !== ''){
             SetChannelStatistics();
         }
-
+        Debug('HASTA AQUI TODO BIEN SET');
         // Actualiza la fecha inicio de la reproduccion del canal */
         StartDateChannel = new Date();
+        Debug('HASTA AQUI TODO BIEN DATE');
     }
 
     /* *****************************************************************************

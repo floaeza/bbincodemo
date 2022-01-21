@@ -10,10 +10,10 @@
     
     $CurrentController = 'ModulesController';
     
-    $Option = !empty($_POST['Option']) ? $_POST['Option'] : '';
+    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'getDigitalChannel';
     $Option2 = !empty($_POST['Option2']) ? $_POST['Option2'] : '';
     $ModuleId = !empty($_POST['ModuleId']) ? $_POST['ModuleId'] : '';
-    $ModuleName = !empty($_POST['ModuleName']) ? $_POST['ModuleName'] : '';
+    $ModuleName = !empty($_POST['ModuleName']) ? $_POST['ModuleName'] : 'Realestate';
     $MacAddress = !empty($_POST['MacAddress']) ? $_POST['MacAddress'] : '';
     $ProjectId = !empty($_POST['ProjectId']) ? $_POST['ProjectId'] : '';
     
@@ -62,7 +62,7 @@
             foreach ($list as $fileName){
                 $Ext = explode('.', $fileName);
 
-                if($Ext[1] === 'm3u8'){
+                if($Ext[1] === 'mp4'){
                     array_push($Result, $fileName);
                 }
             }

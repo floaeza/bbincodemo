@@ -149,7 +149,7 @@ class Programs extends Database {
         $this->connect();
         $this->select("pvr_programas", "id_programa, file, titulo_programa, url_canal, utc_inicio, utc_final",
             "", "", "", "",
-            "mac_address_pvr = '".$MacAddress."' AND id_operacion = '3' AND grabacion_activa = '0'");
+            "mac_address_pvr = '".$MacAddress."' AND id_operacion = '3'");
         $this->ProgramsList = $this->getResult();
 
         $this->disconnect();

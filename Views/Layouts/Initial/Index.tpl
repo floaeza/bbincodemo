@@ -186,13 +186,14 @@
             Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)?'Y':'N';
             Vendor      = gSTB.GetDeviceVendor();
             IpAddress   = gSTB.RDir('IPAddress');
+            
             if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') {
                 $.ajax({
                         type: "POST",
                         url: '/BBINCO/TV/Core/Controllers/Packages.php',
                         data: { 
-                            Option    : 'InitialConfigurationInfomir',
-                            IpAddress : IpAddress,
+                           Option    : 'InitialConfigurationInfomir',
+                           IpAddress : IpAddress,
                         }, 
                         async: false,
                         success: function (response) {

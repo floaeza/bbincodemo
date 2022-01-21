@@ -26,13 +26,13 @@ window.stbEvent = {
                 }
                 if(PlayingRecording == true){
                     OpenRecordPlayOptions();
-                }else if(PlayingChannel == true){
+                }else if(PlayingChannel == true && ActiveDigitalChannel==false){
                     if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
                     }
-                    setTimeout(PlayChannel2(URLLog),3000);
+                    setTimeout(PlayChannel2(URLLog),5000);
                 }
             break;
 
@@ -69,12 +69,19 @@ window.stbEvent = {
                     UpdateQuickInfoDevice();
                 }
                 if(PlayingChannel == true){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_STREAM '+URLLog);
                     }
-                    setTimeout(PlayChannel2(URLLog),3000);
+                    if(ActiveDigitalChannel==true){
+                        SetDigitalChannel();
+                    }else{
+                        setTimeout(PlayChannel2(URLLog),5000);
+                    }
+                    
+                }else if(ActiveDigitalChannel==true){
+                    SetDigitalChannel();
                 }
             break;
 
@@ -200,7 +207,7 @@ function UpdateDiskInfoInformir(){
 }
 
 function restartTask(name, url, endTime, errorCode){
-    var Start =Math.ceil((Date.now()/1000)+5);
+    var Start =Math.ceil((Date.now()/1000)+10);
     endTime = Math.ceil(endTime);
     Start = Start.toString();
     endTime = endTime.toString();
@@ -329,6 +336,7 @@ function GetProgramsToScheduleAfterRebootInformir(){
                 End = parseFloat(ProgramsToSchedule[Indexps]['utc_final']);
                 Start =Math.ceil(Start);
                 End = Math.ceil(End);
+                archivo = ProgramsToSchedule[Indexps]['file'];
 
                 Start = Start.toString();
                 End = End.toString();
@@ -349,15 +357,27 @@ function GetProgramsToScheduleAfterRebootInformir(){
                         reco.push(tas[x]);
                     }
                 }
+                var NewTask = null;
 
-                var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".ts", Start, End)
+                if(archivo == '' || archivo == null){
+                    archivo = USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".ts";
+                }
+                NewTask = pvrManager.CreateTask(Source, archivo, Start, End);
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
-                    Debug('> Fail new schedule');
-                    ShowRecorderMessage('An error occurred while recording '+ Title+', try again. If the problem persists contact the administrator.');
+                    if(NewTask==(-5) || NewTask==(-6)){
+                        ResultDelete = gSTB.RDir('RemoveFile "'+archivo);
+                        ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.tmp.ts"');
+                        if(pvrManager.CreateTask(Source, archivo, Start, End)<0){
+                            ShowRecorderMessage('An error occurred while recording '+ Title+', try again. If the problem persists contact the administrator.');
+                        }
+                    }else{
+                        ShowRecorderMessage('An error occurred while recording '+ Title+', try again. If the problem persists contact the administrator.');
+                        DeleteProgramInformir(ProgramId);
+                    }
                     
-                    DeleteProgramInformir(ProgramId);
-                } else {
+                
+                }else {
                     var tasks = JSON.parse(pvrManager.GetAllTasks());
                     Debug(tasks[tasks.length-1].id);
                     Debug('New schedule added, streamid = '+tasks[tasks.length-1].id);

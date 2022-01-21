@@ -282,7 +282,7 @@ function SetChannel(NewDirection){
             ////Debug('STTN::: '+ChannelsJson[ChannelPosition].STTN);
 
             ////Debug('SRCE::: '+Source + ' : '+Port);
-
+            //ShowRecorderMessage('CHANNEL UPP DOWN '+ChannelPosition);
             if(ChannelsJson[ChannelPosition].STTN !== 'CONTENT'){
                 if(ActiveDigitalChannel === true){
                     CloseDigitalChannel();
@@ -291,7 +291,7 @@ function SetChannel(NewDirection){
                 //alert('Source: '+ Source +' Port: ' +Port);
                 //PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                 if(load){
-                    load = false;
+                    
                     
                     //window.onload=function() {
                     //    alert();    
@@ -307,6 +307,7 @@ function SetChannel(NewDirection){
                              /* TvFunctions por marca */  
                         }
                     });
+                    load = false;
                 }else{
                     if(window.tizen !== undefined){
                         PlayChannel(Source, Port);
@@ -316,12 +317,29 @@ function SetChannel(NewDirection){
                     }
                 }
                 
-                
                 //PlayChannel(Source, Port);   /* TvFunctions por marca */
             } else {
-                ////Debug('GetDigitalChannel');
+                Debug('GetDigitalChannel');
                 //if(typeof(gSTB) !== 'undefined'){
-                    GetDigitalChannel();
+                    //alert(ChannelsJson[ChannelPosition].STTN);
+                    // if(load){
+                    //     //window.onload=function() {
+                    //     //    alert();    
+                    //     //    PlayChannel(Source, Port);   /* TvFunctions por marca */
+                    //     //}
+                    //     $(document).ready(function(){
+                            //your code
+                            GetDigitalChannel();
+                    //     });
+                    //     load = false;
+                    // }else{
+                    //     ActiveDigitalChannel = true;
+                    //     SetDigitalChannel();
+    
+                    //     // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
+                    //     ShowInfo();
+                    // }
+                    
                 // } else {
                     //  SetFrame();
                 // }
@@ -339,14 +357,13 @@ function GetDigitalChannel(){
 
     var GetModule = ChannelsJson[ChannelPosition].INDC;
 
-        DigitalSource = Libraries['MultimediaSource'] + GetModule + '/';
-        DigitalImgSource = '../../Multimedia/' + GetModule + '/';
+    DigitalSource = Libraries['MultimediaSource'] + GetModule + '/';
+    DigitalImgSource = '../../Multimedia/' + GetModule + '/';
 
-
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
-        async: false,
         url: ServerSource + 'Core/Controllers/Template.php',
+        async:false,
         data: {
             Option : 'getDigitalChannel',
             ModuleName : GetModule
@@ -357,8 +374,8 @@ function GetDigitalChannel(){
             
         }
     });
-    xhr = null;
-    SetDigitalChannel();
+    setTimeout(SetDigitalChannel(),1000);
+    
     
     // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
     ShowInfo();
@@ -371,27 +388,31 @@ function SetDigitalChannel(){
     if(ActiveDigitalChannel === true){
         if(DigitalContent.length > 0){
             var FileType = DigitalContent[IndexDigital].split('.')[1];
+           // ImageDigital.src = '';
+            //ImageDigital.style.display = 'none';
 
-            if(FileType === 'm3u8'){
+            if(FileType === 'mp4'){
                 clearTimeout(IntervalDigital);
 
                 ImageDigital.src = '';
                 ImageDigital.style.display = 'none';
                 ////Debug("Antes de reproducir el canal");
-                if(load){
-                    load = false;
-                    $(document).ready(function(){
-                        //your code
-                        PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
-                    });
-                        //PlayChannel(Source, Port);   /* TvFunctions por marca */
-                }else{
-                    PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
-                }
+                // if(load){
+                    
+                //     //$(document).ready(function(){
+                //         //your code
+                //         PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
+                        
+                //     //});
+                //    load = false;
+                //       //PlayChannel(Source, Port);   /* TvFunctions por marca */
+                //  }else{
+                     PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
+                // }
                 
-                
+                    Debug('Hasta aqui todo bien FINAL');
             } else {
-
+                
                 ImageDigital.src = DigitalSource+DigitalContent[IndexDigital];
                 ImageDigital.style.display = 'inline';
 
@@ -501,14 +522,15 @@ function CloseFrame(){
                     ////Debug('PlayChannel:: '+Source);
                     //PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                     if(load){
-                        load = false
+                       
                         $(document).ready(function(){
                             //your code
                             if(window.tizen !== undefined)  
-                            PlayChannel(Source, Port);
+                                PlayChannel(Source, Port);
                             else
-                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);  /* TvFunctions por marca */
+                                PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);  /* TvFunctions por marca */
                         });
+                        load = false;
                     }else{
                         if(window.tizen !== undefined){
                             PlayChannel(Source, Port);
@@ -517,7 +539,8 @@ function CloseFrame(){
                     }
                     
                 } else {
-                    SetDigitalChannel();
+                    Debug('');
+                    GetDigitalChannel();
                 }
             } else {
                 ////Debug('ELSE LCP === CP:: '+LastChannelPosition +' !== '+ ChannelPosition);
@@ -809,8 +832,9 @@ function ShowInfo(){
     
     
     function PlayChannelEpg(){
-        ChannelPosition = FocusChannelPosition;
 
+        ChannelPosition = FocusChannelPosition;
+        //ShowRecorderMessage('PlayChannelEpg '+ChannelPosition);
         CloseEpg();
 
         var Source = ChannelsJson[ChannelPosition].SRCE,
@@ -825,7 +849,7 @@ function ShowInfo(){
             }
             //PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
             if(load){
-                load = false
+                
                 $(document).ready(function(){
                     //your code
                     if(window.tizen !== undefined){
@@ -833,6 +857,7 @@ function ShowInfo(){
                     }else
                     PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
                 });
+                load = false;
             }else{
                 if(window.tizen !== undefined){
                     PlayChannel(Source, Port);
@@ -840,9 +865,23 @@ function ShowInfo(){
                 PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
             }
         } else {
-            ////Debug('GetDigitalChannel EPG');
+            Debug('##################GetDigitalChannel EPG##############');
             //if(typeof(gSTB) !== 'undefined'){
-            SetDigitalChannel();
+            //GetDigitalChannel();
+            //if(load){
+                //window.onload=function() {
+                //    alert();    
+                //    PlayChannel(Source, Port);   /* TvFunctions por marca */
+                //}
+                    //your code
+                 GetDigitalChannel();
+            //     load = false;
+            // }else{
+            //     ActiveDigitalChannel = true;
+            //     SetDigitalChannel();
+            //     // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
+            //     ShowInfo();
+            // }
         }  
     }
     
