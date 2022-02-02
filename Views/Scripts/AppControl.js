@@ -14,15 +14,30 @@ function InitialDataAppControl(){
         // @ts-ignore
         MacAddressAppControl  = gSTB.GetDeviceMacAddress();
         //alert(MacAddressAppControl);
-    }           
-}
-
-function DBAppControl(){
-    // @ts-ignore
+    }  
     
     $.ajax({
         type: "POST",
-        url: 'BBINCO/TV/Core/Controllers/Firebase.php',
+        url: 'Core/Controllers/Firebase.php',
+        data: { 
+            Option    : 'GetDeviceByMac',
+            mac_address: MacAddressAppControl
+        }, 
+        async: false,
+        success: function (response) {
+            // @ts-ignore
+            STBControll  = $.parseJSON(response);
+            //alert(STBControll);
+        }
+    });
+    
+}
+
+function DBAppControl(){
+    // @ts-ignore   
+    $.ajax({
+        type: "POST",
+        url: 'Core/Controllers/Firebase.php',
         data: { 
             Option    : 'GetControllByMac',
             mac_address: MacAddressAppControl
@@ -209,7 +224,7 @@ function ChangeAppControl(){
 
             $.ajax({
                 type: "POST",
-                url: 'BBINCO/TV/Core/Controllers/Firebase.php',
+                url: 'Core/Controllers/Firebase.php',
                 data: { 
                     Option    : 'UpdateControlByMac',
                     mac_address: MacAddressAppControl
@@ -220,22 +235,11 @@ function ChangeAppControl(){
 }
 InitialDataAppControl();
 // @ts-ignore
-$.ajax({
-    type: "POST",
-    url: 'BBINCO/TV/Core/Controllers/Firebase.php',
-    data: { 
-        Option    : 'GetDeviceByMac',
-        mac_address: MacAddressAppControl
-    }, 
-    async: false,
-    success: function (response) {
-        // @ts-ignore
-        STBControll  = $.parseJSON(response);
-    }
-});
-//lert(STBControll[0]['CON']);
+
+
+//alert(STBControll[0]['CON']);
 if(STBControll[0]['CON']=="1"){
-    DBAppControl();
+   DBAppControl();
 }
 
      

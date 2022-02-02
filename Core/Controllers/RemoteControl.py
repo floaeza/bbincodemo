@@ -23,7 +23,7 @@ IDF = json.loads(Identifier.content)
 IDF = IDF[0]
 
 #identificador = IDF['IDF']
-identificador = 'VPL'
+identificador = 'VDM'
 print(identificador)
 numPaquetes = 0
 
@@ -69,15 +69,15 @@ def on_snapshot(col_snapshot, changes, read_time):
                 #print(json.loads(var.content))
                 update = db.collection(identificador).document(f'{change.document.id}')
                 update.update({u'status': 'pendingServer'})
-                print('Orden 66 Ejecutada')
+                #print('Orden 66 Ejecutada')
             
             #stbb.reference.delete()
             
 
         elif change.type.name == 'MODIFIED':
-            print("MODIFIED")
+            continue
         elif change.type.name == 'REMOVED':
-            print(f'Removed: {change.document.id}')
+            #print(f'Removed: {change.document.id}')
             delete_done.set()
 
 col_query = db.collection(identificador)

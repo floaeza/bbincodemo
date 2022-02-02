@@ -118,7 +118,7 @@
         if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
             var x24Today = new Date();	
             var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-            setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog+CheckPort);
+            setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
         }
         // Detiene el proceso de la reproduccion anterior
         StopVideo();
@@ -247,9 +247,10 @@
                 Debug('--------------->>> '+Source);
                 //Reproduce el video
                 //alert(Source);
+                //ShowRecorderMessage(Source);
                 player.play({
                     uri: Source,
-                    solution: 'ffrt3'
+                    solution: 'auto'
                 });
                 player.onTracksInfo = function () {
                     Debug('Information on audio and video tracks of the media content is received.');
@@ -259,7 +260,7 @@
             }
         } else {
             //Reproduce el video
-
+            //ShowRecorderMessage('as');
             //alert(Source);
             player.play({
                 uri: Source,

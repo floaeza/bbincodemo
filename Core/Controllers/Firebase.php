@@ -14,8 +14,8 @@
     $CurrentController = 'DeviceController';
     
     $ArrayDeviceInfo = array();
-    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'GetControllByMac';
-    $MacAddress = !empty($_POST['mac_address']) ? $_POST['mac_address'] : '00:1a:79:6c:cc:3e';
+    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'GetDeviceByMac';
+    $MacAddress = !empty($_POST['mac_address']) ? $_POST['mac_address'] : '00:00:00:00:00:00';
     $IDGuest = !empty($_POST['IDGuest']) ? $_POST['IDGuest'] : '';
     $guest = !empty($_POST['guest']) ? $_POST['guest'] : '';
     $orden = !empty($_POST['orden']) ? $_POST['orden'] : '';

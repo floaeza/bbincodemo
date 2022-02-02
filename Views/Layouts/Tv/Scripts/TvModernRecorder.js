@@ -592,8 +592,14 @@ function SetRecordings(Direction){
                     Title = 'rec';
 
                     if(RecordingsList[IndexRecorded][1].active === '1'){
-                        ActiveRec = ' (recording)';
-                        Icon = '<i class="fa fa-circle" id="IconRecording"></i>';
+                        if(RecordingsList[IndexRecorded][1].operacion === '3'){
+                            ActiveRec = ' (recording)';
+                            Icon = '<i class="fa fa-circle" id="IconRecording"></i>';
+                        }else{
+                            ActiveRec = ' (building)';
+                            Icon = '<i class="fa fa-circle" id="IconRecording"></i>';
+                        }
+                        
                     } else {
                         LastChr = RecordingsList[IndexRecorded][1].url;
                         //alert(RecordingsList[IndexRecorded][1][0]);
@@ -749,8 +755,8 @@ function SelectRecordOption(){
             ClearSpeed();
 
             GetPvrInfo();
-            if(typeof(gSTB) !== 'undefined' && RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4'){
-                ShowRecorderMessage('This recording is not yet available');
+            if(typeof(gSTB) !== 'undefined' && (RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4' || RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].active == '1') ){
+                ShowRecorderMessage('This recording is not yet available, please wait');
             }else{
                 if(parseInt(DiskInfo[DiskInfoIndex].rtsp_conexiones) >= 4){
                     ShowRecorderMessage('All connections to your recorder are active, please wait or close a connection');
@@ -2466,6 +2472,21 @@ function setInfomirLog(DataPVRLog){
 
 }
 
+function setRecorderFiles(RecorderFiles){
+    $.ajax({
+        type: 'POST',
+        url: 'Core/Controllers/Recorder.php',
+        data: {
+            Option: 'RecorderFiles',
+            FilesData: RecorderFiles
+        },
+        success: function (response) {
+            Debug('Log set');
+        }
+    });
+
+}
+
 function AddRecord(){
     SetMacAddressPvr();
     $.ajax({
@@ -2525,11 +2546,11 @@ function SetDeleteProgram(){
         },
         success: function (response){
 
-            Response = $.parseJSON(response);
+            response = $.parseJSON(response);
 
-            ShowRecorderMessage(Response.Message);
+            ShowRecorderMessage(response.Message);
 
-            if(Response.Update === true && PlayingRecording === false){
+            if(response.Update === true && PlayingRecording === false){
 
                 if(OptionPanel === 'Recordings'){
                     GetRecordings();
@@ -2580,11 +2601,11 @@ function DeleteSerie(){
         },
         success: function (response){
 
-            Response = $.parseJSON(response);
+            response = $.parseJSON(response);
 
-            ShowRecorderMessage(Response.Message);
+            ShowRecorderMessage(response.Message);
 
-            if(Response.Delete === true){
+            if(response.Delete === true){
 
                 GetSeries();
 

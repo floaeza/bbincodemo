@@ -457,6 +457,23 @@ switch ($Option){
     
             $Response = array($Result, $TypeResult);
             break;
+        case 'UpdateProgramOperaPython':
+        
+            $File     = !empty($_POST['File']) ? $_POST['File'] : '';
+            $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
+            $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
+            $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
+            
+            $InfoUpdate =  array ('id_operacion' => $OperationId,
+                                    'grabacion_activa' => $ActiveRecording);
+
+            $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';
+
+            $Result = $ProgramsData->updateProgramByFile($File, $InfoUpdate);
+    
+    
+            $Response = array($Result, $TypeResult);
+            break;
     case 'UpdateProgramAssetTest':
 
         $ProgramId   = !empty($_POST['ProgramId']) ? $_POST['ProgramId'] : '4876';
@@ -544,13 +561,18 @@ switch ($Option){
     break;
     case 'SendLog':
         $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : '';
-
         $Commandfiles = 'sudo /usr/bin/python3 CreateLog.py '.$LogInfo;
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);
         break;
-
+    case 'RecorderFiles':
+        $FilesData   = !empty($_POST['FilesData']) ? $_POST['FilesData'] : '';
+        $Commandfiles = 'sudo /usr/bin/python3 RecorderFiles.py \|'.$FilesData.'';
+        echo $Commandfiles;
+        $command = escapeshellcmd($Commandfiles);
+        $output = shell_exec($command);
+        break;
 }
 
 

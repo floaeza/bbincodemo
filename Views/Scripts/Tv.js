@@ -940,7 +940,7 @@ function ShowInfo(){
                 }
             } else if (RecordingPanel === true) {
                 PvrClose();
-            }else{
+            }else if(PlayingRecording===false){
                 ReturnLastChannel();
                 Debug('Se cambia de canal');
             }

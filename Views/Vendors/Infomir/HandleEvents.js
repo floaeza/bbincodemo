@@ -27,7 +27,7 @@ window.stbEvent = {
                 if(PlayingRecording == true){
                     OpenRecordPlayOptions();
                 }else if(PlayingChannel == true && ActiveDigitalChannel==false){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
@@ -39,7 +39,7 @@ window.stbEvent = {
             case 2:
                 //Information on audio and video tracks of the media content is received
                 EventString = 'INFORMATION_RECEIVED';
-                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
                     var x24Today = new Date();	
                     var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                     setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',INFORMATION_RECEIVED '+URLLog);
@@ -50,7 +50,7 @@ window.stbEvent = {
             case 4:
                 //Video and/or audio playback has begun
                 EventString = 'STATUS_PLAYING';
-                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
                     var x24Today = new Date();	
                     var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                     setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_PLAYING '+URLLog);
@@ -69,19 +69,19 @@ window.stbEvent = {
                     UpdateQuickInfoDevice();
                 }
                 if(PlayingChannel == true){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_STREAM '+URLLog);
                     }
                     if(ActiveDigitalChannel==true){
-                        SetDigitalChannel();
-                    }else{
+                        GetDigitalChannel();
+                    }else if(PlayingRecording==false){
                         setTimeout(PlayChannel2(URLLog),5000);
                     }
                     
                 }else if(ActiveDigitalChannel==true){
-                    SetDigitalChannel();
+                    GetDigitalChannel();
                 }
             break;
 
@@ -122,7 +122,7 @@ window.stbEvent = {
                     var file = inre.fileName;
                     //ShowRecorderMessage(file);
                     if(isNaN(file.charAt(file.length - 1))){
-                       UpdateProgramOpera(file, inre.id, '3', 'true'); 
+                        UpdateProgramOpera(file, inre.id, '3', 'true'); 
                     }else{
                         file = file.substring(0, file.length - 1);
                         UpdateProgramOpera(file, inre.id, '3', 'true'); 
@@ -144,11 +144,32 @@ window.stbEvent = {
                     if(isNaN(file.charAt(file.length - 1))){
                        UpdateProgramOpera(file, inre.id, '4', 'false'); 
                     }else{
+                        var cantidad = parseInt(file.charAt(file.length - 1));
+                        var cadena = '';
+                        var file_name = '';
                         file = file.substring(0, file.length - 1);
-                        UpdateProgramOpera(file, inre.id, '4', 'false'); 
+                        file_name = file.substring(7,file.length);
+                        var na = file_name.split("/");
+                        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',NOMBRE_DEL_ARCHIVO '+na[na.length-1]);
+                        for(x = 0; x<=cantidad; x++){
+                            if( x===0 ){
+                                cadena = cadena+ "http://"+gSTB.RDir('IPAddress')+":8080/"+file_name+","+na[na.length-1]+"|";
+                            }else if(x<cantidad){
+                                cadena = cadena + "http://"+gSTB.RDir('IPAddress')+":8080/"+file_name+x+","+na[na.length-1]+x+"|";
+                            }else{
+                                cadena =cadena + "http://"+gSTB.RDir('IPAddress')+":8080/"+file_name+x+","+na[na.length-1]+x+"#"+gSTB.RDir('IPAddress');
+                            }
+                        }
+                        //alert(cadena);
+                        UpdateProgramOpera(file, inre.id, '4', 'true');
+                        setRecorderFiles(cadena);
                     }
                     UpdateDiskInfoInformir();
-                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+inre.fileName);
+                    if(typeof(cadena)=='undefined'){
+                        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+inre.fileName);
+                    }else{
+                        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+cadena);
+                    }
                     break;
             case 35: //Task has been finished with error.
                     var x24Today = new Date();	
@@ -160,11 +181,11 @@ window.stbEvent = {
                     Debug(inre.errorCode);
                     //UpdateProgramOpera(inre.fileName, '2', 'false');
                     UpdateDiskInfoInformir();
-                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_RECORD '+inre.errorCode);
+                    setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_RECORD '+ inre.errorCode);
                     if(inre.errorCode == -10){
-                        restartTask(inre.fileName, inre.ulr, inre.endTime, inre.errorCode);
+                        restartTask(inre.fileName, inre.url, inre.endTime);
                     }else{
-                        ShowRecorderMessage('An error occurred with the recording, contact the administrator. \n\nError code: ' + errorCode);
+                        ShowRecorderMessage('An error occurred with the recording, contact the administrator. Error code: ' + errorCode);
                     }
                     break;
         }
@@ -206,13 +227,16 @@ function UpdateDiskInfoInformir(){
     ;
 }
 
-function restartTask(name, url, endTime, errorCode){
-    var Start =Math.ceil((Date.now()/1000)+10);
+function restartTask(name, url, endTime){
+    //ShowRecorderMessage("a");
+    var Start =Math.ceil((Date.now()/1000)+1);
     endTime = Math.ceil(endTime);
     Start = Start.toString();
     endTime = endTime.toString();
+    var errorCode;
     if(isNaN(name.charAt(name.length - 1))){
-        if(pvrManager.CreateTask(url, name+"1", Start, endTime)>-1){   
+        errorCode = pvrManager.CreateTask(url, name+"1", Start, endTime);
+        if(errorCode>-1){   
             //ShowRecorderMessage('La grabacion se actualizó ' + Start + ' ' + endTime);
         }else{
             ShowRecorderMessage('An error occurred with the recording, contact the administrator. \n\nError code: ' + errorCode);
@@ -221,7 +245,8 @@ function restartTask(name, url, endTime, errorCode){
         var num = parseInt(name.charAt(name.length - 1));
         num += 1;
         name = name.substring(0, name.length-1) + num;
-        if(pvrManager.CreateTask(url, name+num, Start, endTime)>-1){
+        errorCode = pvrManager.CreateTask(url, name, Start, endTime);
+        if(errorCode>-1){
             //ShowRecorderMessage('La grabacion se actualizó ' + num + ' veces');
         }else{
             ShowRecorderMessage('An error occurred with the recording, contact the administrator. \n\nError code: ' +errorCode);
@@ -358,16 +383,20 @@ function GetProgramsToScheduleAfterRebootInformir(){
                     }
                 }
                 var NewTask = null;
-
+                Title = Title.replace(/ /g, "_");
+                Title = Title.replace(/\//g, "");
+                Title = Title.replace(/\,/g, "");
+                Title = Title.replace(/\;/g, "");
+                Title = Title.replace(/\*/g, "");
                 if(archivo == '' || archivo == null){
-                    archivo = USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".ts";
+                    archivo = USB[0].mountPath+"/"+ProgramId+'_'+Title+'_'+Fecha+".ts";
                 }
                 NewTask = pvrManager.CreateTask(Source, archivo, Start, End);
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
                     if(NewTask==(-5) || NewTask==(-6)){
-                        ResultDelete = gSTB.RDir('RemoveFile "'+archivo);
-                        ResultDelete = gSTB.RDir('RemoveFile "'+ProgramsToDelete[Indexps].file+'.tmp.ts"');
+                        ResultDelete = gSTB.RDir('RemoveFile "'+archivo+'"');
+                        ResultDelete = gSTB.RDir('RemoveFile "'+archivo+'.tmp.ts"');
                         if(pvrManager.CreateTask(Source, archivo, Start, End)<0){
                             ShowRecorderMessage('An error occurred while recording '+ Title+', try again. If the problem persists contact the administrator.');
                         }
