@@ -455,7 +455,7 @@ var CheckInfo = 0;
                 case 55: // 7
                 case 56: // 8
                 case 57: // 9
-                    if(CurrentModule === 'Tv' && showInfoDevi == false){
+                    if(CurrentModule === 'Tv' && showInfoDevi == false && PlayingRecording == false){
                         NumericChange(PressedKey - 48);
                     }
                     break;

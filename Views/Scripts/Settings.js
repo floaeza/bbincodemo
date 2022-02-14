@@ -4,8 +4,7 @@
  * @CreadoPor: Tania Maldonado
  * @Fecha: Noviembre 2019
  *******************************************************************************/
-var Offset = 0,
-    xhr;
+var Offset = 0;
 
 if (window.tizen !== undefined) {
     var now = new tizen.TZDate(),
@@ -13,7 +12,7 @@ if (window.tizen !== undefined) {
 
     console.log('------------------------- NOW:::: '+now);
 
-    xhr = $.ajax({
+    $.ajax({
         cache: false,
         type: 'POST',
         url: 'http://'+ServerIp+'BBINCO/TV/Core/Models/Time.php',
@@ -33,7 +32,6 @@ if (window.tizen !== undefined) {
             ServerHour = null;
         }
     });
-    xhr = null;
 
     now = null;
     TvHour = null;
@@ -163,7 +161,7 @@ if (window.tizen !== undefined) {
     //Debug(ServerSource + 'Core/Controllers/Device.php');
 
     // Device
-    xhr = $.ajax({
+    $.ajax({
         cache: false,
         type: 'POST',
         async: false,
@@ -186,9 +184,8 @@ if (window.tizen !== undefined) {
               }
         }
     });
-    xhr = null;
     //Libraries
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         async: false,
         cache: false,
@@ -200,7 +197,6 @@ if (window.tizen !== undefined) {
             Libraries = $.parseJSON(response);
         }
     });
-    xhr = null;
     
     function UpdateInfoDevice(){
         //Debug('----------------> UpdateInfoDevice');
@@ -209,7 +205,7 @@ if (window.tizen !== undefined) {
         //Debug('----------------> EventString '+EventString);
         //Debug('----------------> EventHdmi '+EventHdmi);
         //Debug('----------------> Date '+CurrentStbDate);
-        xhr = $.ajax({
+        $.ajax({
             cache: false,
             type: 'POST',
             url: ServerSource + 'Core/Controllers/Device.php',
@@ -260,9 +256,6 @@ if (window.tizen !== undefined) {
                 Executing = false;
             }
         });
-
-        xhr = null;
-
         //Debug('----------------< UpdateInfoDevice');
     }
 
@@ -285,7 +278,7 @@ function UpdateQuickInfoDevice(){
     //Debug('----------------------------# LastChannel:: '+OnScreen);
     //Debug('----------------------------# Channelpos:: '+ChannelPosition);
 
-    xhr = $.ajax({
+    $.ajax({
         cache: false,
         type: 'POST',
         url: ServerSource + 'Core/Controllers/DeviceInfo.php',
@@ -319,6 +312,5 @@ function UpdateQuickInfoDevice(){
             //Debug('CT > Executing:: '+Executing);
         }
     });
-    xhr = null;
     //Debug('_______________________________________________________________________________________ UpdateQuickInfoDevice 2');
 }

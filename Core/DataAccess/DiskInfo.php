@@ -55,7 +55,7 @@ class DiskInfo extends Database {
         $this->connect();
         $this->select("pvr_info", "*", 
                       "", "", "", "", 
-                      "mac_address = '".$MacAddress."'");
+                      "mac_address = ".$MacAddress);
         $this->DiskInfoList = $this->getResult();
         
         $this->disconnect();
@@ -96,7 +96,6 @@ class DiskInfo extends Database {
     
     function updatePvrInfo($InfoUpdate, $MacAddress) {
         $this->Function = 'setPvrInfo';
-        
         $this->connect();
         $this->update("pvr_info", $InfoUpdate, "mac_address = '$MacAddress'");
         $this->DiskInfoList = $this->getResult();

@@ -20,7 +20,7 @@
 
         //Debug('------------------------- NOW:::: '+now);
 
-        xhr = $.ajax({
+        $.ajax({
             cache: false,
             type: 'POST',
             url: 'http://'+ServerIp+'BBINCO/TV/Core/Models/Time.php',
@@ -40,7 +40,6 @@
                 ServerHour = null;
             }
         });
-        xhr = null;
         now = null;
         TvHour = null;
     }

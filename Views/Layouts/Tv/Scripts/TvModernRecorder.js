@@ -755,7 +755,7 @@ function SelectRecordOption(){
             ClearSpeed();
 
             GetPvrInfo();
-            if(typeof(gSTB) !== 'undefined' && (RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4' || RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].active == '1') ){
+            if(typeof(gSTB) !== 'undefined' && (RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4') ){
                 ShowRecorderMessage('This recording is not yet available, please wait');
             }else{
                 if(parseInt(DiskInfo[DiskInfoIndex].rtsp_conexiones) >= 4){
@@ -763,7 +763,11 @@ function SelectRecordOption(){
                 } else {
                     UpdateRtspConnections('add');
     
-                    PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+                    if(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles === 0){
+                        PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+                    }else{
+                        PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles);
+                    }
     
                     //Debug('URL>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
     
@@ -1160,6 +1164,7 @@ function ClearInfoPanelPvr(){
  *******************************************************************************/
 
 function OpenRecordPlayOptions(){
+    
     if(PlayingRecording === true){
         RecordPlayOptionsActive = true;
 
@@ -2017,6 +2022,7 @@ function GetRecordingsToRecord(){
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
+        async: false,
         data: {
             Option     : 'RecordingsToRecord',
             LocationId : Device['LocationId']
@@ -2032,7 +2038,7 @@ function GetPvrInfo(){
     $.ajax({
         type: 'POST',
         cache: false,
-        //async: false,
+        async: false,
         url: 'Core/Controllers/Recorder.php',
         data: {
             Option     : (typeof(gSTB) !== 'undefined')?'GetPvrInfoInfomir':'GetPvrInfo',
@@ -2461,6 +2467,7 @@ function setInfomirLog(DataPVRLog){
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
+        async: false,
         data: {
             Option: 'SendLog',
             LogInfo: DataPVRLog

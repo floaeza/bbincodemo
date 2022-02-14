@@ -25,7 +25,7 @@ function Blue(){
     }
 }
 function Green(){
-    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:66'){
         var x24Today_qw = new Date();	
         var x24Hour_qw = x24Today_qw.getHours() + ':' + x24Today_qw.getMinutes() + ':' + x24Today_qw.getSeconds();
         var inre_qw = JSON.parse(pvrManager.GetTaskByID(0));
@@ -40,11 +40,7 @@ function Green(){
 }
 
 function Yellow(){
-    // player.play({
-    //     uri: '/media/USB-E0D55EA57493F560A93E1A6B-1/7319_Family_Troubles_undefined.ts',
-    //     solution: 'auto'
-    // }); 
-    // prueba = true;
+    
 }
 
 function Close(){

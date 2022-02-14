@@ -83,7 +83,7 @@ stdout.close()
 stderr.close()
 client.close()
 
-payload = {'Option': 'UpdateProgramOperaPython', 'File': '/media/'+file_db_[3]+"/"+file_db_[4], 'OperationId':'4', 'ActiveRecording': 'false'}
+payload = {'Option': 'UpdateProgramOperaPython', 'File': '/media/'+file_db_[3]+"/"+file_db_[4], 'Cantidad':'false', 'OperationId':'4', 'ActiveRecording': 'false'}
 Devices = requests.post('http://10.0.3.9/BBINCO/TV/Core/Controllers/Recorder.php', data=payload)
 #IDF = json.loads(Devices.content)
 #print(IDF)

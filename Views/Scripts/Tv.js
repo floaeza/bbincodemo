@@ -157,7 +157,6 @@ function GetJsonEpg(Sour, rest){
             ////Debug('------- GetJsonEpg -> ChannelsLength: '+ChannelsLength);
         },
         error: function (response){
-            //SendMail();
             if(rest!==-1){
                 if(rest<2){
                     rest++;
@@ -182,18 +181,6 @@ function GetJsonEpg(Sour, rest){
         }
     });
 }
-
-
-function SendMail(){
-    xhr = $.ajax({
-        cache: false,
-        async: false,
-        url: ServerSource + 'Core/Controllers/ErrorGuideMail.php',
-        Client: Device['Client']
-    });
-    xhr = null;
-}
-
 function CheckUpdatedJson(){
     if (typeof ChannelsJson[0].PROGRAMS === 'undefined') {
         // Regresa al respaldo
@@ -207,7 +194,7 @@ function CheckUpdatedJson(){
 }
 
 function GetJsonChannels(){ 
-    xhr = $.ajax({
+    $.ajax({
         type: 'POST',
         async: false,
         cache: false,
@@ -228,7 +215,6 @@ function GetJsonChannels(){
             }
         }
     });
-    xhr = null;
 }
     
 /*******************************************************************************
@@ -427,6 +413,7 @@ function SetDigitalChannel(){
                 IndexDigital = 0;
             }
         } else {
+            //ShowRecorderMessage('SetDigitalChannel');
             TvChannelUp();
         }
     }
@@ -1103,13 +1090,19 @@ function ShowInfo(){
     
     function TvStop(){
         if(PlayingRecording === true){
+            //ShowRecorderMessage('TvStop');
             OpenRecordPlayOptions();
         }
     }
     
     function TvForward(){
         if(PlayingRecording === true){
-            SetSpeed('forward');
+            //if(PlayingRecordPlaylist === true){
+            //    ShowRecorderMessage('The "forward" and "backward" options are not available in build mode');
+            //}else{
+                SetSpeed('forward');
+            //}
+            
         } else {
             if(Device['Type'] === 'PVR_ONLY' || Device['Type'] === 'WHP_HDDY'){
                 PauseLive = true;
@@ -1120,7 +1113,11 @@ function ShowInfo(){
     
     function TvBackward(){
         if(PlayingRecording === true){
-            SetSpeed('backward');
+            //if(PlayingRecordPlaylist === true){
+            //    ShowRecorderMessage('The "forward" and "backward" options are not available in build mode');
+            //}else{
+                SetSpeed('backward');
+            //}
         } else {
             if(Device['Type'] === 'PVR_ONLY' || Device['Type'] === 'WHP_HDDY'){
                 PauseLive = true;
@@ -1179,6 +1176,7 @@ function ShowInfo(){
                     OpenPvr();
                 }
             } else {
+                //ShowRecorderMessage('TvRecorder');
                 OpenRecordPlayOptions();
             }
         } else {
@@ -1212,6 +1210,7 @@ function TvGuide(){
             
             OpenEpg();
         } else {
+            //ShowRecorderMessage('TvGuide');
             OpenRecordPlayOptions();
         }
     }  else {
@@ -1220,6 +1219,7 @@ function TvGuide(){
 }
     
 function TvChannelUp(){
+    //ShowRecorderMessage('TvChannelUp');
     if(PlayingRecording === false){
         SetChannel('UP');
     } else {
@@ -1228,6 +1228,7 @@ function TvChannelUp(){
 }
     
 function TvChannelDown(){
+    //ShowRecorderMessage('TvChannelDown');
     if(PlayingRecording === false){
         SetChannel('DOWN');
     } else {

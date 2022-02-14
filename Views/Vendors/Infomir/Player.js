@@ -7,9 +7,15 @@
 
     // Variables globales
     var PlayingChannel  = false,
+        PlayingRecordPlaylist = false,
         PlayingVod      = true,
         PauseLive       = false,
         URLLog          = '';
+    var numberFilesGlobal = 0,
+        positionFile      = 0,
+        RecordsPlaylist,
+        SecondsOfRecord = 0
+        UpdateSecondsRecord;
 
     var WindowMaxWidth  = 0,
         WindowMaxHeight = 0,
@@ -21,6 +27,7 @@
 
     player.videoWindowMode = 1;
     player.aspectConversion = 0;
+
     if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
         var player2 = stbPlayerManager.list[1];
         player2.videoWindowMode = 0;
@@ -189,9 +196,9 @@
             //ImageDigital.style.display = 'none';
         //};
 
-        player.onPlayEnd = function () {
-            GetDigitalChannel();
-        };
+        //player.onPlayEnd = function () {
+        //   GetDigitalChannel();
+        //};
         Debug('HASTA AQUI TODO BIEN ONEND');
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
@@ -218,7 +225,6 @@
         LengthPlaylist = 0;
 
     function PlayVideo(Source){
-        
         // Detiene el proceso de la reproduccion anterior
         var conti = false;
         if(PlayingRecording===true){
@@ -283,6 +289,38 @@
 
     }
 
+    function PlayRecordsPlaylist(filename, numberFiles){
+        PlayingRecordPlaylist = false;
+        positionFile = 0;
+        numberFilesGlobal = 0;
+        RecordsPlaylist = [filename];
+        
+        for(x = 1; x <= numberFiles; x++){
+            RecordsPlaylist.push(filename+x);
+        }
+        var conti = false;
+        if(PlayingRecording===true){
+            conti = true;
+        }
+        StopVideo();
+        if(conti == true){
+            PlayingRecording = true;
+        }
+        PlayingRecordPlaylist = true;
+        positionFile = 0;
+        numberFilesGlobal = RecordsPlaylist.length-1;
+        for(var x = 0; x<RecordsPlaylist.length; x++){
+            RecordsPlaylist[x] = RecordsPlaylist[x].replace(/\s+/g, '');
+        }
+        Debug(RecordsPlaylist[0]);
+        player.play({
+            uri: RecordsPlaylist[0],
+            solution: 'auto'
+        });
+        // UpdateSecondsRecord = setInterval(function(){
+        //     SecondsOfRecord = SecondsOfRecord + 1;
+        // });
+    }
 
     function GetRaws(Source){
         var RawSource = Source.replace('rtsp','http') + '/raw/';
@@ -322,60 +360,6 @@
                 }
             }
         });
-    }
-
-    function DualPlay(){
-        IndexPlaylist++;
-        Debug('------------------->>> a=  '+IndexPlaylist);
-        Debug('------------------->>> A=  '+Playlist[IndexPlaylist]);
-
-        player.play({
-            uri: Playlist[IndexPlaylist],
-            solution: 'auto'
-        });
-
-        IndexPlaylist++;
-
-        if(IndexPlaylist === LengthPlaylist){
-            // do nothing
-        } else {
-            Debug('------------------->>> b=  '+IndexPlaylist);
-            Debug('------------------->>> B= '+Playlist[IndexPlaylist]);
-            player2.play({
-                uri: Playlist[IndexPlaylist],
-                solution: 'auto'
-            });
-        }
-
-
-        player.onPlayStart = function () {
-            //player.position = 300;
-            setTimeout(function(){
-                if(Swap === false){
-                    player2.pause();
-                    Debug('--------------> player2.pause '+Swap);
-                } else {
-                    player.pause();
-                    Debug('--------------> player.pause '+Swap);
-                }
-            }, 3000);
-        };
-
-        stbPlayerManager.swap(player2, player);
-
-        player.onPlayEnd = function () {
-            if(CurrentModule === 'Tv' && PlayingRecording === true){
-                Debug('--------------> player.onPlayEnd '+IndexPlaylist);
-                // Grabacion termino
-
-                if(IndexPlaylist === LengthPlaylist){
-                    OpenRecordPlayOptions();
-                } else {
-                    SwapPlayers();
-                }
-            }
-        };
-
     }
 
     function SwapPlayers(){
@@ -544,7 +528,7 @@
                 Position = parseInt(Position) + parseInt(NewSpeed);
                 Debug("############3    player.position "+parseInt(player.position) + "############");
             }
-        }else{
+        }else {
             if(parseInt(player.position) + parseInt(NewSpeed) >= player.duration || parseInt(player.position) + parseInt(NewSpeed) <= 0){
                 Debug("############3    Se Pasa: "+parseInt(player.duration) + "############");
                 clearInterval(RewFor);

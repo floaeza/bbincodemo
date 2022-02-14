@@ -166,6 +166,7 @@ switch ($Option){
                         'date' => $ProgramsRecorded[$i]['fecha_programa'],
                         'duration' => round($MinutesDuration),
                         'active' => $ProgramsRecorded[$i]['grabacion_activa'],
+                        'numberFiles' => $ProgramsRecorded[$i]['numberFiles'],
                     ));
                 }
             }
@@ -441,13 +442,21 @@ switch ($Option){
     case 'UpdateProgramOpera':
            
             $File     = !empty($_POST['File']) ? $_POST['File'] : '';
+            $Cantidad     = !empty($_POST['Cantidad']) ? $_POST['Cantidad'] : '0';
+            if($Cantidad == 'false'){
+                $Cantidad = '0';
+            }
             $Id     = !empty($_POST['Id']) ? $_POST['Id'] : '0';
+            if($Id == '' || $Id == null){
+                $Id = '0';
+            }
             $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
             $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
             $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
             
             $InfoUpdate =  array ('id_operacion' => $OperationId,
                                     'id_stream'  => $Id,
+                                    'numberFiles' => $Cantidad,
                                     'grabacion_activa' => $ActiveRecording);
 
             $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';
@@ -460,11 +469,16 @@ switch ($Option){
         case 'UpdateProgramOperaPython':
         
             $File     = !empty($_POST['File']) ? $_POST['File'] : '';
+            $Cantidad     = !empty($_POST['Cantidad']) ? $_POST['Cantidad'] : 0;
+            if($Cantidad == 'false'){
+                $Cantidad = 0;
+            }
             $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
             $ActiveRec   = !empty($_POST['ActiveRecording']) ? $_POST['ActiveRecording'] : '';
             $ActiveRecording = ($ActiveRec === 'true') ? '1' : '0';
             
             $InfoUpdate =  array ('id_operacion' => $OperationId,
+                                    'numberFiles' => $Cantidad,
                                     'grabacion_activa' => $ActiveRecording);
 
             $TypeResult = 'UpdateProgramByFile: update grabacion (OPERA) ';
