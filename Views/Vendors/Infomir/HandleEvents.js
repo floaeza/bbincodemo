@@ -27,19 +27,50 @@ window.stbEvent = {
                 if(PlayingRecording == true){
                     //ShowRecorderMessage(PlayingRecordPlaylist);
                     if(PlayingRecordPlaylist === true){
-                        positionFile++;
                         //ShowRecorderMessage(RecordsPlaylist[positionFile]);
-                        player.play({
-                            uri: RecordsPlaylist[positionFile],
-                            solution: 'auto'
-                        });
+                        //ShowRecorderMessage(NewSpeed);
+                        if(NewSpeed < 0){
+                            positionFile = positionFile-1;
+                            player.play({
+                                uri: RecordsPlaylist[positionFile],
+                                solution: 'auto'
+                            });
+                            player.position = player.duration - 5;
+                        }else{
+                            positionFile++;
+                            player.play({
+                                uri: RecordsPlaylist[positionFile],
+                                solution: 'auto'
+                            });
+                        }
                         if(positionFile == numberFilesGlobal){
                             PlayingRecordPlaylist = false;
-                            positionFile = 0;
-                            numberFilesGlobal = 0;
+                            PlayingRecordPlaylist2 = true;
                         }
                     }else{
-                        OpenRecordPlayOptions();
+                        //ShowRecorderMessage(NewSpeed);
+                        PlayingRecording = true;
+                        if(NewSpeed < 0){
+                            if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
+                                positionFile = positionFile-1;
+                                player.play({
+                                    uri: RecordsPlaylist[positionFile],
+                                    solution: 'auto',
+                                    position: (SecondsOfRecord-6)
+                                });
+                                SecondsOfRecord = SecondsOfRecord - 7;
+                            }
+                        }else{
+                            if(PlayingRecordPlaylist2 == true){
+                                SecondsOfRecord = 0;
+                                positionFile = 0;
+                                numberFilesGlobal = 0;
+                                clearInterval(UpdateSecondsRecord);
+                                PlayingRecordPlaylist2 = false;
+                            }
+                            OpenRecordPlayOptions();
+                        }
+                        
                     }
                     
                 }else if(PlayingChannel == true && ActiveDigitalChannel==false){
@@ -48,7 +79,7 @@ window.stbEvent = {
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
                     }
-                    setTimeout(PlayChannel2(URLLog),5000);
+                    //setTimeout(PlayChannel2(URLLog),5000);
                 }if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
                     GetDigitalChannel();
                 }
@@ -395,7 +426,7 @@ function GetProgramsToScheduleAfterRebootInformir(){
                     archivo = USB[0].mountPath+"/"+ProgramId+'_'+Title+'_'+Fecha+".ts";
                 }
                 NewTask = pvrManager.CreateTask(Source, archivo, Start, End);
-                ShowRecorderMessage(NewTask);
+                //ShowRecorderMessage(NewTask);
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
                     if(NewTask==(-5) || NewTask==(-6)){

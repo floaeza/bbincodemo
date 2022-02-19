@@ -220,6 +220,7 @@ var CheckInfo = 0;
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
                             if(DelayChangeChannel == false){
                                 DelayChangeChannel = true;
+                                Debug("BOTON ARRIBA");
                                 TvChannelUp();
                                 setTimeout(function(){
                                     DelayChangeChannel = false;

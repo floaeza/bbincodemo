@@ -766,7 +766,7 @@ function SelectRecordOption(){
                     if(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles === 0){
                         PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
                     }else{
-                        PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles);
+                        PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
                     }
     
                     //Debug('URL>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);

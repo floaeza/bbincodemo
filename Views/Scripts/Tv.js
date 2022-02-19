@@ -223,6 +223,7 @@ function GetJsonChannels(){
 
 function SetChannel(NewDirection){
     ////Debug('SetChannel = '+NewDirection);
+    
     if(ActiveEpgContainer === false){
         
         /* Valida si se esta subiendo o bajando de canal para restar|sumar una posicion */
@@ -1219,7 +1220,7 @@ function TvGuide(){
 }
     
 function TvChannelUp(){
-    //ShowRecorderMessage('TvChannelUp');
+    //ShowRecorderMessage('TvChannelUp ='+ PlayingRecording);
     if(PlayingRecording === false){
         SetChannel('UP');
     } else {
@@ -1228,7 +1229,7 @@ function TvChannelUp(){
 }
     
 function TvChannelDown(){
-    //ShowRecorderMessage('TvChannelDown');
+    //ShowRecorderMessage('TvChannelDown ='+ PlayingRecording);
     if(PlayingRecording === false){
         SetChannel('DOWN');
     } else {

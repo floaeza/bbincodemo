@@ -7,14 +7,16 @@
 
     // Variables globales
     var PlayingChannel  = false,
-        PlayingRecordPlaylist = false,
+        PlayingRecordPlaylist = false
+        PlayingRecordPlaylist2 = false,
         PlayingVod      = true,
         PauseLive       = false,
         URLLog          = '';
     var numberFilesGlobal = 0,
         positionFile      = 0,
         RecordsPlaylist,
-        SecondsOfRecord = 0
+        SecondsOfRecord = 0,
+        durationFull,
         UpdateSecondsRecord;
 
     var WindowMaxWidth  = 0,
@@ -122,14 +124,16 @@
         Source = Source.replace('igmp','udp');
         Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
         URLLog = Source+CheckPort;
-        if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
-            var x24Today = new Date();	
-            var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-            setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
-        }
+        Debug(URLLog);
+        //if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
+        //    var x24Today = new Date();	
+        //    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+        //   setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
+        //}
         // Detiene el proceso de la reproduccion anterior
-        StopVideo();
         Debug("Source "+ Source +" Port "+CheckPort);
+        StopVideo();
+        
         //gSTB.Play(Source + CheckPort);
         if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
             player.play({
@@ -289,12 +293,13 @@
 
     }
 
-    function PlayRecordsPlaylist(filename, numberFiles){
+    function PlayRecordsPlaylist(filename, numberFiles, durationParts){
         PlayingRecordPlaylist = false;
         positionFile = 0;
         numberFilesGlobal = 0;
         RecordsPlaylist = [filename];
-        
+        durationFull = parseFloat(durationParts) * 60;
+        SecondsOfRecord = 0;
         for(x = 1; x <= numberFiles; x++){
             RecordsPlaylist.push(filename+x);
         }
@@ -312,14 +317,14 @@
         for(var x = 0; x<RecordsPlaylist.length; x++){
             RecordsPlaylist[x] = RecordsPlaylist[x].replace(/\s+/g, '');
         }
-        Debug(RecordsPlaylist[0]);
+        //Debug(RecordsPlaylist[0]);
         player.play({
             uri: RecordsPlaylist[0],
             solution: 'auto'
         });
-        // UpdateSecondsRecord = setInterval(function(){
-        //     SecondsOfRecord = SecondsOfRecord + 1;
-        // });
+        UpdateSecondsRecord = setInterval(function(){
+            SecondsOfRecord = SecondsOfRecord + 1;
+        },1000);
     }
 
     function GetRaws(Source){
@@ -512,7 +517,7 @@
     function updateRewFor(){
         //Debug("############3    "+player.position + "   E############");
         var pos = player.position;
-        Debug('PauseLive = '+PauseLive)
+        Debug('PauseLive = '+PauseLive);
         if(PauseLive === true && PlayingRecording === false){
             if(parseInt(Position) + (parseInt(NewSpeed)-1) >=parseInt(seconds) || (parseInt(Position) + (parseInt(NewSpeed)-1) <=parseInt(TimeShiftStart)+2)){
                 Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
@@ -529,17 +534,36 @@
                 Debug("############3    player.position "+parseInt(player.position) + "############");
             }
         }else {
-            if(parseInt(player.position) + parseInt(NewSpeed) >= player.duration || parseInt(player.position) + parseInt(NewSpeed) <= 0){
-                Debug("############3    Se Pasa: "+parseInt(player.duration) + "############");
-                clearInterval(RewFor);
-                TvPlay();
+            if(PlayingRecordPlaylist == false && PlayingRecordPlaylist2 == false){
+                if(parseInt(player.position) + parseInt(NewSpeed) >= player.duration || parseInt(player.position) + parseInt(NewSpeed) <= 0){
+                    Debug("############3    Se Pasa: "+parseInt(player.duration) + "############");
+                    clearInterval(RewFor);
+                    TvPlay();
+                }else{
+                    Debug("Position "+ player.position);
+                    Debug("NewSpeed "+ NewSpeed);
+                    Debug("Duration "+ player.duration);
+                    player.position += parseInt(NewSpeed);
+                    Position = parseInt(Position) + parseInt(NewSpeed);
+                    //Debug("############3    player.position "+parseInt(player.position) + "   E############");
+                }
             }else{
-                Debug("Position "+ player.position);
-                Debug("NewSpeed "+ NewSpeed);
-                Debug("Duration "+ player.duration);
-                player.position += parseInt(NewSpeed);
-                Position = parseInt(Position) + parseInt(NewSpeed);
-                //Debug("############3    player.position "+parseInt(player.position) + "   E############");
+                if(parseInt(SecondsOfRecord) + parseInt(NewSpeed) >= (durationFull-5) || parseInt(SecondsOfRecord) + parseInt(NewSpeed) <= 0){
+                    Debug("############3    Se Pasa: "+parseInt(durationFull) + "############");
+                    clearInterval(RewFor);
+                    TvPlay();
+                }else{
+                    Debug("Position "+ SecondsOfRecord);
+                    Debug("NewSpeed "+ NewSpeed);
+                    Debug("Duration "+ player.duration);
+                    if(parseInt(player.position) + parseInt(NewSpeed) <= player.duration){
+                        player.position += parseInt(NewSpeed);
+                        SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
+                        Position = parseInt(Position) + parseInt(NewSpeed);
+                    }
+                    
+                    //Debug("############3    player.position "+parseInt(player.position) + "   E############");
+                }
             }
         }
     }
@@ -549,14 +573,15 @@
 
     function AssetStatus(Duration){
         if(PlayingRecording === true){
-            
-            PositionAsset = player.position;
-            //Debug('AssetStatus------------->'+ PositionAsset);
-            //PositionAsset = stbPlayer.position;
-            DurationAsset = parseInt(Duration,10) * 60;
-
-            PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
-            
+            if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
+                PositionAsset = SecondsOfRecord;
+                DurationAsset = parseInt(Duration,10) * 60;
+                PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
+            }else{
+                PositionAsset = player.position;
+                DurationAsset = parseInt(Duration,10) * 60;
+                PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
+            }        
         }else{ if (PauseLive === true){
             //alert('as');
             DurationAsset = Math.round(seconds);
@@ -580,7 +605,7 @@
     function AssetStatusVod(Duration){
         //alert(Duration);
         if(PlayingRecording === true || PlayingVod === true){
-        PositionAsset = gSTB.GetPosTime();
+            PositionAsset = gSTB.GetPosTime();
             DurationAsset = parseInt(Duration,10) * 60;
             PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);     
         }else if (PauseLive === true){
