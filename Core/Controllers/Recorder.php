@@ -582,7 +582,7 @@ switch ($Option){
         break;
     case 'RecorderFiles':
         $FilesData   = !empty($_POST['FilesData']) ? $_POST['FilesData'] : '';
-        $Commandfiles = 'sudo /usr/bin/python3 RecorderFiles.py \|'.$FilesData.'';
+        $Commandfiles = 'sudo /usr/bin/python3 RecorderFiles.py '.$FilesData.'';
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);

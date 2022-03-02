@@ -12,7 +12,7 @@ var Indexps     = 0,
     x24Hour;
 window.stbEvent = {
     onEvent: function ( event, info ) {
-        Debug('Evento:  '+event);
+        //Debug('Evento:  '+event);
         EventNetman = gSTB.GetLanLinkStatus();
 
         switch ( Number (event) ) {
@@ -30,12 +30,28 @@ window.stbEvent = {
                         //ShowRecorderMessage(RecordsPlaylist[positionFile]);
                         //ShowRecorderMessage(NewSpeed);
                         if(NewSpeed < 0){
-                            positionFile = positionFile-1;
-                            player.play({
-                                uri: RecordsPlaylist[positionFile],
-                                solution: 'auto'
-                            });
-                            player.position = player.duration - 5;
+                            if(positionFile > 1){
+                                positionFile = positionFile-1;
+                                player.play({
+                                    uri: RecordsPlaylist[positionFile],
+                                    solution: 'auto',
+                                });
+                                setTimeout(function(){
+                                    player.position = player.duration - 5;
+                                    SecondsOfRecord = SecondsOfRecord - 6;
+                                },100);
+                            }else{
+                                // play again
+                                ClearSpeed();
+                                PlayingRecording = true;
+                                if(parseInt(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles) === 0){
+                                    PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+                                }else{
+                                    PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
+                                }
+                                ShowPvrInfo();
+                                SetSpeed('play');
+                            }
                         }else{
                             positionFile++;
                             player.play({
@@ -66,6 +82,7 @@ window.stbEvent = {
                                 positionFile = 0;
                                 numberFilesGlobal = 0;
                                 clearInterval(UpdateSecondsRecord);
+                                UpdateSecondsRecord = null;
                                 PlayingRecordPlaylist2 = false;
                             }
                             OpenRecordPlayOptions();
@@ -80,7 +97,8 @@ window.stbEvent = {
                         setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
                     }
                     //setTimeout(PlayChannel2(URLLog),5000);
-                }if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
+                }
+                if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
                     GetDigitalChannel();
                 }
             break;
@@ -198,11 +216,31 @@ window.stbEvent = {
                     //UpdateProgramOpera(inre.fileName, '4', 'false');
                     var file = inre.fileName;
                     if(isNaN(file.charAt(file.length - 1))){
-                       UpdateProgramOpera(file, 'false',inre.id, '4', 'false'); 
+                       UpdateProgramOpera(file, 'false',inre.id, '4', 'true');
+                       var fil = file.split('/'); 
+                       var cadena = 'false,'+ 'http://' + gSTB.RDir('IPAddress') + ':8080/'+ fil[2] + '/'+ fil[3];
+                       ShowRecorderMessage(cadena);
+                       setRecorderFiles(cadena);
                     }else{
                         var cantidad = parseInt(file.charAt(file.length - 1));
                         file = file.substring(0, file.length - 1);
-                        UpdateProgramOpera(file, cantidad,inre.id, '4', 'false');
+                        UpdateProgramOpera(file, cantidad,inre.id, '4', 'true');
+                        var cadena= '';
+                        var fil = file.split("/");
+                         //ShowRecorderMessage(fil[2]+'/'+fil[3]);
+                         for(i = 0; i <= cantidad; i++){
+                             if(i == 0){
+                                 cadena = cantidad + ',' + 'http://' + gSTB.RDir('IPAddress') + ':8080/' + fil[2] + '/'+ fil[3]+',';
+                             }else if(i == cantidad){
+                                 cadena = cadena + 'http://' + gSTB.RDir('IPAddress') + ':8080/' +fil[2] + '/'+ fil[3]+i;
+                             }else{
+                                 cadena = cadena + 'http://' + gSTB.RDir('IPAddress') + ':8080/' +fil[2] + '/'+ fil[3]+i + ',';
+                             }
+                         }
+                        //ShowRecorderMessage(cadena)
+                        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+cadena);
+                        setRecorderFiles(cadena);
+
                     }
                     UpdateDiskInfoInformir();
                     setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+inre.fileName);

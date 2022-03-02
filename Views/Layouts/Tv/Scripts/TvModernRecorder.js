@@ -762,8 +762,7 @@ function SelectRecordOption(){
                     ShowRecorderMessage('All connections to your recorder are active, please wait or close a connection');
                 } else {
                     UpdateRtspConnections('add');
-    
-                    if(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles === 0){
+                    if(parseInt(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles) == 0){
                         PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
                     }else{
                         PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
@@ -1215,8 +1214,12 @@ function SelectRecordPlayOption(){
 
             PlayingRecording = true;
 
-            PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
-
+            //PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+            if(parseInt(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles) === 0){
+                PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+            }else{
+                PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
+            }
             //Debug('URL>>>>>>>>>> '+RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
             ShowPvrInfo();
 

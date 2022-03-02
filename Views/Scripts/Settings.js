@@ -15,7 +15,7 @@ if (window.tizen !== undefined) {
     $.ajax({
         cache: false,
         type: 'POST',
-        url: 'http://'+ServerIp+'BBINCO/TV/Core/Models/Time.php',
+        url: 'http://'+ServerIp+'BBINCO/TV_PRUEBAS/Core/Models/Time.php',
         //async : false,
         success: function (response) {
             var Today = $.parseJSON(response),
@@ -53,11 +53,9 @@ if (window.tizen !== undefined) {
 
     function DebugOnScreen(DebugTxt){
         DebugText = document.createElement('P');
-
-
         ++Line;
 
-        if(Line > 35){
+        if(Line > 22){
             ClearDebugOnScreen();
             Line = 0;
         }

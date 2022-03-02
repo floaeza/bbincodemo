@@ -12,12 +12,17 @@
         PlayingVod      = true,
         PauseLive       = false,
         URLLog          = '';
+
+
+    var banderaDePrueba = false;
+    
     var numberFilesGlobal = 0,
         positionFile      = 0,
         RecordsPlaylist,
         SecondsOfRecord = 0,
         durationFull,
-        UpdateSecondsRecord;
+        firstPause = true,
+        UpdateSecondsRecord = null;
 
     var WindowMaxWidth  = 0,
         WindowMaxHeight = 0,
@@ -96,7 +101,7 @@
                 idSeconds = null;
                 TvPlay();
                 SwapPausePlay = true;
-                ResumeVideo()
+                ResumeVideo();
                 idSeconds = setInterval(updateSeconds,1000);
                 if(RewFor !== null){
                     clearInterval(RewFor);
@@ -109,7 +114,7 @@
                 idSeconds = null;
                 TvPlay();
                 //SwapPausePlay = true;
-                ResumeVideo()
+                ResumeVideo();
                 idSeconds = setInterval(updateSeconds,1000);
                 if(RewFor !== null){
                     clearInterval(RewFor);
@@ -124,14 +129,9 @@
         Source = Source.replace('igmp','udp');
         Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
         URLLog = Source+CheckPort;
-        Debug(URLLog);
-        //if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b'){
-        //    var x24Today = new Date();	
-        //    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-        //   setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',TUNED_CHANNEL '+URLLog);
-        //}
-        // Detiene el proceso de la reproduccion anterior
-        Debug("Source "+ Source +" Port "+CheckPort);
+        
+        //Debug("Source "+ Source +" Port "+CheckPort);
+        
         StopVideo();
         
         //gSTB.Play(Source + CheckPort);
@@ -146,12 +146,11 @@
                 uri: Source + CheckPort,
                 solution: 'auto',
                 program: ProgramIdPosition
-            }); 
+            });
         }
 
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
-        Debug("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         // Activamos la bandera
         PlayingChannel = true;
 
@@ -187,14 +186,11 @@
     function PlayDigitalChannel(Source){
         // Detiene el proceso de la reproduccion anterior
         StopVideo();
-        Debug('HASTA AQUI TODO BIEN STOP');
         // Reproduce el video
-        Debug('Digital '+ Source);
         player.play({
             uri: Source,
             solution: 'ffrt3'
         });
-        Debug('HASTA AQUI TODO BIEN PLAY');
         //player.onPlayStart = function () {
             //ImageDigital.src = '';
             //ImageDigital.style.display = 'none';
@@ -203,10 +199,8 @@
         //player.onPlayEnd = function () {
         //   GetDigitalChannel();
         //};
-        Debug('HASTA AQUI TODO BIEN ONEND');
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
-        Debug('HASTA AQUI TODO BIEN MAXIMIZE');
         // Activamos la bandera
         PlayingChannel = true;
 
@@ -214,10 +208,8 @@
         if(StartDateChannel !== ''){
             SetChannelStatistics();
         }
-        Debug('HASTA AQUI TODO BIEN SET');
         // Actualiza la fecha inicio de la reproduccion del canal */
         StartDateChannel = new Date();
-        Debug('HASTA AQUI TODO BIEN DATE');
     }
 
     /* *****************************************************************************
@@ -230,6 +222,16 @@
 
     function PlayVideo(Source){
         // Detiene el proceso de la reproduccion anterior
+
+        //Source = 'http://10.0.3.10/Recordings/prueba.m3u8';
+        //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
+        //Source = 'https://youtu.be/wB_i1DL5SPc';
+
+        if(gSTB.GetDeviceModel() != 'MAG424' || gSTB.GetDeviceModel() !='MAG524'){
+            var source2 = Source.split('/');
+            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+        }
+
         var conti = false;
         if(PlayingRecording===true){
             conti = true;
@@ -262,10 +264,7 @@
                     uri: Source,
                     solution: 'auto'
                 });
-                player.onTracksInfo = function () {
-                    Debug('Information on audio and video tracks of the media content is received.');
-                    Debug(JSON.stringify(player.metadataInfo));
-                };
+                
                 //stbPlayerManager.setBufferSize(200000, 15000000);
             }
         } else {
@@ -278,15 +277,15 @@
             });
         }
 
-        player.onPlayEnd = function () {
-            if(CurrentModule === 'Tv' && PlayingRecording === true){
-                // segmente de la grabacion termino
-                SetPlaylist('forward');
-            } else if(CurrentModule === 'Movies'){
-                // Termino pelicula
-                EndOfMovie();
-            }
-        };
+        // player.onPlayEnd = function () {
+        //     if(CurrentModule === 'Tv' && PlayingRecording === true){
+        //         // segmente de la grabacion termino
+        //         //SetPlaylist('forward');
+        //     } else if(CurrentModule === 'Movies'){
+        //         // Termino pelicula
+        //         EndOfMovie();
+        //     }
+        // };
 
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
@@ -294,9 +293,16 @@
     }
 
     function PlayRecordsPlaylist(filename, numberFiles, durationParts){
+        Debug("ENTRO A PlayRecordsPlaylist");
+        Debug("ENTRO A PlayRecordsPlaylist");
         PlayingRecordPlaylist = false;
         positionFile = 0;
         numberFilesGlobal = 0;
+        
+        if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524"){
+            var source2 = filename.split('/');
+            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+        }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
         SecondsOfRecord = 0;
@@ -322,9 +328,15 @@
             uri: RecordsPlaylist[0],
             solution: 'auto'
         });
-        UpdateSecondsRecord = setInterval(function(){
-            SecondsOfRecord = SecondsOfRecord + 1;
-        },1000);
+        if(UpdateSecondsRecord === null){
+            UpdateSecondsRecord = null;
+            UpdateSecondsRecord = setInterval(SecondsOfRecordFun,1000);
+        }else{
+            clearInterval(UpdateSecondsRecord);
+            UpdateSecondsRecord = null;
+            UpdateSecondsRecord = setInterval(SecondsOfRecordFun,1000);
+        }
+        
     }
 
     function GetRaws(Source){
@@ -446,6 +458,10 @@
     * ****************************************************************************/
 
     function StopVideo(){
+        if(UpdateSecondsRecord !== null){
+            clearInterval(UpdateSecondsRecord);
+            UpdateSecondsRecord = null;
+        }
         player.stop();
         if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
             if(player2.state !== 0){
@@ -453,6 +469,9 @@
             }
         }
         PlayingRecording = false;
+        PlayingRecordPlaylist = false;
+        PlayingRecordPlaylist2 = false;
+        firstPause = true;
         //PauseLive = false;
     }
 
@@ -465,8 +484,13 @@
             clearInterval(RewFor);
             RewFor = null;
         }
-        storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
-        USB = storageInfo.result || [];
+        firstPause = false;
+        if(UpdateSecondsRecord !== null){
+            clearInterval(UpdateSecondsRecord);
+            UpdateSecondsRecord = null;
+        }
+        //storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
+        //USB = storageInfo.result || [];
         //timeShift.EnterTimeShift();
         player.pause();
     }
@@ -496,10 +520,22 @@
             RewFor = null;
         }
         player.resume();
+        //ShowRecorderMessage(PlayingRecordPlaylist + ' ' + PlayingRecordPlaylist2);
+        if(UpdateSecondsRecord === null && (PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true) && firstPause == false){
+            clearInterval(UpdateSecondsRecord);
+            UpdateSecondsRecord = null;
+            UpdateSecondsRecord = setInterval(SecondsOfRecordFun,1000);
+        }
+    }
+    function SecondsOfRecordFun(){
+        SecondsOfRecord = SecondsOfRecord + 1;
     }
 
     function SpeedVideo(Speed){
         //player.speed = parseInt(Speed);
+        if(Speed == (-2)){
+            Speed = -4;
+        }
         //Debug(player.speed);
         //Debug("############3    ID RewFor:"+RewFor + "   E############");
         if(RewFor === null){
@@ -516,8 +552,8 @@
     }
     function updateRewFor(){
         //Debug("############3    "+player.position + "   E############");
-        var pos = player.position;
         Debug('PauseLive = '+PauseLive);
+        //ShowRecorderMessage(player.position);
         if(PauseLive === true && PlayingRecording === false){
             if(parseInt(Position) + (parseInt(NewSpeed)-1) >=parseInt(seconds) || (parseInt(Position) + (parseInt(NewSpeed)-1) <=parseInt(TimeShiftStart)+2)){
                 Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
@@ -553,13 +589,38 @@
                     clearInterval(RewFor);
                     TvPlay();
                 }else{
-                    Debug("Position "+ SecondsOfRecord);
-                    Debug("NewSpeed "+ NewSpeed);
+                    Debug("Position "+ player.position);
+                    Debug("NewSpeed "+ parseInt(NewSpeed));
                     Debug("Duration "+ player.duration);
-                    if(parseInt(player.position) + parseInt(NewSpeed) <= player.duration){
-                        player.position += parseInt(NewSpeed);
-                        SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
-                        Position = parseInt(Position) + parseInt(NewSpeed);
+                    if(parseInt(player.position) + parseInt(NewSpeed) <= parseInt(player.duration)-2){
+                        if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524"){
+                            player.position += parseInt(NewSpeed);
+                            SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
+                            Position = parseInt(Position) + parseInt(NewSpeed);
+                        }else{
+                            if((parseInt(player.position) + parseInt(NewSpeed) <= 16) && NewSpeed < 0 && positionFile>0){
+                                banderaDePrueba == true;
+                                PlayingRecordPlaylist = true;
+                                PlayingRecordPlaylist2 = false;
+                                positionFile = positionFile-1;
+                                player.play({
+                                    uri: RecordsPlaylist[positionFile],
+                                    solution: 'auto',
+                                });
+                                player.position = player.duration - 5;
+                                SecondsOfRecord = SecondsOfRecord - 6;
+                                // setTimeout(function(){
+                                //     banderaDePrueba = false;
+                                // },2000);
+                                // player.position += parseInt(NewSpeed);
+                                // SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
+                                // Position = parseInt(Position) + parseInt(NewSpeed);
+                            }else {
+                                player.position += parseInt(NewSpeed);
+                                SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
+                                Position = parseInt(Position) + parseInt(NewSpeed);
+                            }
+                        }
                     }
                     
                     //Debug("############3    player.position "+parseInt(player.position) + "   E############");
@@ -572,6 +633,7 @@
     * ****************************************************************************/
 
     function AssetStatus(Duration){
+        //Debug('SecondsOfRecord  '+ SecondsOfRecord);
         if(PlayingRecording === true){
             if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
                 PositionAsset = SecondsOfRecord;

@@ -26,15 +26,6 @@ var PressedKey      = 0,
 var CheckInfo = 0;
     
 
-// setTimeout(removeEventListenerKeydown, 60000);
-
-// function removeEventListenerKeydown(){
-//     //Debug("+++++++removeEventListener+++++++");
-//     document.removeEventListener('keydown',KeyHandler,false);
-//     document.addEventListener('keydown',KeyHandler,false);
-//     setTimeout(removeEventListenerKeydown, 600000);
-// }
-
     function KeyHandler(e) {
         PressedKey = e.which;
         e.preventDefault();
@@ -220,7 +211,6 @@ var CheckInfo = 0;
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
                             if(DelayChangeChannel == false){
                                 DelayChangeChannel = true;
-                                Debug("BOTON ARRIBA");
                                 TvChannelUp();
                                 setTimeout(function(){
                                     DelayChangeChannel = false;
