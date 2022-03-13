@@ -25,23 +25,18 @@ function Blue(){
     }
 }
 function Green(){
-    // if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:66'){
-    //     var x24Today_qw = new Date();	
-    //     var x24Hour_qw = x24Today_qw.getHours() + ':' + x24Today_qw.getMinutes() + ':' + x24Today_qw.getSeconds();
-    //     var inre_qw = JSON.parse(pvrManager.GetTaskByID(0));
-    //     var name_qw    = inre_qw.fileName,
-    //         url_qw     = inre_qw.url,
-    //         endTime_qw = inre_qw.endTime;
+    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:66'){
+        var x24Today_qw = new Date();	
+        var x24Hour_qw = x24Today_qw.getHours() + ':' + x24Today_qw.getMinutes() + ':' + x24Today_qw.getSeconds();
+        var inre_qw = JSON.parse(pvrManager.GetTaskByID(0));
+        var name_qw    = inre_qw.fileName,
+            url_qw     = inre_qw.url,
+            endTime_qw = inre_qw.endTime;
         
-    //     pvrManager.RemoveTask(0,1);
-    //     setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today_qw.getDate() + "/" + (x24Today_qw.getMonth() +1) + "/" + x24Today_qw.getFullYear()+' '+x24Hour_qw+',STATUS_ERROR_RECORD undefined');
-    //     restartTask(name_qw, url_qw, endTime_qw);
-    // }
-    player.speed = 3;
-    //player.play({
-        //uri: 'http://10.0.3.10/prueba.m3u8',
-    //    solution: 'auto'
-    //});
+        pvrManager.RemoveTask(0,1);
+        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today_qw.getDate() + "/" + (x24Today_qw.getMonth() +1) + "/" + x24Today_qw.getFullYear()+' '+x24Hour_qw+',STATUS_ERROR_RECORD undefined');
+        restartTask(name_qw, url_qw, endTime_qw);
+    }
 }
 
 function Yellow(){

@@ -36,10 +36,8 @@ window.stbEvent = {
                                     uri: RecordsPlaylist[positionFile],
                                     solution: 'auto',
                                 });
-                                setTimeout(function(){
-                                    player.position = player.duration - 5;
-                                    SecondsOfRecord = SecondsOfRecord - 6;
-                                },100);
+                                player.position = player.duration - 5;
+                                SecondsOfRecord = SecondsOfRecord - 5;
                             }else{
                                 // play again
                                 ClearSpeed();
@@ -72,9 +70,9 @@ window.stbEvent = {
                                 player.play({
                                     uri: RecordsPlaylist[positionFile],
                                     solution: 'auto',
-                                    position: (SecondsOfRecord-6)
                                 });
-                                SecondsOfRecord = SecondsOfRecord - 7;
+                                player.position = player.duration - 5;
+                                SecondsOfRecord = SecondsOfRecord - 5;
                             }
                         }else{
                             if(PlayingRecordPlaylist2 == true){

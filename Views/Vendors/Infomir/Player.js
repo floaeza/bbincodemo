@@ -106,6 +106,7 @@
                 if(RewFor !== null){
                     clearInterval(RewFor);
                     RewFor = null;
+                    NewSpeed = 0;
                 }
             }else{
                 Debug("############################################");
@@ -227,7 +228,7 @@
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
 
-        if(gSTB.GetDeviceModel() != 'MAG424' || gSTB.GetDeviceModel() !='MAG524'){
+        if(gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524'){
             var source2 = Source.split('/');
             Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
@@ -483,6 +484,7 @@
         if(RewFor !== null){
             clearInterval(RewFor);
             RewFor = null;
+            NewSpeed = 0;
         }
         firstPause = false;
         if(UpdateSecondsRecord !== null){
@@ -517,6 +519,7 @@
     function ResumeVideo(){
         if(RewFor !== null){
             clearInterval(RewFor);
+            NewSpeed = 0;
             RewFor = null;
         }
         player.resume();
@@ -544,6 +547,7 @@
             //Debug("############3    ID RewFor Es Null:"+RewFor + "   E############");
         }else{
             //Debug("############3    ID RewFor No Es Null:"+RewFor + "   E############");
+            NewSpeed = 0;
             clearInterval(RewFor);
             RewFor = null;
             NewSpeed = Speed;
@@ -574,6 +578,7 @@
                 if(parseInt(player.position) + parseInt(NewSpeed) >= player.duration || parseInt(player.position) + parseInt(NewSpeed) <= 0){
                     Debug("############3    Se Pasa: "+parseInt(player.duration) + "############");
                     clearInterval(RewFor);
+                    NewSpeed = 0;
                     TvPlay();
                 }else{
                     Debug("Position "+ player.position);

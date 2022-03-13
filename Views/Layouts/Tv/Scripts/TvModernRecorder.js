@@ -755,9 +755,10 @@ function SelectRecordOption(){
             ClearSpeed();
 
             GetPvrInfo();
-            if(typeof(gSTB) !== 'undefined' && (RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4') ){
+            if((RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].operacion !=='4') || RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].active === '1'){
                 ShowRecorderMessage('This recording is not yet available, please wait');
             }else{
+
                 if(parseInt(DiskInfo[DiskInfoIndex].rtsp_conexiones) >= 4){
                     ShowRecorderMessage('All connections to your recorder are active, please wait or close a connection');
                 } else {
@@ -773,7 +774,6 @@ function SelectRecordOption(){
                     PlayingRecording = true;
     
                     //ClosePvr();
-    
                     HidePvr();
     
                     ShowPvrInfo();
