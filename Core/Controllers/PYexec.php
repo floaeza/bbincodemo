@@ -130,7 +130,7 @@
             break;
         case 'InfomirGrabador':
             $item=!empty($_POST['item']) ? $_POST['item'] : '10.0.3.61';
-            $command = escapeshellcmd('sudo sudo /usr/bin/python3 InfomirGrabador.py '.$item);
+            $command = escapeshellcmd('sudo /usr/bin/python3 InfomirGrabador.py '.$item);
             $output = shell_exec($command);
             $Result = $output;
             break;

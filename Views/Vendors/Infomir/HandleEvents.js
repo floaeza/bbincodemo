@@ -217,7 +217,8 @@ window.stbEvent = {
                        UpdateProgramOpera(file, 'false',inre.id, '4', 'true');
                        var fil = file.split('/'); 
                        var cadena = 'false,'+ 'http://' + gSTB.RDir('IPAddress') + ':8080/'+ fil[2] + '/'+ fil[3];
-                       ShowRecorderMessage(cadena);
+                       //ShowRecorderMessage(cadena);
+                       setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+cadena);
                        setRecorderFiles(cadena);
                     }else{
                         var cantidad = parseInt(file.charAt(file.length - 1));

@@ -126,7 +126,7 @@
             // pclose($gestor);
             // $command = escapeshellcmd('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/DebugTr.py');
             // $output = shell_exec($command);
-            $command = escapeshellcmd('sudo /usr/bin/python3 DebugTr.py');
+            $command = escapeshellcmd('/usr/bin/python3 DebugTr.py');
             $output = shell_exec($command);
             $Result = $output;
             // pclose(popen("cd /var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers && python3 DebugTr.py'","r"));
@@ -178,7 +178,7 @@
             $PackagesData->deletePackageID($PackageId);
             break;
         case 'InitialConfigurationInfomir':
-            $Commandfiles = 'sudo /usr/bin/python3 /var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/InfomirGrabador.py '.$IpAddress.',register';
+            $Commandfiles = '/usr/bin/python3 /var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/InfomirGrabador.py '.$IpAddress.',register';
             echo $Commandfiles;
             $command = escapeshellcmd($Commandfiles);
             $output = shell_exec($command);

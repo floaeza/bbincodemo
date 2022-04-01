@@ -230,7 +230,7 @@
 
         if(gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524'){
             var source2 = Source.split('/');
-            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+            Source = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
         }
 
         var conti = false;
@@ -302,7 +302,7 @@
         
         if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524"){
             var source2 = filename.split('/');
-            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+            filename = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
         }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
@@ -439,11 +439,12 @@
     * ****************************************************************************/
 
     function MinimizeTV(){
-        player.setViewport({x: 
-            (20*WindowMaxWidth)/100, 
-            y: (7.7*WindowMaxWidth)/100, 
-            width: WindowMinWidth*1.5,
-            height: WindowMinHeight*1.5});
+        //player.setViewport({x: (20*WindowMaxWidth)/100, y: (8*WindowMaxWidth)/100, width: WindowMinWidth, height: WindowMinHeight});
+            player.setViewport({
+            x:(1.2*WindowMaxWidth)/100,
+              y: (1.3*WindowMaxWidth)/100, 
+              width: WindowMinWidth/0.5, 
+              height: WindowMinHeight/0.5});
     }
 
     /* *****************************************************************************

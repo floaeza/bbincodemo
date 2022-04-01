@@ -1,7 +1,6 @@
 from telnetlib import DO
 import sys
 import requests
-import moviepy.video.fx.all as vfx
 
 FilesData = ' '.join(sys.argv[1:])
 FilesData = FilesData.strip()
@@ -34,6 +33,6 @@ for parametro in FilesData:
     pos += 1
 
 payload = {'Option': 'UpdateProgramOperaPython', 'File': '/media/'+file[3]+"/"+file[4], 'Cantidad':FilesData[0], 'OperationId':'4', 'ActiveRecording': 'false'}
-Devices = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/Recorder.php', data=payload)
+Devices = requests.post('http://10.30.0.15/BBINCO/TV_PRUEBAS/Core/Controllers/Recorder.php', data=payload)
 #IDF = json.loads(Devices.content)
 #print(IDF)
