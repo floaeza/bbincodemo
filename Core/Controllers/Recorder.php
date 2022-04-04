@@ -164,6 +164,8 @@ switch ($Option){
                         'episode' => $Utilities->CleanString($ProgramsRecorded[$i]['titulo_episodio']),
                         'rating' => $ProgramsRecorded[$i]['estrellas_rating'],
                         'date' => $ProgramsRecorded[$i]['fecha_programa'],
+                        'start' => $ProgramsRecorded[$i]['hora_inicio'],
+                        'end' => $ProgramsRecorded[$i]['hora_final'],
                         'duration' => round($MinutesDuration),
                         'active' => $ProgramsRecorded[$i]['grabacion_activa'],
                         'numberFiles' => $ProgramsRecorded[$i]['numberFiles'],

@@ -440,18 +440,18 @@ function SetPvrInfo(){
         // @ts-ignore
         TotalSize = (parseInt(DiskInfo[DiskInfoIndex].espacio_total,10)/1024);
     }
-    // @ts-ignore
+    
     AvailableSize  = (AvailableSize / 1024).toFixed(2);
-    // @ts-ignore
     TotalSize = (TotalSize / 1024).toFixed(2);
-
     var Percentage = (AvailableSize / TotalSize) * 100,
         PercentageSize = (100 - Percentage).toFixed(2);
-
+    
     PvrDiskInfoNodes[1].textContent = AvailableSize + ' GB available of ' + TotalSize + ' GB';
+    
     PvrDiskInfoNodes[5].textContent = PercentageSize + '%';
-    // @ts-ignore
     PvrDiskInfoNodes[5].style.width = PercentageSize + '%';
+    //PercentageText.textContent = PercentageSize + '%';
+    //PercentageCircle.className = 'c100 center p'+Math.round(PercentageSize);
 
 //#da7848 naranja
 //#d97676 rojo
@@ -692,7 +692,7 @@ function SetFocusRecordings(){
             PvrInfoNodes[9].textContent  = '';
             PvrInfoNodes[11].textContent = RecordingsList[IndexRecordedFocus][0];
         } else {
-            PvrInfoNodes[1].textContent  = moment(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].date).format('MMM, DD ');
+            PvrInfoNodes[1].textContent  = moment(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].date).format('MMM, DD ') + " (" + RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].start + " - " + RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].end +")";
             PvrInfoNodes[3].textContent  = TimeConvert( RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
             PvrInfoNodes[5].innerHTML    = ShowStars(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].rating);
             PvrInfoNodes[7].textContent  = RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].episode;
@@ -890,7 +890,6 @@ function ShowPvrInfo(){
         
         ShowBarStatus();
         //Debug('SHOWWWWWWWWWWW');
-        Debug('SHOWWWWWWWWWWWW');
         ActivePvrInfoContainer = true;
         var EpisodeInfo = '';
 
@@ -902,7 +901,7 @@ function ShowPvrInfo(){
         InfoContainerNodes[3].textContent  = '';
         InfoContainerNodes[5].textContent  = '';
         InfoContainerNodes[7].textContent  = FormatHour;
-        InfoContainerNodes[9].innerHTML    = moment(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].date).format('MMM, DD') +'    ('+TimeConvert(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration) + ') ';
+        InfoContainerNodes[9].innerHTML    = moment(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].date).format('MMM, DD') +'  ('+ RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].start + ' - ' + RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].end +')'+'    ('+TimeConvert(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration) + ') ';
         InfoContainerNodes[11].textContent = '';
         InfoContainerNodes[13].textContent = '';
         InfoContainerNodes[15].textContent = EpisodeInfo + RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].description;
@@ -1533,8 +1532,6 @@ function SetManualTime(Option){
 //            OptionsFocus = 0;
 //            ManualHour--;
 //            SetManualTime('up');
-
-
     }
 
     clearTimeout(RecordingManualTimer);

@@ -230,7 +230,7 @@
 
         if(gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524'){
             var source2 = Source.split('/');
-            Source = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
+            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
 
         var conti = false;
@@ -302,7 +302,7 @@
         
         if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524"){
             var source2 = filename.split('/');
-            filename = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
+            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
