@@ -16,14 +16,14 @@ today = today
 listDays = ["", "", "", "", "", "", "","", "", "", ""]
 
 payload = {'Option': 'GetIdentifier'}
-Identifier = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+Identifier = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
 IDF = json.loads(Identifier.content)
 IDF = IDF[0]
 
 def ls1(path):    
     return [obj for obj in listdir(path) if isfile(path + obj)]
 
-files = ls1('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/' + IDF['IDF']+'/')
+files = ls1('/var/www/html/BBINCO/TV/Core/Controllers/Epg/' + IDF['IDF']+'/')
 
 DaysToDelete = datetime.strptime(today.strftime('%Y%m%d'),'%Y%m%d')
 DaysToDelete = DaysToDelete - timedelta(days=2)
@@ -31,7 +31,7 @@ for n in range(10):
     DaysToDelete = DaysToDelete - timedelta(days=1)
     for archivo in files:
         if ('epg_'+DaysToDelete.strftime('%Y%m%d')+'_') in archivo:
-            os.remove('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/'+IDF['IDF']+'/'+archivo)
+            os.remove('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+IDF['IDF']+'/'+archivo)
             print(archivo)
         else:
             break
@@ -42,7 +42,7 @@ for n in range(7):
 
 ####Numero de paquetes + 1#########
 payload = {'Option': 'GetAllPackages'}
-Pack = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/Packages.php', data=payload)
+Pack = requests.post('http://localhost/BBINCO/TV/Core/Controllers/Packages.php', data=payload)
 Packages = json.loads(Pack.content)
 
 def start(day, pos):
@@ -51,17 +51,17 @@ def start(day, pos):
     print("Empezo")
     
     payload = {'Option': 'GetVersion'}
-    Version = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+    Version = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     Ver = json.loads(Version.content)
     Ver = Ver[0]
     
     payload = {'Option': 'GetOffsetZone'}
-    Zone = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+    Zone = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     OffSetZone = json.loads(Zone.content)
     OffSetZone = OffSetZone[0]
 
     payload = {'Option': 'GetGatoTime'}
-    GTime = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+    GTime = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
     GatoTime = json.loads(GTime.content)
     GatoTime = GatoTime[0]
 
@@ -78,7 +78,7 @@ def start(day, pos):
 
 
         payload = {'Option': 'GetModulesBypackage', 'PackageID': int(Package["id_paquete"])}
-        x = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+        x = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
         channels = json.loads(x.content)
         for channel in channels:
             dataProgradm = {}
@@ -92,7 +92,7 @@ def start(day, pos):
                 "MNTS": 1440,
                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                 "STRH": "00:00",
-                "FNLH": "23:59",
+                "FNLH": "24:00",
                 "TVRT": '',
                 "STRS": '',
                 "EPSD": ''
@@ -122,7 +122,7 @@ def start(day, pos):
         ############################################# PROGAMACION #############################################
         #######################################################################################################
         payload = {'Option': 'GetChannelsInfoBypackage', 'PackageID': int(Package["id_paquete"])}
-        x = requests.post('http://10.0.3.9/BBINCO/TV_PRUEBAS/Core/Controllers/PY.php', data=payload)
+        x = requests.post('http://localhost/BBINCO/TV/Core/Controllers/PY.php', data=payload)
         channels = json.loads(x.content)
         print(channels)
         
@@ -172,7 +172,7 @@ def start(day, pos):
                                     fin = datetime.strptime("00:59","%H:%M")
                                     parttwo = False
                                 if lista1.index(list) == len(lista1)-1 and parttwo == False:
-                                    fin = datetime.strptime("23:59", "%H:%M")
+                                    fin = datetime.strptime("24:00", "%H:%M")
                                 inicio = inicio - timedelta(hours=int(dif))
                                 fin = fin - timedelta(hours=int(dif))
                                 dur = fin - inicio
@@ -300,7 +300,7 @@ def start(day, pos):
                         "MNTS": 1440,
                         'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                         "STRH": "00:00",
-                        "FNLH": "23:59",
+                        "FNLH": "24:00",
                         "TVRT": '',
                         "STRS": '',
                         "EPSD": ''
@@ -345,6 +345,12 @@ def start(day, pos):
                     raw_html2.encode('utf-8')
                     soup2 = BeautifulSoup(raw_html2, 'html.parser')
                     #################   UN DIA ATRAS    #################
+                    
+                    ## AJUSTAR GUIA  (VALORES NEGATIVOS PARA ADELANTAR Y POSITIVOS PARA ATRASAR) ## 
+                    if channel['INDC']=='NBCE' or channel['INDC']=='CBSE':
+                        ajustarHora = -1
+                    else:
+                        ajustarHora = 0;
                     try:
                         conta = 0
                         for i in range(1, 100):
@@ -356,7 +362,10 @@ def start(day, pos):
                                 break
                             ini = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S')
                             end = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S') + timedelta(minutes=int(table['data-duration']))
-                            
+                                                        
+                            ini = ini + timedelta(hours=ajustarHora)   
+                            end = end + timedelta(hours=ajustarHora) 
+
                             inimin = (int(ini.hour)*60)+int(ini.minute)
                             endmin = (int(end.hour)*60)+int(end.minute)
                             
@@ -410,6 +419,10 @@ def start(day, pos):
                                     break
                                 ini = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S')
                                 end = datetime.strptime(table['data-listdatetime'], '%Y-%m-%d %H:%M:%S') + timedelta(minutes=int(table['data-duration']))
+                                
+                                ini = ini + timedelta(hours=ajustarHora)
+                                end = end + timedelta(hours=ajustarHora)
+
                                 if ini > datetime.strptime(day.strftime("%Y-%m-%d")+' 23:59:59', '%Y-%m-%d %H:%M:%S'):
                                     break
                                 
@@ -483,7 +496,7 @@ def start(day, pos):
                                 "MNTS": dur,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": dataProgramPass[str(conta-1):"STRH"],
-                                "FNLH": '23:59',
+                                "FNLH": '24:00',
                                 "TVRT": table['data-rating'],
                                 "STRS": '',
                                 "EPSD": table['data-episodetitle']
@@ -500,7 +513,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "23:59",
+                                "FNLH": "24:00",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''
@@ -538,7 +551,7 @@ def start(day, pos):
                             "MNTS": 1440,
                             'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                             "STRH": "00:00",
-                            "FNLH": "23:59",
+                            "FNLH": "24:00",
                             "TVRT": '',
                             "STRS": '',
                             "EPSD": ''
@@ -578,9 +591,9 @@ def start(day, pos):
                         progrec.close()
                         dataProgram = {}
                         if channel['STTN'] == '10244' or channel['STTN'] == '16619' or channel['STTN'] == '10242' or channel['STTN'] == '12508':
-                        	off = '-8'
+                            off = '-9'
                         else:
-                        	off = OffSetZone['OZN']
+                            off = OffSetZone['OZN']
 
                         for lineaSkedrec in lineasSkedrec:
                             listSkedrec = lineaSkedrec.split('|')
@@ -600,12 +613,12 @@ def start(day, pos):
                             durationh = duration/60
                             
                             if listSkedrec[0] == channel['STTN'] \
-                                    and hinicio < (ahora + timedelta(hours=23, minutes=59)) \
+                                    and hinicio < (ahora + timedelta(hours=24, minutes=00)) \
                                     and (hfin > ahora):
                                 if hinicio < ahora:
                                     hinicio = ahora
-                                if hfin > (ahora + timedelta(hours=23, minutes=59)):
-                                    hfin = ahora + timedelta(hours=23, minutes=59)
+                                if hfin > (ahora + timedelta(hours=24, minutes=00)):
+                                    hfin = ahora + timedelta(hours=24, minutes=00)
 
                                 inimin = (int(hinicio.hour) * 60) + int(hinicio.minute)
                                 finmin = (int(hfin.hour) * 60) + int(hfin.minute)
@@ -621,7 +634,7 @@ def start(day, pos):
                                         dataProgramTri[str(contadorPrograma)].append({
                                             "STTN": channel['STTN'],
                                             "DBKY": listProgrec[0],
-                                            "TTLE": (listProgrec[1] + " ("+listSkedrec[30]+")") if listSkedrec[30] != '' else listProgrec[1],
+                                            "TTLE": (listProgrec[1] + "*") if listSkedrec[30] != '' else listProgrec[1],
                                             "DSCR": listProgrec[159],
                                             "DRTN": float("{:.2f}".format(durationh)),
                                             "MNTS": duration,
@@ -646,7 +659,7 @@ def start(day, pos):
                                 "MNTS": 1440,
                                 'DATE' if Ver['VER'] == '2.0.7' else 'DTNU': day.strftime("%Y%m%d"),
                                 "STRH": "00:00",
-                                "FNLH": "23:59",
+                                "FNLH": "24:00",
                                 "TVRT": '',
                                 "STRS": '',
                                 "EPSD": ''
@@ -672,16 +685,16 @@ def start(day, pos):
                         contadorCanal = contadorCanal + 1
 
         data["C_Length"] = contadorCanal
-        with open('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'w', encoding='ascii') as file:
+        with open('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'w', encoding='ascii') as file:
             json.dump(data, file, indent=4)
 
-        with open('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'r') as file:
+        with open('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'r') as file:
             filedata = file.read()
 
         filedata = filedata.replace('[', '').replace(']', '')
-        with open('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'w') as file:
+        with open('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json', 'w') as file:
             file.write(filedata)
-            print('/var/www/html/BBINCO/TV_PRUEBAS/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json ', 'CREADO')
+            print('/var/www/html/BBINCO/TV/Core/Controllers/Epg/'+IDF['IDF']+'/epg_'+day.strftime("%Y%m%d") + '_' + str(Package["id_paquete"]) + '.json ', 'CREADO')
 
         data.clear()
 

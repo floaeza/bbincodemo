@@ -11,6 +11,8 @@
         PauseLive           = false,
         PIDS                = [],
         numberOfLanguages   = 0,
+        chapters = [],
+        positionChapter = 0,
         fx =0;
         
     var WindowMaxWidth  = 0,
@@ -28,7 +30,7 @@
  * Reproductor de canal
  * ****************************************************************************/
     
-    function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid){
+    function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
         
         var CheckPort = '',
             CheckProgram = '';
@@ -220,7 +222,72 @@ Debug('########################### Channelinfo: '+ProgramIdChannnel);
 
         //AVMedia.Continue();
     }
-    
+
+    function SkipCommercials(dir){
+        if(dir === "right"){
+            if((AVMedia.GetDuration() > AVMedia.GetPosition() + 60)){
+                AVMedia.SetPosition(AVMedia.GetPosition() + 60);
+            }
+        }else{
+            if((0 < AVMedia.GetPosition() - 10)){
+                AVMedia.SetPosition(AVMedia.GetPosition() - 10);
+            }
+        }
+    }
+    function SkipChapterRecord(direccionSkip){
+        
+        if(chapters.length == 0 && AVMedia.GetDuration() > 300){
+            chapters.push(0);
+            if(AVMedia.GetDuration() > 300 && AVMedia.GetDuration()<= 600){
+                for(var i = 0; i < Math.floor(AVMedia.GetDuration()/60); i++){
+                    chapters.push((i+1)*60);
+                }
+            }else if(AVMedia.GetDuration() > 600 && AVMedia.GetDuration()<= 1200){
+                for(var i = 0; i < Math.floor(AVMedia.GetDuration()/120); i++){
+                    chapters.push((i+1)*120);
+                }
+            }else if(AVMedia.GetDuration() > 1200 && AVMedia.GetDuration()<= 1800){
+                for(var i = 0; i < Math.floor(AVMedia.GetDuration()/300); i++){
+                    chapters.push((i+1)*300);
+                }
+            }else if(AVMedia.GetDuration() > 1800 && AVMedia.GetDuration()<= 2400){
+                for(var i = 0; i < Math.floor(AVMedia.GetDuration()/480); i++){
+                    chapters.push((i+1)*480);
+                }
+            }else if(AVMedia.GetDuration() > 2400){
+                for(var i = 0; i < Math.floor(AVMedia.GetDuration()/600); i++){
+                    chapters.push((i+1)*600);
+                }
+            }
+        }
+        for(var x = 0; x < chapters.length; x++){
+            if(x == (chapters.length-1)){
+                if(AVMedia.GetPosition()>chapters[chapters.length-1]){
+                    positionChapter = chapters.length-1;
+                    //ShowRecorderMessage("X1=" + x + " " + chapters[x]);
+                }
+            }if(x == 0 ){
+                if(AVMedia.GetPosition()<chapters[x+1]){
+                    positionChapter = x;
+                    //ShowRecorderMessage("X2=" + x + " " + chapters[x]);
+                }
+            }else if(x>0){
+                if(AVMedia.GetPosition()>chapters[x] && AVMedia.GetPosition()<chapters[x+1]){
+                    positionChapter = x;
+                    //ShowRecorderMessage("X3=" + x + " " + chapters[x]);
+                }
+            }
+        }
+        if(direccionSkip == "forward" && positionChapter<chapters.length-1){
+            positionChapter = positionChapter + 1;
+            AVMedia.SetPosition(chapters[positionChapter]);
+        }
+        if(direccionSkip == "backward" && positionChapter>0){
+            positionChapter = positionChapter - 1;
+            AVMedia.SetPosition(chapters[positionChapter]);
+        }
+    }
+
 /* *****************************************************************************
  * Obtiene la posicion del video en reproduccion (PAUSE LIVE Y GRABACIONES)
  * ****************************************************************************/ 

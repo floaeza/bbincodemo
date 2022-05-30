@@ -17,6 +17,7 @@ div#PvrProgramDate
 div.HourRow,
 div#Temperatures,
 div#PanelMessage,
+div#PanelMessageConfirm,
 div#TemperatureGroup,
 div#EpgRating,
 div.RecordingOptionsButton,
@@ -165,11 +166,17 @@ div#RecordingManualOptions,
 div#BarPosition,
 div#RecorderMessage,
 div#MessageClose,
+div#MessageCloseConfirm,
+div#MessageCloseCancel,
 .PvrSun {
     color: #fff;
 }
 
-
+div#PanelMessageConfirm {
+    /* background-color: #128ba6; */
+    background-color: #5f0a00;
+    /* background-image: url('Blue/square.png'); */
+}
 div.PvrProgram,
 div#ProgramRow1,
 div#ProgramRow2,

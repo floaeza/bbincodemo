@@ -29,7 +29,7 @@ window.stbEvent = {
                     if(PlayingRecordPlaylist === true){
                         //ShowRecorderMessage(RecordsPlaylist[positionFile]);
                         //ShowRecorderMessage(NewSpeed);
-                        if(NewSpeed < 0){
+                        if(NewSpeed < 0 && RewFor != null){
                             if(positionFile > 1){
                                 positionFile = positionFile-1;
                                 player.play({
@@ -50,21 +50,26 @@ window.stbEvent = {
                                 ShowPvrInfo();
                                 SetSpeed('play');
                             }
-                        }else{
+                            if(positionFile == numberFilesGlobal){
+                                PlayingRecordPlaylist = false;
+                                PlayingRecordPlaylist2 = true;
+                            }
+                        }else if(RewFor != null){
                             positionFile++;
                             player.play({
                                 uri: RecordsPlaylist[positionFile],
                                 solution: 'auto'
                             });
+                            if(positionFile == numberFilesGlobal){
+                                PlayingRecordPlaylist = false;
+                                PlayingRecordPlaylist2 = true;
+                            }
                         }
-                        if(positionFile == numberFilesGlobal){
-                            PlayingRecordPlaylist = false;
-                            PlayingRecordPlaylist2 = true;
-                        }
+                        
                     }else{
                         //ShowRecorderMessage(NewSpeed);
                         PlayingRecording = true;
-                        if(NewSpeed < 0){
+                        if(NewSpeed < 0 && RewFor != null){
                             if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
                                 positionFile = positionFile-1;
                                 player.play({
@@ -87,7 +92,6 @@ window.stbEvent = {
                         }
                         
                     }
-                    
                 }else if(PlayingChannel == true && ActiveDigitalChannel==false){
                     if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
                         x24Today = new Date();	
@@ -370,7 +374,6 @@ function GetProgramsToScheduleInformir(){
                 
                 storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
                 USB = storageInfo.result || [];
-                Debug(USB[0].mountPath+'/'+Title);
                 Source = Source.replace('igmp','udp');
                 Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
 
@@ -381,8 +384,12 @@ function GetProgramsToScheduleInformir(){
                         reco.push(tas[x]);
                     }
                 }
-
-                var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title.replace(/ /g, "_")+'_'+Fecha+".ts", Start, End)
+                Title = Title.replace(/ /g, "_");
+                Title = Title.replace(/\//g, "");
+                Title = Title.replace(/\,/g, "");
+                Title = Title.replace(/\;/g, "");
+                Title = Title.replace(/\*/g, "");
+                var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title+'_'+Fecha+".ts", Start, End)
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
                     Debug('> Fail new schedule');

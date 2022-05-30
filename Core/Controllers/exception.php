@@ -39,7 +39,7 @@ switch ($Option) {
         break;
 
     case 'RestartDHCP':
-        $resultado = shell_exec('sudo /bin/systemctl restart dhcpd.service');   
+        $resultado = shell_exec('/bin/systemctl restart dhcpd.service');   
         echo "La instruccion fue ejecutada con exito"; 
         break;
     case 'getDHCPLog':

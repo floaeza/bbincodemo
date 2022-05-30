@@ -91,7 +91,7 @@
     
                 //location.replace(Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule);
                 //  if(typeof(ASTB) !== 'undefined'){
-                //      Browser.Go('http://10.0.3.9/BBINCO/TV_PRUEBAS/' + Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule)
+                //      Browser.Go('http://localhost/BBINCO/TV/' + Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule)
                 //  }else{
                 if(typeof(ASTB) !== 'undefined'){
                     location.href= Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule;
@@ -415,13 +415,14 @@
                 sec_min = '',
                 hrs = 0;
         
+            //ShowRecorderMessage();
             if (hr > 0) {
-               sec_min += '' + hrs + 'h ' + (min < 10 ? '0' : '');
+               sec_min += '' + hr + 'h ' + (min < 10 ? '0' : '');
             }
             sec_min += '' + min + ':' + (sec < 10 ? '0' : '');
             sec_min += '' + sec;
             return sec_min+ ' min';
-         }
+    }
     
 ///**/
 function SecondsToTimeVod(time) {

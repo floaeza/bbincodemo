@@ -60,7 +60,11 @@
     <div id='RecorderMessage'></div>
     <div id='MessageClose'>OK</div>
 </div>
-
+<div id='PanelMessageConfirm'>
+    <div id='RecorderMessageConfirm'></div>
+    <div id='MessageCloseConfirm'>Continue</div>
+    <div id='MessageCloseCancel'>Cancel</div>
+</div>
 
 <!-- Panel grabador -->
 <div id='PvrContainer'>
@@ -123,6 +127,7 @@
         <div id='PvrProgramEpisode'></div>
         <div id='PvrProgramDescription'></div>
         <div id='PvrProgramTitle'></div>
+        <div id='PvrProgramChannel'></div>
     </div>
 
     <div id='PvrOptions'>
@@ -130,7 +135,11 @@
         <div class='PvrOptionsButton'>Delete</div>
         <div class='PvrOptionsButton'>Close</div>
     </div>
-
+    <div id='PvrFolderOptions'>
+        <div class='PvrOptionsButton'>Open</div>
+        <div class='PvrOptionsButton'>Delete</div>
+        <div class='PvrOptionsButton'>Close</div>
+    </div>
     <div id='PvrDeleteOptions'>
         <div class='PvrOptionsButton'>Delete</div>
         <div class='PvrOptionsButton'>Close</div>

@@ -17,7 +17,7 @@ function init (){
     GetMoviesList();
     // console.log(MoviesList);
     
-    var f = AVMedia.Play('src=http://10.0.3.9//vod/mvs/M00001/1917.mp4');
+    var f = AVMedia.Play('src=http://localhost//vod/mvs/M00001/1917.mp4');
 
 }
 //setTimeout(init, 300);

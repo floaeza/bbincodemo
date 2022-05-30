@@ -208,7 +208,7 @@ function ChangeAppControl(){
     
             //$.ajax({
             //    type: "POST",
-            //    url: 'BBINCO/TV_PRUEBAS/Core/Controllers/Firebase.php',
+            //    url: 'BBINCO/TV/Core/Controllers/Firebase.php',
             //    data: { 
             //        Option    : 'DeleteControlbyMac',
             //        MacAddress: '00:1a:79:6c:cc:3e'

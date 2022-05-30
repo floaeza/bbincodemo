@@ -32,6 +32,8 @@
         REMOTE_STOP                  = 83,  //
         REMOTE_PLAY                  = 82,  //
         REMOTE_PAUSE                 = 82,  //
+        REMOTE_FAST_BACKWARD         = 33,
+        REMOTE_FAST_FORWARD          = 34,
         REMOTE_BACKWARD              = 66,  //
         REMOTE_FORWARD               = 70;  //
     

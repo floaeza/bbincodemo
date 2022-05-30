@@ -32,7 +32,8 @@
         EpgDataActive        = false,
         CurrentDateFormat    = '',
         CurrentDate          = '',
-        xhr;
+        SkipChapter          = null,
+        SkipChapterClick     = 0;
 
         var Booting     = true;
 
@@ -290,7 +291,7 @@ function SetChannel(NewDirection){
                             PlayChannel(Source, Port);
                         }else{
 
-                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);  
+                            PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);  
                              /* TvFunctions por marca */  
                         }
                     });
@@ -300,7 +301,7 @@ function SetChannel(NewDirection){
                         PlayChannel(Source, Port);
                     }else{
                         //alert(Source+Port); 
-                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                     }
                 }
                 
@@ -383,21 +384,11 @@ function SetDigitalChannel(){
 
                 ImageDigital.src = '';
                 ImageDigital.style.display = 'none';
-                ////Debug("Antes de reproducir el canal");
-                // if(load){
-                    
-                //     //$(document).ready(function(){
-                //         //your code
-                //         PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
-                        
-                //     //});
-                //    load = false;
-                //       //PlayChannel(Source, Port);   /* TvFunctions por marca */
-                //  }else{
-                     PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
-                // }
                 
-                    Debug('Hasta aqui todo bien FINAL');
+                PlayDigitalChannel(DigitalSource+DigitalContent[IndexDigital]);
+        
+        
+                Debug('Hasta aqui todo bien FINAL');
             } else {
                 
                 ImageDigital.src = DigitalSource+DigitalContent[IndexDigital];
@@ -478,26 +469,15 @@ function CloseFrame(){
         if(ActiveEpgContainer === false){
             ////Debug('ActiveEpgContainer === false');
             if(LastChannelPosition !== ChannelPosition){
-                ////Debug('IF LCP !== CP:: '+LastChannelPosition +' !== '+ ChannelPosition);
-            /* Actualiza el canal */
                 Source = ChannelsJson[LastChannelPosition].SRCE;
                 Port   = ChannelsJson[LastChannelPosition].PORT;
-                 ProgramIdChannnel = ChannelsJson[ChannelPosition].PRGM;
-                 ProgramIdPosition = ChannelsJson[ChannelPosition].PSCN;
-                 AudioPid          = ChannelsJson[ChannelPosition].ADIO;
+                ProgramIdChannnel = ChannelsJson[ChannelPosition].PRGM;
+                ProgramIdPosition = ChannelsJson[ChannelPosition].PSCN;
+                AudioPid          = ChannelsJson[ChannelPosition].ADIO;
 
-                ////Debug('Source:: CRRN '+ChannelsJson[ChannelPosition].SRCE + ' '+ChannelsJson[ChannelPosition].STTN );
-                ////Debug('Source:: LAST '+ChannelsJson[LastChannelPosition].SRCE + ' '+ChannelsJson[LastChannelPosition].STTN );
-                
-            var CurrentChannelPosition = ChannelPosition;
-            /* Actualiza a la posicion que se cambio */
+                var CurrentChannelPosition = ChannelPosition;
                 ChannelPosition = LastChannelPosition;
-                ////Debug('ChannelPosition:: 1 LCP '+LastChannelPosition);
                 LastChannelPosition = CurrentChannelPosition;
-                
-                ////Debug('ChannelPosition:: 2 LCP '+LastChannelPosition);
-                ////Debug('ChannelPosition:: NEW '+ChannelPosition);
-		
                 if(ChannelsJson[ChannelPosition].STTN !== 'CONTENT'){
                     if(ActiveDigitalChannel === true){
                         CloseDigitalChannel();
@@ -506,24 +486,20 @@ function CloseFrame(){
                     if(ActiveFrame === true){
                         CloseFrame();
                     }
-                    
-                    ////Debug('PlayChannel:: '+Source);
-                    //PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                     if(load){
-                       
-                        $(document).ready(function(){
+                       $(document).ready(function(){
                             //your code
                             if(window.tizen !== undefined)  
                                 PlayChannel(Source, Port);
                             else
-                                PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);  /* TvFunctions por marca */
+                                PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);  /* TvFunctions por marca */
                         });
                         load = false;
                     }else{
                         if(window.tizen !== undefined){
                             PlayChannel(Source, Port);
                         }else
-                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                        PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                     }
                     
                 } else {
@@ -843,14 +819,14 @@ function ShowInfo(){
                     if(window.tizen !== undefined){
                         PlayChannel(Source, Port);
                     }else
-                    PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                    PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
                 });
                 load = false;
             }else{
                 if(window.tizen !== undefined){
                     PlayChannel(Source, Port);
                 }else
-                PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition, AudioPid);   /* TvFunctions por marca */
+                PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition);   /* TvFunctions por marca */
             }
         } else {
             Debug('##################GetDigitalChannel EPG##############');
@@ -971,6 +947,14 @@ function ShowInfo(){
                 EpgTimer = setTimeout(CloseEpg, TimeoutEpg);
             } else if (RecordingPanel === true) {
                 PvrRight();
+            }else if(PlayingRecording == true){
+                if(DelaySkip == false){
+                    DelaySkip = true;
+                    SkipCommercials("right");
+                    setTimeout(function(){
+                        DelaySkip = false;
+                    },1000);
+                } 
             }
         }
     }
@@ -990,6 +974,15 @@ function ShowInfo(){
                 EpgTimer = setTimeout(CloseEpg, TimeoutEpg);
             } else if (RecordingPanel === true) {
                 PvrLeft();
+            }else if(PlayingRecording == true){
+                if(DelaySkip == false){
+                    DelaySkip = true;
+                    SkipCommercials("left");
+                    setTimeout(function(){
+                        DelaySkip = false;
+                    },1000);
+                }
+                
             }
         }
     }
@@ -1023,7 +1016,6 @@ function ShowInfo(){
                 if (RecordingOptionsActive === false && RecordManualOptionsActive === false) {
                     PageDown();
                 }
-
                 clearTimeout(EpgTimer);
                 EpgTimer = setTimeout(CloseEpg, TimeoutEpg);
             }
@@ -1098,12 +1090,7 @@ function ShowInfo(){
     
     function TvForward(){
         if(PlayingRecording === true){
-            //if(PlayingRecordPlaylist === true){
-            //    ShowRecorderMessage('The "forward" and "backward" options are not available in build mode');
-            //}else{
-                SetSpeed('forward');
-            //}
-            
+            SetSpeed('forward');
         } else {
             if(Device['Type'] === 'PVR_ONLY' || Device['Type'] === 'WHP_HDDY'){
                 PauseLive = true;
@@ -1114,11 +1101,7 @@ function ShowInfo(){
     
     function TvBackward(){
         if(PlayingRecording === true){
-            //if(PlayingRecordPlaylist === true){
-            //    ShowRecorderMessage('The "forward" and "backward" options are not available in build mode');
-            //}else{
-                SetSpeed('backward');
-            //}
+            SetSpeed('backward');
         } else {
             if(Device['Type'] === 'PVR_ONLY' || Device['Type'] === 'WHP_HDDY'){
                 PauseLive = true;
@@ -1138,12 +1121,9 @@ function ShowInfo(){
             }
         } else if(ActiveEpgContainer === false && Device['Type'] !== 'NONE'){
             if(ChannelsJson[ChannelPosition].PROGRAMS[ProgramPosition].STTN !== 'CONTENT'){
-                ////Debug('-----------TvRecord');
                 if(ChannelsJson[ChannelPosition].PROGRAMS[ProgramPosition].DRTN !== '24'){
-
                     REC_CHNL_POS = ChannelPosition;
                     REC_PROG_POS = ProgramPosition;
-
                     CheckRecordings();
                 }
             }

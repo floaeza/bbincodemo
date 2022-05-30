@@ -17,7 +17,8 @@ var PressedKey      = 0,
     showInfoDevi  = false,
     timeInfoDevice  = null,
     contInfoDevice  = 0,
-    DelayChangeChannel = false;
+    DelayChangeChannel = false,
+    DelaySkip          = false;
 
     document.addEventListener('keydown',KeyHandler,false);
     
@@ -41,7 +42,7 @@ var CheckInfo = 0;
         //Debug('>> PressedKey: '+PressedKey);
         if(Clicks <= MaxClicks) {
             //alert(REMOTE_RED);
-            //alert(PressedKey);
+            //ShowRecorderMessage(PressedKey);
             switch (PressedKey) {
                 case REMOTE_RED:
                     //Debug("BOTON REMOTE_RED");
@@ -203,10 +204,12 @@ var CheckInfo = 0;
                 case REMOTE_CHANNEL_UP:
                     //Debug("BOTON REMOTE_CHANNEL_UP");
 
-                    if (ActiveEpgContainer === true && typeof(ENTONE) !== 'undefined') {
+                    if (ActiveEpgContainer === true && (typeof(ENTONE) !== 'undefined' || typeof(gSTB) !== 'undefined')) {
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
                             TvPageUp();
                         }
+                    }else if(RecordingPanel == true){
+                        console.log("AAH BUENO");
                     }else{
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
                             if(DelayChangeChannel == false){
@@ -224,9 +227,29 @@ var CheckInfo = 0;
                 case REMOTE_CHANNEL_DOWN:
                     //Debug("BOTON REMOTE_CHANNEL_DOWN");
 
-                    if (ActiveEpgContainer === true && typeof(ENTONE) !== 'undefined') {
+                    if (ActiveEpgContainer === true && (typeof(ENTONE) !== 'undefined' || typeof(gSTB) !== 'undefined')) {
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
                             TvPageDown();
+                        }
+                    }else if(RecordingPanel == true){
+                        if(ListTypeFocus === 'serie'){
+                            
+                            if((RecordingsList[IndexRecordedFocus].length - 1) > 9 && IndexRecordedProgFocus < (RecordingsList[IndexRecordedFocus].length - 1) ){
+                                console.log("AAH BUENO: "+IndexRecordedProgFocus);
+                                SetRecordings('down');
+            
+                                PvrRowFocus = 1;
+            
+                                SetFocusRecordings();
+                            }
+                        } else {
+                            if(RecordingsList.length > 9 && IndexRecordedFocus < (RecordingsList.length - 1)){
+                                SetRecordings('down');
+            
+                                PvrRowFocus = 1;
+            
+                                SetFocusRecordings();
+                            }
                         }
                     }else{
                         if(CurrentModule === 'Tv' && showInfoDevi == false){
@@ -417,20 +440,33 @@ var CheckInfo = 0;
                     }
                 break;
                 
-                // case REMOTE_FAST_BACKWARD:
-                //     if(CurrentModule === 'Tv'){
-                //         // AGREGAR OPCION PARA ADELANTAR CAPITULOS
-                //         // CUANDO SE ESTE REPRODUCIENDO UNA SERIE DEL PVR
-                        
-                //     }
-                // break;
+                case REMOTE_FAST_BACKWARD:
+                    if(CurrentModule === 'Tv' && PlayingRecording == true){
+                        if(DelaySkip == false){
+                            DelaySkip = true;
+                            TvPlay();
+                            SkipChapterRecord("backward");  
+                            setTimeout(function(){
+                                DelaySkip = false;
+                            },1000);
+                        }
+                    }
+                break;
             
-                // case REMOTE_FAST_FORWARD:
-                //     // AGREGAR OPCION PARA ADELANTAR CAPITULOS
-                //     // CUANDO SE ESTE REPRODUCIENDO UNA SERIE DEL PVR
-                    
-                    
-                // break;
+                case REMOTE_FAST_FORWARD:
+                    if(CurrentModule === 'Tv' && PlayingRecording == true){
+                        
+                        if(DelaySkip == false){
+                            DelaySkip = true;
+                            TvPlay();
+                            TvPlay();
+                            SkipChapterRecord("forward");  
+                            setTimeout(function(){
+                                DelaySkip = false;
+                            },1000);
+                        }
+                    }
+                break;
                 
                 
         /********** NUMEROS **********/        

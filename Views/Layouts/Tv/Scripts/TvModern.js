@@ -512,7 +512,7 @@ function WriteProgramsRow(CurrentProgramPosition, CurrentChannelPosition, Row){
         var IndexRec = 0;
         if(RecordingsToCheck !== ''){
             for(IndexRec = 0; IndexRec < RecordingsToCheck.length; IndexRec++){
-                if(RecordingsToCheck[IndexRec].databasekey === ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].DBKY) {
+                if(RecordingsToCheck[IndexRec].databasekey === ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].DBKY && RecordingsToCheck[IndexRec].hora_final == ChannelsJson[CurrentChannelPosition].PROGRAMS[RowProgramPosition].FNLH && (ChannelsJson[CurrentChannelPosition].CHNL + " - " + ChannelsJson[CurrentChannelPosition].INDC) ==RecordingsToCheck[IndexRec].channel) {
                     DivElement.setAttribute('accessKey', 'rec');
                     DivElement.setAttribute('style', 'width:'+ProgramWidth+'%; '+'background:'+BackgroundRec);
                     IndexRec = RecordingsToCheck.length;
@@ -865,7 +865,7 @@ function ShowInfoEpg(){
     EpgInfoContainerNodes[1].innerHTML  = ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].TTLE;
     if(RecordingsToCheck !== ''){
         for(IndexRec = 0; IndexRec < RecordingsToCheck.length; IndexRec++){
-            if(RecordingsToCheck[IndexRec].databasekey === ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DBKY) {
+            if(RecordingsToCheck[IndexRec].databasekey === ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].DBKY && RecordingsToCheck[IndexRec].hora_final == ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].FNLH && (ChannelsJson[FocusChannelPosition].CHNL + " - " + ChannelsJson[FocusChannelPosition].INDC) ==RecordingsToCheck[IndexRec].channel) {
                 EpgInfoContainerNodes[1].innerHTML  = ChannelsJson[FocusChannelPosition].PROGRAMS[FocusProgramPosition].TTLE + '<p class="RecInfo">  REC</p>';
                 IndexRec = RecordingsToCheck.length;
             }

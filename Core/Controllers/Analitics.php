@@ -176,7 +176,7 @@ switch ($Option) {
         echo json_encode($ArrayLocationList);
         break;
     case 'UPDATEBTN':
-        $command = escapeshellcmd('sudo cd /var/www/html/BBINCO/BBINCOTZE/ && git pull https://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@github.com/EmiSalazar/BBINCOTZE.git && git pull https://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@github.com/EmiSalazar/Media.git');
+        $command = escapeshellcmd('cd /var/www/html/BBINCO/BBINCOTZE/ && git pull https://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@github.com/EmiSalazar/BBINCOTZE.git && git pull https://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@github.com/EmiSalazar/Media.git');
         $output = shell_exec($command);
         break;
 }

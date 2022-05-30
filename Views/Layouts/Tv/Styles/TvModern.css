@@ -168,7 +168,39 @@ div#EpgContainer {
     position: fixed;
     left: 3%;
 }
-
+div#PvrProgramChannel {
+    width: 15%;
+    height: 4%;
+    text-align: end;
+    margin-top:0.5%;
+    right: 3.5%;
+    position: fixed;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 20px;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+}
+div#MessageCloseCancel  {
+    font-size: 43px;
+    bottom: 5%;
+    position: absolute;
+    width: 30%;
+    right: 10%;
+    background: #2f414a;
+    border-radius: 6px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+}
+div#PvrFolderOptions {
+    width: 33%;
+    height: 33%;
+    top: 35%;
+    right: 33%;
+    border-radius: 6px;
+    position: fixed;
+    text-align: center;
+    visibility: hidden;
+}
 div#EpgHeader {
     height: 5%;
     width: 98%;
@@ -658,7 +690,18 @@ div#PanelMessage {
     box-shadow: 6px 6px 5px rgba(0,0,0,0.5);
     border-radius: 6px;
 }
-
+div#PanelMessageConfirm {
+    width: 50%;
+    height: 30%;
+    text-align: center;
+    z-index: 1;
+    position: fixed;
+    top: 25%;
+    display: none;
+    right: 25%;
+    box-shadow: 6px 6px 5px rgba(0,0,0,0.5);
+    border-radius: 6px;
+}
 div#MessageClose  {
     font-size: 43px;
     bottom: 5%;
@@ -670,7 +713,33 @@ div#MessageClose  {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.4);
     box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
 }
-
+div#RecorderMessageConfirm {
+    text-align: center;
+    font-size: 35px;
+    margin: 2%;
+}
+div#MessageCloseConfirm  {
+    font-size: 43px;
+    bottom: 5%;
+    position: absolute;
+    width: 40%;
+    left: 10%;
+    border-radius: 6px;
+    background: #2f414a;;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+}
+div#MessageCloseCancel  {
+    font-size: 43px;
+    bottom: 5%;
+    position: absolute;
+    width: 30%;
+    right: 10%;
+    background: #2f414a;
+    border-radius: 6px;
+    text-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.4);
+}
 
 /***************************** [ PVR DESIGN ] *****************************/
 

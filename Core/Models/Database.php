@@ -26,7 +26,7 @@ class Database {
 
             $CamDir = getcwd();
             chdir ('/var/www/config');
-            $config = parse_ini_file("configBBTV_pruebas.ini");
+            $config = parse_ini_file("configBBTV.ini");
             chdir($CamDir);
 
             $this->conexion = new mysqli($config["host"],$config["username"],$config["password"],$config["dbname"]);
@@ -430,14 +430,15 @@ public function selectFromOtherSelect($tabla, $rows = '*', $select1, $select2, $
     }
 
 // Funcion para actualizar una tabla
-    public function update($tabla,$parametro=array(),$where){
-    	if($this->tablaExiste($tabla)){
+public function update($tabla,$parametro=array(),$where){
+	if($this->tablaExiste($tabla)){
+        //print($parametro);
+        if($parametro!= NULL){ 
             $args=array();
-            foreach($parametro as $field=>$value){
-                // Separa la columna
-                $args[]=$field.'="'.$value.'"';
+            $keys = array_keys($parametro);
+            foreach($keys as $key){
+                $args[]=$key.'="'.$parametro[$key].'"';
             }
-
             $sql='UPDATE '.$tabla.' SET '.implode(',',$args).' WHERE '.$where;
 
             $this->consulta = $sql;
@@ -452,9 +453,10 @@ public function selectFromOtherSelect($tabla, $rows = '*', $select1, $select2, $
                         
                     return false; // Fallo al actualizar
                 }
-        }
-            else{return false; }
-    }
+        }else{return false; }
+        
+    } else{return false; }
+}
 
 
 

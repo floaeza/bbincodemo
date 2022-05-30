@@ -65,7 +65,9 @@ switch ($Option){
 
         foreach ($Result as $Row):
             array_push($Records, array('databasekey' => $Row['databasekey'],
+                'channel'   => $Row['channel'],
                 'utc_start' => $Row['utc_inicio'],
+                'hora_final'=> $Row['hora_final'],
                 'utc_final' => $Row['utc_final']
             ));
         endforeach;
@@ -83,6 +85,7 @@ switch ($Option){
         $Date           = !empty($_POST['Date']) ? $_POST['Date'] : '';
         $StarTime       = !empty($_POST['StarTime']) ? $_POST['StarTime'] : '';
         $EndTime        = !empty($_POST['EndTime']) ? $_POST['EndTime'] : '';
+        $Channel1        = !empty($_POST['channel']) ? $_POST['channel'] : '';
         $UtcStart       = !empty($_POST['UtcStart']) ? $_POST['UtcStart'] : '';
         $UtcEnd         = !empty($_POST['UtcEnd']) ? $_POST['UtcEnd'] : '';
         $ChannelSource  = !empty($_POST['ChannelSource']) ? $_POST['ChannelSource'] : '';
@@ -96,6 +99,7 @@ switch ($Option){
             'descripcion_programa' => $Description,
             'estrellas_rating' => $Rating,
             'fecha_programa' => $Date,
+            'channel' => $Channel1,
             'hora_inicio' => $StarTime,
             'hora_final' => $EndTime,
             'utc_inicio' => $UtcStart,
@@ -169,6 +173,7 @@ switch ($Option){
                         'duration' => round($MinutesDuration),
                         'active' => $ProgramsRecorded[$i]['grabacion_activa'],
                         'numberFiles' => $ProgramsRecorded[$i]['numberFiles'],
+                        'channel' => $ProgramsRecorded[$i]['channel'],
                     ));
                 }
             }
@@ -193,7 +198,22 @@ switch ($Option){
             $Response = array('Update' => false, 'Message' => 'There was a problem, try again later');
         }
         break;
+    case 'SetDeleteFolder':
+        $ProgramsId = !empty($_POST['ProgramsId']) ? $_POST['ProgramsId'] : '';
+        $OperationId = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
 
+        $ProgramUpdate =  array ('id_operacion' => $OperationId);
+
+        for($i = 0; $i<count($ProgramsId); $i++){
+            $UpdateOperation = $ProgramsData->setDeleteProgram($ProgramsId[$i], $ProgramUpdate);
+            $Result = $UpdateOperation[$FirstElement];
+        }
+        if(intval($Result) >= 1){
+            $Response = array('Update' => true, 'Message' => 'Folder deleted');
+        } else {
+            $Response = array('Update' => false, 'Message' => $UpdateOperation);
+        }
+        break;
     case 'SchedulesList':
 
         $ProgramsSchedule = $ProgramsData->getProgramsSchedule($LocationId);
@@ -590,6 +610,5 @@ switch ($Option){
         $output = shell_exec($command);
         break;
 }
-
 
 echo json_encode($Response);

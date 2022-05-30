@@ -11,7 +11,8 @@
         PlayingRecordPlaylist2 = false,
         PlayingVod      = true,
         PauseLive       = false,
-        URLLog          = '';
+        URLLog          = '',
+        skipCommerialrest = 0;
 
 
     var banderaDePrueba = false;
@@ -22,7 +23,9 @@
         SecondsOfRecord = 0,
         durationFull,
         firstPause = true,
-        UpdateSecondsRecord = null;
+        UpdateSecondsRecord = null,
+        chapters = [],
+        positionChapter = 0;
 
     var WindowMaxWidth  = 0,
         WindowMaxHeight = 0,
@@ -227,10 +230,10 @@
         //Source = 'http://10.0.3.10/Recordings/prueba.m3u8';
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
-
+        chapters = [];
         if(gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524'){
             var source2 = Source.split('/');
-            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+            Source = "http://localhost/INFOMIR_RECORDINGS/" + source2[4]; 
         }
 
         var conti = false;
@@ -302,7 +305,7 @@
         
         if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524"){
             var source2 = filename.split('/');
-            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+            filename = "http://localhost/INFOMIR_RECORDINGS/" + source2[4]; 
         }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
@@ -411,19 +414,17 @@
             }
         }
     }
-
     /* *****************************************************************************
     * Obtiene los tamanos maximos y minimos de la pantalla
     * ****************************************************************************/
-
     function GetWindowFullSize(){
-        WindowMaxWidth   = window.screen.width;
-        WindowMaxHeight  = window.screen.height;
+        WindowMaxWidth   = player.viewport.width;
+        WindowMaxHeight  = player.viewport.height;
     }
 
     function GetWindowMinSize(){
-        WindowMinWidth   = ((window.screen.width)*0.7);
-        WindowMinHeight  = ((window.screen.height)*0.7);
+        WindowMinWidth   = Math.round((player.viewport.width*35)/100);
+        WindowMinHeight  = Math.round((player.viewport.height*35)/100);
     }
 
     /* *****************************************************************************
@@ -441,10 +442,10 @@
     function MinimizeTV(){
         //player.setViewport({x: (20*WindowMaxWidth)/100, y: (8*WindowMaxWidth)/100, width: WindowMinWidth, height: WindowMinHeight});
             player.setViewport({
-            x:(1.2*WindowMaxWidth)/100,
-              y: (1.3*WindowMaxWidth)/100, 
-              width: WindowMinWidth/0.5, 
-              height: WindowMinHeight/0.5});
+            x: Math.round((12*WindowMaxWidth)/100),
+              y: Math.round((8*WindowMaxHeight)/100), 
+              width: WindowMinWidth, 
+              height: WindowMinHeight});
     }
 
     /* *****************************************************************************
@@ -492,9 +493,7 @@
             clearInterval(UpdateSecondsRecord);
             UpdateSecondsRecord = null;
         }
-        //storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
-        //USB = storageInfo.result || [];
-        //timeShift.EnterTimeShift();
+
         player.pause();
     }
     function updateSeconds(){
@@ -582,9 +581,6 @@
                     NewSpeed = 0;
                     TvPlay();
                 }else{
-                    Debug("Position "+ player.position);
-                    Debug("NewSpeed "+ NewSpeed);
-                    Debug("Duration "+ player.duration);
                     player.position += parseInt(NewSpeed);
                     Position = parseInt(Position) + parseInt(NewSpeed);
                     //Debug("############3    player.position "+parseInt(player.position) + "   E############");
@@ -595,9 +591,6 @@
                     clearInterval(RewFor);
                     TvPlay();
                 }else{
-                    Debug("Position "+ player.position);
-                    Debug("NewSpeed "+ parseInt(NewSpeed));
-                    Debug("Duration "+ player.duration);
                     if(parseInt(player.position) + parseInt(NewSpeed) <= parseInt(player.duration)-2){
                         if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524"){
                             player.position += parseInt(NewSpeed);
@@ -615,12 +608,6 @@
                                 });
                                 player.position = player.duration - 5;
                                 SecondsOfRecord = SecondsOfRecord - 6;
-                                // setTimeout(function(){
-                                //     banderaDePrueba = false;
-                                // },2000);
-                                // player.position += parseInt(NewSpeed);
-                                // SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
-                                // Position = parseInt(Position) + parseInt(NewSpeed);
                             }else {
                                 player.position += parseInt(NewSpeed);
                                 SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
@@ -628,10 +615,217 @@
                             }
                         }
                     }
-                    
-                    //Debug("############3    player.position "+parseInt(player.position) + "   E############");
                 }
             }
+        }
+    }
+
+    function SkipCommercials(dir){
+        if(dir == "right"){
+            if(PlayingRecordPlaylist == false && PlayingRecordPlaylist2 == false ){
+                if((parseInt(player.position) + 60)<parseInt(player.duration)){
+                    player.position = parseInt(player.position) + parseInt(60);
+                }
+            }else{
+                if((parseInt(player.position) + 60)<parseInt(player.duration)){
+                    player.position = parseInt(player.position) + parseInt(60);
+                    SecondsOfRecord = SecondsOfRecord + 60;
+                }else if(positionFile < numberFilesGlobal){
+                    skipCommerialrest =(parseInt(player.duration) - parseInt(player.position));
+                    positionFile++;
+                    player.play({
+                        uri: RecordsPlaylist[positionFile],
+                        solution: 'auto'
+                    });
+                    if(positionFile == numberFilesGlobal){
+                        PlayingRecordPlaylist = false;
+                        PlayingRecordPlaylist2 = true;
+                    }
+                    setTimeout(function(){
+                        player.position = (60 - skipCommerialrest);
+                    },500);
+                    SecondsOfRecord = SecondsOfRecord + 60;
+                }
+            }
+        }else{
+            if(PlayingRecordPlaylist == false && PlayingRecordPlaylist2 == false){
+                if(parseInt(player.position) > 7){
+                    player.position = parseInt(player.position) - parseInt(7);
+                }else{
+                    player.position = 1;
+                }
+            }else{
+                if(parseInt(player.position)>parseInt(7)){
+                    player.position = parseInt(player.position) - parseInt(7);
+                    SecondsOfRecord = SecondsOfRecord-7;
+                }else if(positionFile>0){
+                    skipCommerialrest = (parseInt(7) - parseInt(player.position));
+                    positionFile = positionFile-1;
+                    player.play({
+                        uri: RecordsPlaylist[positionFile],
+                        solution: 'auto',
+                    });
+                    setTimeout(function(){
+                        player.position = player.duration - skipCommerialrest-10;
+                    },500);
+                    SecondsOfRecord = SecondsOfRecord - 17;
+                }else{
+                    SecondsOfRecord=1;
+                    player.position = 1;
+                }
+            }
+        }
+        
+    }
+
+    function SkipChapterRecord(direccionSkip){
+        var durationSkip;
+        if(PlayingRecordPlaylist == false && PlayingRecordPlaylist2 == false){
+            durationSkip = player.duration;
+        }else{
+            durationSkip = durationFull;
+        }
+        
+        if(chapters.length == 0 && durationSkip > 300){
+            chapters.push(0);
+            if(durationSkip > 300 && durationSkip<= 600){
+                for(var i = 0; i < Math.floor(durationSkip/60); i++){
+                    chapters.push((i+1)*60);
+                }
+            }else if(durationSkip > 600 && durationSkip<= 1200){
+                for(var i = 0; i < Math.floor(durationSkip/120); i++){
+                    chapters.push((i+1)*120);
+                }
+            }else if(durationSkip > 1200 && durationSkip<= 1800){
+                for(var i = 0; i < Math.floor(durationSkip/300); i++){
+                    chapters.push((i+1)*300);
+                }
+            }else if(durationSkip > 1800 && durationSkip<= 2400){
+                for(var i = 0; i < Math.floor(durationSkip/480); i++){
+                    chapters.push((i+1)*480);
+                }
+            }else if(durationSkip > 2400){
+                for(var i = 0; i < Math.floor(durationSkip/600); i++){
+                    chapters.push((i+1)*600);
+                }
+            }
+        }
+
+        if(chapters.length != 0){
+            if(PlayingRecordPlaylist == false && PlayingRecordPlaylist2 == false){
+
+                for(var x = 0; x < chapters.length; x++){
+                    if(x == (chapters.length-1)){
+                        if(player.position>chapters[chapters.length-1]){
+                            positionChapter = chapters.length-1;
+                            //ShowRecorderMessage("X1=" + x + " " + chapters[x]);
+                        }
+                    }if(x == 0 ){
+                        if(player.position<chapters[x+1]){
+                            positionChapter = x;
+                            //ShowRecorderMessage("X2=" + x + " " + chapters[x]);
+                        }
+                    }else if(x>0){
+                        if(player.position>chapters[x] && player.position<chapters[x+1]){
+                            positionChapter = x;
+                            //ShowRecorderMessage("X3=" + x + " " + chapters[x]);
+                        }
+                    }
+                }
+
+                if(direccionSkip == "forward" && positionChapter<chapters.length-1){
+                    positionChapter = positionChapter + 1;
+                    player.position = chapters[positionChapter];
+                }
+                if(direccionSkip == "backward" && positionChapter>0){
+                    positionChapter = positionChapter - 1;
+                    player.position = chapters[positionChapter];
+                }
+            }else{
+                for(var x = 0; x < chapters.length; x++){
+                    if(x == (chapters.length-1)){
+                        if(SecondsOfRecord>chapters[chapters.length-1]){
+                            positionChapter = chapters.length-1;
+                            //ShowRecorderMessage("X1=" + x + " " + chapters[x]);
+                        }
+                    }if(x == 0 ){
+                        if(SecondsOfRecord<chapters[x+1]){
+                            positionChapter = x;
+                            //ShowRecorderMessage("X2=" + x + " " + chapters[x]);
+                        }
+                    }else if(x>0){
+                        if(SecondsOfRecord>chapters[x] && SecondsOfRecord<chapters[x+1]){
+                            positionChapter = x;
+                            //ShowRecorderMessage("X3=" + x + " " + chapters[x]);
+                        }
+                    }
+                }
+
+                if(direccionSkip == "forward" && positionChapter<chapters.length-1 && SecondsOfRecord < chapters[positionChapter+1]){
+                    positionChapter = positionChapter+1
+                    var salto = chapters[positionChapter] - SecondsOfRecord;
+                    var salto2 = player.duration - player.position;
+                    if(salto>salto2){
+                        positionFile++;
+                        player.play({
+                            uri: RecordsPlaylist[positionFile],
+                            solution: 'auto'
+                        });
+                        if(positionFile == numberFilesGlobal){
+                            PlayingRecordPlaylist = false;
+                            PlayingRecordPlaylist2 = true;
+                        }
+                        setTimeout(function(){
+                            if(player.duration>(salto-salto2)){
+                                player.position = salto - salto2;
+                            }else{
+                                var s = player.duration;
+                                positionFile++;
+                                player.play({
+                                    uri: RecordsPlaylist[positionFile],
+                                    solution: 'auto'
+                                });
+                                if(positionFile == numberFilesGlobal){
+                                    PlayingRecordPlaylist = false;
+                                    PlayingRecordPlaylist2 = true;
+                                }
+                                setTimeout(function(){
+                                    player.position = salto - salto2-s; 
+                                },500);
+                            }
+                            
+                        },500);
+                        SecondsOfRecord = chapters[positionChapter]+1;
+                    }else{
+                        player.position = parseInt(player.position) + parseInt(salto);
+                        SecondsOfRecord = chapters[positionChapter];
+                    }
+                }
+                if(direccionSkip == "backward" && positionChapter>0){
+                    positionChapter = positionChapter - 1
+                    var salto = SecondsOfRecord - chapters[positionChapter];
+                    if(salto>player.position){
+                        positionFile= positionFile -1;
+                        player.play({
+                            uri: RecordsPlaylist[positionFile],
+                            solution: 'auto'
+                        });
+                        if(positionFile == numberFilesGlobal){
+                            PlayingRecordPlaylist = false;
+                            PlayingRecordPlaylist2 = true;
+                        }
+                        setTimeout(function(){
+                            player.position = (parseInt(SecondsOfRecord) - chapters[positionChapter+1])
+                        },500);
+                        SecondsOfRecord = chapters[positionChapter];
+                    }else{
+                        player.position = parseInt(player.position) + parseInt(salto);
+                        SecondsOfRecord = chapters[positionChapter];
+                    }
+                }
+            }
+
+            
         }
     }
     /* *****************************************************************************
@@ -644,19 +838,18 @@
             if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
                 PositionAsset = SecondsOfRecord;
                 DurationAsset = parseInt(Duration,10) * 60;
+                //ShowRecorderMessage(DurationAsset);
                 PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
             }else{
                 PositionAsset = player.position;
                 DurationAsset = parseInt(Duration,10) * 60;
+                //ShowRecorderMessage("ELSE "+DurationAsset);
                 PercentagePosition = Math.round((PositionAsset * 100) / DurationAsset);
             }        
         }else{ if (PauseLive === true){
             //alert('as');
             DurationAsset = Math.round(seconds);
             
-            //DurationAsset = Video.getDuration();
-            //DurationAsset = parseInt(Duration,10) * 60;
-            //Debug('>>>>>> DurationAsset: '+DurationAsset);
             PositionAsset = Math.round(Position);
             //Debug('>>>>>> PositionAsset: '+PositionAsset);
             // if(DurationAsset !== 0){
@@ -686,8 +879,5 @@
         }
     }
     function rebootInHour(){
-        //HDMIstatus = ENTONE.stb.getHdmiStatus();
-        //if(HDMIstatus.result.connected == false){
-        //    RebootDevice();
-        //}
+        
     }
