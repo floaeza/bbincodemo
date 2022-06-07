@@ -276,9 +276,7 @@ function ShowRecorderMessage(Message){
         for(IndexProgram = 0; IndexProgram < AllPrograms.length; IndexProgram++) {
             AllPrograms[IndexProgram].style.outline = 'none'; //1px solid rgb(0, 68, 114)
         }
-
         RecorderMessageActive = true;
-
         RecorderMessage.textContent = '';
         PanelMessage.style.display = 'inline';
         RecorderMessage.textContent = Message;
@@ -292,7 +290,7 @@ function ShowRecorderMessageConfirm(){
         RecorderMessageConfirm.textContent = '';
         PanelMessageConfirm.style.display = 'inline';
         RecorderMessageConfirm.textContent = 'This action cannot be undone, do you want to continue?';
-        MessageCloseCancel.style.background = "#dfbe5ee6";
+        MessageCloseCancel.style.background = "rgba(223, 190, 94, 0.9)";
     }
 }
 

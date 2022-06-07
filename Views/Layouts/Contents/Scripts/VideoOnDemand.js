@@ -368,8 +368,6 @@ function SetMoviesList() {
 
 
 function SetMoviesListByGender(CategoryRowFocus) {
-
-
     for (var index = 0; index < MoviesByGender.length; index++) {
         MoviesByGender[index] = '';
 
@@ -388,8 +386,6 @@ function SetMoviesListByGender(CategoryRowFocus) {
         }
 
     }
-
-
     var IndexR = 0,
         IndexM = 0,
         IndexB = posRows * 5;
@@ -397,7 +393,6 @@ function SetMoviesListByGender(CategoryRowFocus) {
     if (posRows % 2 != 0) {
         IndexB = IndexB - 5;
     }
-
     MoviesList = MoviesByGender;
     StopVideo();
 
@@ -1033,13 +1028,14 @@ function VodClose() {
 }
 
 function VodOk() {
+    
     if (CurrentFocus === 'Menu') {
         clearMovies();
         SelectMenuOption();
     } else if (CurrentFocus === 'MenuCategories') {
         clearMovies();
         ClearFocusPanelLeft();
-        SetMoviesListByGender(CategoryRowFocus - 1);
+        
         positionGenderSelect = CategoryRowFocus;
         if (positionGenderSelect !== 0) {  
             PanelLeftNodes[PanelLeftNodesArray[positionGenderSelect]].childNodes[0].classList.add('ButtonFocus')
@@ -1050,6 +1046,8 @@ function VodOk() {
             posRowsCategories = 0;
             cantidadRows = Math.ceil(MoviesList.length / 5);
             SetMoviesList();   
+        }else{
+            SetMoviesListByGender(CategoryRowFocus - 1);
         }
     } else if (CurrentFocus === 'Movies') {
         LoadMoviePanel();

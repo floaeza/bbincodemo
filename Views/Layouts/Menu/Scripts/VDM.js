@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 var MenuListNodes   = document.getElementsByClassName('MenuList'),
-    MenuDate        = null,
-    MenuHour        = document.getElementById('MenuHourMenu'),
+    MenuDate        = document.getElementById('MenuDate'),
+    MenuHour        = document.getElementById('MenuHour'),
     WeatherFarenheit        = document.getElementById('WeatherFarenheit'),
     WeatherCelsius        = document.getElementById('WeatherCelsius'),
     ImagesUrl       = ServerSource+'Media/Menu/',

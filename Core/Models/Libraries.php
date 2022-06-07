@@ -9,7 +9,7 @@ $JsonLibraries = array();
 
 
 
-if($GetJson == true){
+if($GetJson == true || $GetJson == "true"){
     require_once 'Database.php';
     require_once '../DataAccess/Config.php';
     $ConfigData  = new Config('system','Libraries');
@@ -20,9 +20,9 @@ if($GetJson == true){
 
 $ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
     
-    if(empty($ServerIp)){
-        $ServerIp = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
-    }
+if(empty($ServerIp)){
+    $ServerIp = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
+}
 
 $JsonLibraries['ServerRoot']        = 'http://'.$ServerIp.'/';
 $JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV/';

@@ -32,18 +32,28 @@ div#MenuContainer {
 }
 
 .MenuList.focus{
-    width: 102%;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 37%, rgba(56,59,255,1) 100%); 
-    border: 0px solid white;
+    width: 98%;
+    border-radius: 10px;
+    font: menu;
+    font-size: 50px;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+    background: rgba(56,59,255,1); 
+    border-top: 3px solid rgba(255, 255, 255, 0);
+    border-bottom: 3px solid rgba(255, 255, 255, 0);
+    border-left: 3px solid rgba(255, 255, 255, 0);
+    border-right: 3px solid rgba(255, 255, 255, 0);
 }
 
 div.MenuList{
     border-radius: 10px; 
-    margin-top: 10%; 
+    margin-top: 12%; 
     color: white;
-    border: 3px solid white;
-    width: 100%;
+    font: menu;
+    font-size: 50px;
+    text-shadow: 4px 4px 10px rgba(233, 232, 232, 0.5);
+
+    border: 3px solid rgb(202, 202, 202);
+    width: 98%;
     text-align: center;
     font-size: 50%;
 }
@@ -60,9 +70,12 @@ div#MenuListMain{
 }
 
 div#MenuWeather,
-div#MenuHourMenu,
-div#MenuDateHeader, .MenuNodes{
+div#MenuHour,
+div#MenuDate,
+div#MenuDate, .MenuNodes{
     font-family: Arial, Helvetica, sans-serif;
+    color: white;
+    text-align: left;
 }
 #WeatherIcon {
     float: left;

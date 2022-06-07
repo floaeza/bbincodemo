@@ -1,9 +1,10 @@
 
 
 <div id="MenuContainer">
-<div id='MenuBackgroun'></div>
+    <div id='MenuBackgroun'></div>
     <div id='MenuWeather'>
-        <div id='MenuHourMenu'></div> 
+        <div id='MenuHour'></div>
+        <div id='MenuDate'></div>
         <div id='TemperatureGroup'>
             <span id='WeatherFarenheit'>74</span><span>&deg; F</span>
             <span id='WeatherCelsius'>23</span><span>&deg; C</span>

@@ -103,6 +103,7 @@ function SetDate() {
 
     } else if(CurrentModule === 'Menu' || CurrentModule === 'Movies'){
 
+        console.log(montth +' '+ date + ', '+ year);
         MenuDate.textContent = montth +' '+ date + ', '+ year;
         MenuHour.textContent = FormatHour;
     }

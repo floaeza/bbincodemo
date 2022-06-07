@@ -89,17 +89,17 @@ if(CurrentModule === 'Tv'){
             }
         }
     }
-    if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
-        ASTB.Reboot();
-    }
+    //if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
+        //ASTB.Reboot();
+    //}
 
 } else if(CurrentModule === 'Menu' || CurrentModule === 'Movies'){
     FormatDate = moment().subtract(Offset, 'hours').format('MMMM DD YYYY');
     FormatHour = moment().subtract(Offset, 'hours').format('h:mm a');
     
-    if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
-        ASTB.Reboot();
-    }
+    //if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
+        //ASTB.Reboot();
+    //}
 
     MenuDate.textContent = FormatDate;
     MenuHour.textContent = FormatHour;
