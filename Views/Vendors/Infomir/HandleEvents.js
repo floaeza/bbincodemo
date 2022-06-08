@@ -218,16 +218,16 @@ window.stbEvent = {
                     //UpdateProgramOpera(inre.fileName, '4', 'false');
                     var file = inre.fileName;
                     if(isNaN(file.charAt(file.length - 1))){
-                       UpdateProgramOpera(file, 'false',inre.id, '4', 'true');
+                       UpdateProgramOpera(file, 'false',inre.id, '4', 'false');
                        var fil = file.split('/'); 
                        var cadena = 'false,'+ 'http://' + gSTB.RDir('IPAddress') + ':8080/'+ fil[2] + '/'+ fil[3];
                        //ShowRecorderMessage(cadena);
                        setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+cadena);
-                       setRecorderFiles(cadena);
+                       //setRecorderFiles(cadena);
                     }else{
                         var cantidad = parseInt(file.charAt(file.length - 1));
                         file = file.substring(0, file.length - 1);
-                        UpdateProgramOpera(file, cantidad,inre.id, '4', 'true');
+                        UpdateProgramOpera(file, cantidad,inre.id, '4', 'false');
                         var cadena= '';
                         var fil = file.split("/");
                          //ShowRecorderMessage(fil[2]+'/'+fil[3]);
@@ -242,7 +242,7 @@ window.stbEvent = {
                          }
                         //ShowRecorderMessage(cadena)
                         setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_RECORD '+cadena);
-                        setRecorderFiles(cadena);
+                        //setRecorderFiles(cadena);
 
                     }
                     UpdateDiskInfoInformir();

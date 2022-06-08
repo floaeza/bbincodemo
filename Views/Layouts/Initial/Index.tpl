@@ -183,14 +183,14 @@
             MacAddress  = gSTB.GetDeviceMacAddress();
             Firmware    = gSTB.GetDeviceImageDesc();
             Model       = gSTB.GetDeviceModel();
-            Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)?'Y':'N';
+            Hdd         = (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)?'Y':'N';
             Vendor      = gSTB.GetDeviceVendor();
             IpAddress   = gSTB.RDir('IPAddress');
             
-            if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') {
+            if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') {
                 $.ajax({
                         type: "POST",
-                        url: '/BBINCO/TV/Core/Controllers/Packages.php',
+                        url: '/BBINCO/TV_PRUEBAS/Core/Controllers/Packages.php',
                         data: { 
                            Option    : 'InitialConfigurationInfomir',
                            IpAddress : IpAddress,
@@ -264,7 +264,7 @@
                         
                     }else{
                         window.location.href = Data['ModuleUrl']+'?MacAddress='+MacAddress+'&ModuleId='+Data['ModuleId']+'&CurrentModule='+Data['ModuleName'];
-                        //window.location.href = 'http://localhost//BBINCO/Admin/Views/Boards/DRIFT.html';
+                        //window.location.href = 'http://10.0.3.9//BBINCO/Admin/Views/Boards/DRIFT.html';
                     }
                     
                 } else if(Data['Option'] === 'LICENSE'){
@@ -274,7 +274,7 @@
                         location.href='index.php?Option='+Data['Option'];
                     }else{
                         window.location.href = 'index.php?Option='+Data['Option'];
-                        //window.location.href = 'http://localhost//BBINCO/Admin/Views/Boards/DRIFT.html';
+                        //window.location.href = 'http://10.0.3.9//BBINCO/Admin/Views/Boards/DRIFT.html';
                     }
                 }
             }

@@ -29,7 +29,7 @@
     
     $Programacion = array();
     
-    $EpgFolder = 'http://localhost/EpgChannels/';
+    $EpgFolder = 'http://10.0.3.9/EpgChannels/';
     
     foreach ($Channels as $Channel):
         $StationName = $Channel['numero_estacion'];

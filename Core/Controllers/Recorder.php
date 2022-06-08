@@ -597,14 +597,14 @@ switch ($Option){
     break;
     case 'SendLog':
         $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : '';
-        $Commandfiles = '/usr/bin/python3 CreateLog.py '.$LogInfo;
+        $Commandfiles = 'sudo /usr/bin/python3 CreateLog.py '.$LogInfo;
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);
         break;
     case 'RecorderFiles':
         $FilesData   = !empty($_POST['FilesData']) ? $_POST['FilesData'] : '';
-        $Commandfiles = '/usr/bin/python3 RecorderFiles.py '.$FilesData.'';
+        $Commandfiles = 'sudo /usr/bin/python3 RecorderFiles.py '.$FilesData.'';
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);

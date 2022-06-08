@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://localhost/BBINCO/TV/" version="1.0.0" height="1080" width="1920" viewmodes="fullscreen">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:tizen="http://tizen.org/ns/widgets" id="http://10.0.3.9/BBINCO/TV_PRUEBAS/" version="1.0.0" height="1080" width="1920" viewmodes="fullscreen">
     <tizen:application id="87yCAs7xPK.bbinco" package="87yCAs7xPK" required_version="2.3"/>
     <content src="index.html"/>
     <feature name="http://www.samsungdforum.com/feature/Keyboard"/>
     <feature name="http://tizen.org/feature/screen.size.normal.1080.1920"/>
     <icon src="icon.png"/>
-    <tizen:metadata key="http://samsung.com/tv/metadata/prelaunch.support" value="true"/>
+    <tizen:metadata key="http://samsung.com/TV_PRUEBAS/metadata/prelaunch.support" value="true"/>
     <name>bbinco</name>
     <tizen:privilege name="http://developer.samsung.com/privilege/network.public"/>
     <tizen:privilege name="http://developer.samsung.com/privilege/productinfo"/>

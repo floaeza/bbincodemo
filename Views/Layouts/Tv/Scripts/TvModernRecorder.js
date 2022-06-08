@@ -2681,7 +2681,6 @@ function setInfomirLog(DataPVRLog){
     $.ajax({
         type: 'POST',
         url: 'Core/Controllers/Recorder.php',
-        async: false,
         data: {
             Option: 'SendLog',
             LogInfo: DataPVRLog

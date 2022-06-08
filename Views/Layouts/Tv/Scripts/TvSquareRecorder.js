@@ -1645,9 +1645,9 @@ function PvrClose(){
 
 function SetMacAddressPvr(){
     // Elige aleatoriamente la mac addres donde se guardara la serie en caso de que haya mas de un grabador
-    if(Device['Type'] === 'WHP_HDDN' || ((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0))){
+    if(Device['Type'] === 'WHP_HDDN' || ((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0))){
         
-        if((gSTB.GetDeviceModel() == 'MAG424'  || gSTB.GetDeviceModel() == 'MAG524') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424'  || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
             MacAddressPvr = gSTB.GetDeviceMacAddress();
         }else{
             if(Device['MacAddressPvr'].length > 1){

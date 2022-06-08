@@ -15,7 +15,7 @@ if($GetJson == true || $GetJson == "true"){
     $ConfigData  = new Config('system','Libraries');
     $Client = $ConfigData->getConfigByName('Identifier').'/';
     $EpgLogo = $ConfigData->getConfigByName('EpgLogo');
-    $JsonLibraries['EpgLogo'] = 'BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
+    $JsonLibraries['EpgLogo'] = 'BBINCO/TV_PRUEBAS/Media/Logos/'.$Client.$EpgLogo;
 }
 
 $ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
@@ -25,13 +25,13 @@ if(empty($ServerIp)){
 }
 
 $JsonLibraries['ServerRoot']        = 'http://'.$ServerIp.'/';
-$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV/';
+$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV_PRUEBAS/';
 $JsonLibraries['MediaSource']       = 'http://'.$ServerIp.'/BBINCO/';
 $JsonLibraries['MultimediaSource']  = 'http://'.$ServerIp.'/Multimedia/';
 $JsonLibraries['MoviesSource']      = 'http://'.$ServerIp.'/vod/mvs/';
 $JsonLibraries['SeriesSource']      = 'http://'.$ServerIp.'/vod/srs/';
 
-$ServerSource = 'http://'.$ServerIp.'/BBINCO/TV/';
+$ServerSource = 'http://'.$ServerIp.'/BBINCO/TV_PRUEBAS/';
 
 
 /* Views */
@@ -138,7 +138,7 @@ $JsonLibraries['EpgDaysPath']   = $Libraries['ControllersPath'].'Epg/'.$Client;
 //    $Client = $ConfigData->getConfigByName('Identifier').'/';
 //    $EpgLogo = $ConfigData->getConfigByName('EpgLogo');
 //
-//    $JsonLibraries['EpgLogo'] = 'BBINCO/TV/Media/Logos/'.$Client.$EpgLogo;
+//    $JsonLibraries['EpgLogo'] = 'BBINCO/TV_PRUEBAS/Media/Logos/'.$Client.$EpgLogo;
 //}
 //
 //$ServerIp = !empty($_SERVER['SERVER_ADDR']) ? $_SERVER['SERVER_ADDR'] : '';
@@ -147,7 +147,7 @@ $JsonLibraries['EpgDaysPath']   = $Libraries['ControllersPath'].'Epg/'.$Client;
 //    $ServerIp = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
 //}
 //
-//$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV/';
+//$JsonLibraries['ServerSource']      = 'http://'.$ServerIp.'/BBINCO/TV_PRUEBAS/';
 //$JsonLibraries['MultimediaSource']  = 'http://'.$ServerIp.'/Multimedia/';
 //$JsonLibraries['MoviesSource']      = 'http://'.$ServerIp.'/vod/mvs/';
 //$JsonLibraries['SeriesSource']      = 'http://'.$ServerIp.'/vod/srs/';
@@ -160,9 +160,9 @@ $JsonLibraries['EpgDaysPath']   = $Libraries['ControllersPath'].'Epg/'.$Client;
 //$Libraries['VendorsPath']       = './Views/Vendors/';
 //$Libraries['ScriptsPath']       = './Views/Scripts/';
 //
-//$Libraries['TvScripts']    = $Libraries['LayoutsPath'].'Tv/Scripts/';
-//$Libraries['TvStyles']     = $Libraries['LayoutsPath'].'Tv/Styles/';
-//$Libraries['TvTemplates']  = $Libraries['LayoutsPhpPath'].'Tv/Templates/';
+//$Libraries['TvScripts']    = $Libraries['LayoutsPath'].'TV_PRUEBAS/Scripts/';
+//$Libraries['TvStyles']     = $Libraries['LayoutsPath'].'TV_PRUEBAS/Styles/';
+//$Libraries['TvTemplates']  = $Libraries['LayoutsPhpPath'].'TV_PRUEBAS/Templates/';
 //
 //$Libraries['MenuScripts']    = $Libraries['LayoutsPath'].'Menu/Scripts/';
 //$Libraries['MenuStyles']     = $Libraries['LayoutsPath'].'Menu/Styles/';

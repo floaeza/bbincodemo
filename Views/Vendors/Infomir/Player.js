@@ -67,7 +67,7 @@
 
     var storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
     var USB = storageInfo.result || [];
-    if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+    if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
         // set folder for saving TimeShift buffer data
         timeShift.SetTimeShiftFolder(USB[0].mountPath+"/records");
         timeShift.SetMaxDuration(7500);
@@ -84,7 +84,7 @@
     function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
         var CheckPort = '';
         
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
             timeShift.ExitTimeShift();
             //Establece de forma manual la posicion en la que se encuentra el reproductor de video
             if(idPosition !== null){
@@ -139,7 +139,7 @@
         StopVideo();
         
         //gSTB.Play(Source + CheckPort);
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
             player.play({
                 uri: Source + CheckPort,
                 solution: 'extTimeShift',
@@ -170,7 +170,7 @@
         StartDateChannel = new Date();
     }
     function PlayChannel2(url){
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
             player.play({
                 uri: url,
                 solution: 'extTimeShift'
@@ -226,14 +226,14 @@
 
     function PlayVideo(Source){
         // Detiene el proceso de la reproduccion anterior
-
+        
         //Source = 'http://10.0.3.10/Recordings/prueba.m3u8';
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
         chapters = [];
-        if(gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524'){
+        if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03')){
             var source2 = Source.split('/');
-            Source = "http://localhost/INFOMIR_RECORDINGS/" + source2[4]; 
+            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
 
         var conti = false;
@@ -259,6 +259,7 @@
                 });
             }else{
                 //alert(Source);
+                ShowRecorderMessage("EEEH?: "+Source);
                 Source = Source.replace(/\s+/g, '');
                 Debug('--------------->>> '+Source);
                 //Reproduce el video
@@ -303,9 +304,9 @@
         positionFile = 0;
         numberFilesGlobal = 0;
         
-        if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524"){
+        if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524" || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03'){
             var source2 = filename.split('/');
-            filename = "http://localhost/INFOMIR_RECORDINGS/" + source2[4]; 
+            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
@@ -479,7 +480,7 @@
     }
 
     function PauseVideo(){
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
             timeShift.EnterTimeShift();
             TimeShiftStart = Position;
         }
@@ -592,7 +593,7 @@
                     TvPlay();
                 }else{
                     if(parseInt(player.position) + parseInt(NewSpeed) <= parseInt(player.duration)-2){
-                        if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524"){
+                        if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524" || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03'){
                             player.position += parseInt(NewSpeed);
                             SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
                             Position = parseInt(Position) + parseInt(NewSpeed);
