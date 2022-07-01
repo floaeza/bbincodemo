@@ -38,7 +38,7 @@
     player.videoWindowMode = 1;
     player.aspectConversion = 0;
 
-    if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
+    if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524' && gSTB.GetDeviceModel() !=='MAG522v2'){
         var player2 = stbPlayerManager.list[1];
         player2.videoWindowMode = 0;
         player2.aspectConversion = 5;    
@@ -67,7 +67,7 @@
 
     var storageInfo = JSON.parse(gSTB.GetStorageInfo('{}'));
     var USB = storageInfo.result || [];
-    if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
+    if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
         // set folder for saving TimeShift buffer data
         timeShift.SetTimeShiftFolder(USB[0].mountPath+"/records");
         timeShift.SetMaxDuration(7500);
@@ -82,9 +82,10 @@
     * ****************************************************************************/
 
     function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
+        Debug("Source: asdasd   "+Source);
         var CheckPort = '';
         
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
             timeShift.ExitTimeShift();
             //Establece de forma manual la posicion en la que se encuentra el reproductor de video
             if(idPosition !== null){
@@ -134,22 +135,22 @@
         Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
         URLLog = Source+CheckPort;
         
-        //Debug("Source "+ Source +" Port "+CheckPort);
+        Debug("Source "+ Source +" Port "+CheckPort);
         
         StopVideo();
         
         //gSTB.Play(Source + CheckPort);
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
             player.play({
                 uri: Source + CheckPort,
-                solution: 'extTimeShift',
-                program: ProgramIdPosition
+                solution: 'rtp',
+                //program: ProgramIdPosition
             });
         }else{
             player.play({
                 uri: Source + CheckPort,
-                solution: 'auto',
-                program: ProgramIdPosition
+                solution: 'rtp',
+                //program: ProgramIdPosition
             });
         }
 
@@ -170,7 +171,7 @@
         StartDateChannel = new Date();
     }
     function PlayChannel2(url){
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
             player.play({
                 uri: url,
                 solution: 'extTimeShift'
@@ -231,7 +232,7 @@
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
         chapters = [];
-        if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03')){
+        if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1')){
             var source2 = Source.split('/');
             Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
         }
@@ -259,12 +260,10 @@
                 });
             }else{
                 //alert(Source);
-                ShowRecorderMessage("EEEH?: "+Source);
                 Source = Source.replace(/\s+/g, '');
                 Debug('--------------->>> '+Source);
                 //Reproduce el video
                 //alert(Source);
-                //ShowRecorderMessage(Source);
                 player.play({
                     uri: Source,
                     solution: 'auto'
@@ -274,7 +273,6 @@
             }
         } else {
             //Reproduce el video
-            //ShowRecorderMessage('as');
             //alert(Source);
             player.play({
                 uri: Source,
@@ -304,10 +302,10 @@
         positionFile = 0;
         numberFilesGlobal = 0;
         
-        if(gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524" || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03'){
-            var source2 = filename.split('/');
-            filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
-        }
+        // if((gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524") && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' && gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' && gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1'){
+        //     var source2 = filename.split('/');
+        //     filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+        // }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
         SecondsOfRecord = 0;
@@ -328,7 +326,6 @@
         for(var x = 0; x<RecordsPlaylist.length; x++){
             RecordsPlaylist[x] = RecordsPlaylist[x].replace(/\s+/g, '');
         }
-        //Debug(RecordsPlaylist[0]);
         player.play({
             uri: RecordsPlaylist[0],
             solution: 'auto'
@@ -467,7 +464,7 @@
             UpdateSecondsRecord = null;
         }
         player.stop();
-        if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'){
+        if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'  && gSTB.GetDeviceModel() !=='MAG522v2'){
             if(player2.state !== 0){
                 player2.stop();
             }
@@ -480,7 +477,7 @@
     }
 
     function PauseVideo(){
-        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03') && (USB.length !== 0)){
+        if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
             timeShift.EnterTimeShift();
             TimeShiftStart = Position;
         }
@@ -524,7 +521,6 @@
             RewFor = null;
         }
         player.resume();
-        //ShowRecorderMessage(PlayingRecordPlaylist + ' ' + PlayingRecordPlaylist2);
         if(UpdateSecondsRecord === null && (PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true) && firstPause == false){
             clearInterval(UpdateSecondsRecord);
             UpdateSecondsRecord = null;
@@ -558,7 +554,6 @@
     function updateRewFor(){
         //Debug("############3    "+player.position + "   E############");
         Debug('PauseLive = '+PauseLive);
-        //ShowRecorderMessage(player.position);
         if(PauseLive === true && PlayingRecording === false){
             if(parseInt(Position) + (parseInt(NewSpeed)-1) >=parseInt(seconds) || (parseInt(Position) + (parseInt(NewSpeed)-1) <=parseInt(TimeShiftStart)+2)){
                 Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
@@ -593,7 +588,7 @@
                     TvPlay();
                 }else{
                     if(parseInt(player.position) + parseInt(NewSpeed) <= parseInt(player.duration)-2){
-                        if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524" || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03'){
+                        if(gSTB.GetDeviceModel() == "MAG424" || gSTB.GetDeviceModel() == "MAG524" || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1'){
                             player.position += parseInt(NewSpeed);
                             SecondsOfRecord = SecondsOfRecord + parseInt(NewSpeed);
                             Position = parseInt(Position) + parseInt(NewSpeed);

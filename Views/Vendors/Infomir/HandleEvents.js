@@ -215,6 +215,7 @@ window.stbEvent = {
                     Debug("---------------> " + EventString + " <---------------");
                     var info2 = JSON.parse(info);
                     var inre = JSON.parse(pvrManager.GetTaskByID(info2.id));
+                    pvrManager.RemoveTask(inre.id, 0);
                     //UpdateProgramOpera(inre.fileName, '4', 'false');
                     var file = inre.fileName;
                     if(isNaN(file.charAt(file.length - 1))){
@@ -260,6 +261,7 @@ window.stbEvent = {
                     UpdateDiskInfoInformir();
                     setInfomirLog('RECORDER,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_RECORD '+ inre.errorCode);
                     if(inre.errorCode == -10){
+                        pvrManager.RemoveTask(inre.id, 0);
                         restartTask(inre.fileName, inre.url, inre.endTime);
                     }else{
                         ShowRecorderMessage('An error occurred with the recording, contact the administrator. Error code: ' + errorCode);
@@ -387,8 +389,11 @@ function GetProgramsToScheduleInformir(){
                 Title = Title.replace(/ /g, "_");
                 Title = Title.replace(/\//g, "");
                 Title = Title.replace(/\,/g, "");
+                Title = Title.replace(/\'/g, "");
                 Title = Title.replace(/\;/g, "");
                 Title = Title.replace(/\*/g, "");
+                Title = Title.replace(/\!/g, "");
+                Title = Title.replace(/\&/g, "");
                 var NewTask = pvrManager.CreateTask(Source, USB[0].mountPath+"/"+ProgramId+'_'+Title+'_'+Fecha+".ts", Start, End)
                 if (NewTask<0){
                     //CurrentTime = Date.UTC(moment().format('Y'), moment().format('MM'), moment().format('DD'), moment().format('HH'), moment().format('mm'));
