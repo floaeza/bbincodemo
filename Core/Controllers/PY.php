@@ -20,7 +20,7 @@
     $ChannelsData = new Channels('system', $CurrentController);
     
     $ArrayEPGInfo = array();
-    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'GetChannelsInfo';
+    $Option = !empty($_POST['Option']) ? $_POST['Option'] : 'GetPackages';
     $PackageID = !empty($_POST['PackageID']) ? $_POST['PackageID'] : '6';
     $Station = !empty($_POST['Station']) ? $_POST['Station'] : 'GATO';  
 

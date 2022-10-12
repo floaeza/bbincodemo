@@ -250,10 +250,8 @@
                 Vendor      : Vendor
             },
             success: function (response) {
-                
                 var Data = $.parseJSON(response);
-
-                console.log(Data);
+                console.log(Option);
 
                 if(Data['Option'] === 'RELOAD'){
                     var DeviceInfo = ' Mac: '+MacAddress+' Ip: '+IpAddress+' <br> Firmware: '+Firmware+' Model: '+Model+' Vendor : '+Vendor;
