@@ -23,7 +23,7 @@ var now = new tizen.TZDate(),
 xhr = $.ajax({
     cache: false,
     type: 'POST',
-    url: 'http://'+ServerIp+'/BBINCO/TVCH/Core/Models/Time.php',
+    url: 'http://'+ServerIp+'/BBINCO/TVCHL/Core/Models/Time.php',
     async : false,
     success: function (response) {
         var Today = $.parseJSON(response),

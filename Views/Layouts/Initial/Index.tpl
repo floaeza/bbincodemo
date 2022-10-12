@@ -190,7 +190,7 @@
             if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') {
                 $.ajax({
                         type: "POST",
-                        url: '/BBINCO/TVCH/Core/Controllers/Packages.php',
+                        url: '/BBINCO/TVCHL/Core/Controllers/Packages.php',
                         data: { 
                            Option    : 'InitialConfigurationInfomir',
                            IpAddress : IpAddress,
