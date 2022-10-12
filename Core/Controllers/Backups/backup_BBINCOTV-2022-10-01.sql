@@ -922,7 +922,7 @@ CREATE TABLE `parametros` (
 
 LOCK TABLES `parametros` WRITE;
 /*!40000 ALTER TABLE `parametros` DISABLE KEYS */;
-INSERT INTO `parametros` VALUES (1,'ServerIp','10.30.0.15',1,1),(2,'ServerPort','80',1,1),(3,'AvailableDevices','800',1,1),(4,'LocationCode','DEFAULT',1,1),(5,'RecorderIdentifier','1',4,1),(6,'IndexLogo','home.jpg',3,2),(7,'GuideDays','1',1,1),(8,'ExtraHour','18:00',1,1),(9,'StartEnd','0600',1,1),(10,'OffsetZone','-6',1,1),(11,'Identifier','CHL',1,1),(12,'EffectiveDate','2023-01-01',1,1),(13,'LicenseStatus','Activo',1,1),(14,'CentralServer','http://201.116.203.114/',1,1),(15,'EpgLogo','MainLogo.png',3,2),(16,'GatoTime','1',1,1),(17,'Version','2.0',1,1),(18,'OffsetZone2','-1',1,1),(19,'LastPackage','16',1,1);
+INSERT INTO `parametros` VALUES (1,'ServerIp','10.0.3.241',1,1),(2,'ServerPort','80',1,1),(3,'AvailableDevices','800',1,1),(4,'LocationCode','DEFAULT',1,1),(5,'RecorderIdentifier','1',4,1),(6,'IndexLogo','home.jpg',3,2),(7,'GuideDays','1',1,1),(8,'ExtraHour','18:00',1,1),(9,'StartEnd','0600',1,1),(10,'OffsetZone','-6',1,1),(11,'Identifier','CHL',1,1),(12,'EffectiveDate','2023-01-01',1,1),(13,'LicenseStatus','Activo',1,1),(14,'CentralServer','http://201.116.203.114/',1,1),(15,'EpgLogo','MainLogo.png',3,2),(16,'GatoTime','1',1,1),(17,'Version','2.0',1,1),(18,'OffsetZone2','-1',1,1),(19,'LastPackage','16',1,1);
 /*!40000 ALTER TABLE `parametros` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -190,7 +190,7 @@
             if (gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() == 'MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') {
                 $.ajax({
                         type: "POST",
-                        url: '/BBINCO/TV/Core/Controllers/Packages.php',
+                        url: '/BBINCO/TVCH/Core/Controllers/Packages.php',
                         data: { 
                            Option    : 'InitialConfigurationInfomir',
                            IpAddress : IpAddress,
@@ -264,7 +264,7 @@
                         
                     }else{
                         window.location.href = Data['ModuleUrl']+'?MacAddress='+MacAddress+'&ModuleId='+Data['ModuleId']+'&CurrentModule='+Data['ModuleName'];
-                        //window.location.href = 'http://10.30.0.15//BBINCO/Admin/Views/Boards/DRIFT.html';
+                        //window.location.href = 'http://10.0.3.241//BBINCO/Admin/Views/Boards/DRIFT.html';
                     }
                     
                 } else if(Data['Option'] === 'LICENSE'){
@@ -274,7 +274,7 @@
                         location.href='index.php?Option='+Data['Option'];
                     }else{
                         window.location.href = 'index.php?Option='+Data['Option'];
-                        //window.location.href = 'http://10.30.0.15//BBINCO/Admin/Views/Boards/DRIFT.html';
+                        //window.location.href = 'http://10.0.3.241//BBINCO/Admin/Views/Boards/DRIFT.html';
                     }
                 }
             }

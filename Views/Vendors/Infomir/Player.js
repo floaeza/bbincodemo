@@ -235,7 +235,7 @@
         chapters = [];
         //if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1')){
         //    var source2 = Source.split('/');
-        //    Source = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
+        //    Source = "http://10.0.3.241/INFOMIR_RECORDINGS/" + source2[4]; 
         //}
 
         var conti = false;
@@ -306,7 +306,7 @@
         
         // if((gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524") && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' && gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' && gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1'){
         //     var source2 = filename.split('/');
-        //     filename = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
+        //     filename = "http://10.0.3.241/INFOMIR_RECORDINGS/" + source2[4]; 
         // }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
