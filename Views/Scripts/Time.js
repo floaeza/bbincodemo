@@ -78,20 +78,20 @@ if(CurrentModule === 'Tv'){
 
 
 
-    if(FormatHour === '12:01 AM'){
+if(FormatHour === '12:01 AM'){
 
-        SetEpgFile();
-        //Debug('------------------------------ SetEpgFile -> FormatHour: '+FormatHour);
+    SetEpgFile();
+    //Debug('------------------------------ SetEpgFile -> FormatHour: '+FormatHour);
 
-        if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
-            if(EpgDataActive === true){
-                GetProgramsSerie();
-            }
+    if(Device['Type'] === 'WHP_HDDY' || Device['Type'] === 'PVR_ONLY'){
+        if(EpgDataActive === true){
+            GetProgramsSerie();
         }
     }
-    //if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
-        //ASTB.Reboot();
-    //}
+}
+//if(FormatHour === '4:02 am'  && typeof(ASTB) !== 'undefined'){
+    //ASTB.Reboot();
+//}
 
 } else if(CurrentModule === 'Menu' || CurrentModule === 'Movies'){
     FormatDate = moment().subtract(Offset, 'hours').format('MMMM DD YYYY');

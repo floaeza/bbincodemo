@@ -11,7 +11,7 @@ import os
 from os import listdir
 from os.path import isfile, isdir
 
-iplocal = '10.0.3.9'
+iplocal = '10.30.0.15'
 today = datetime.today()
 today = today
 listDays = ["", "", "", "", "", "", "","", "", "", ""]

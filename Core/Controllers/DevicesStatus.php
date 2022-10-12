@@ -163,7 +163,7 @@ switch ($Option){
             // $leer = fread($gestor, 2096);
             // $Response = $leer;
             // pclose($gestor);
-            $command = escapeshellcmd('sudo /usr/bin/python3 RebootTelnet.py');
+            $command = escapeshellcmd('/usr/bin/python3 RebootTelnet.py');
             $output = shell_exec($command);
             $Response = $output;
             break;

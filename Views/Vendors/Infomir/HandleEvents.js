@@ -20,7 +20,7 @@ window.stbEvent = {
             case 1:
                 //The player reached the end of the media content or detected a discontinuity of the stream
                 EventString = 'STATUS_END_OF_STREAM';
-                
+                Debug(EventString);
                 if(Executing === false){
                     UpdateQuickInfoDevice();
                 }
@@ -93,10 +93,11 @@ window.stbEvent = {
                         
                     }
                 }else if(PlayingChannel == true && ActiveDigitalChannel==false){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
+                    //gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
+                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
                     }
                     //setTimeout(PlayChannel2(URLLog),5000);
                 }
@@ -107,24 +108,26 @@ window.stbEvent = {
             case 2:
                 //Information on audio and video tracks of the media content is received
                 EventString = 'INFORMATION_RECEIVED';
+                Debug(EventString);
                 if(ActiveDigitalChannel==false){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99' && URLLog !== ''){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
                         var x24Today = new Date();	
                         var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',INFORMATION_RECEIVED '+URLLog);
+                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',INFORMATION_RECEIVED '+URLLog);
                     }
                 }
-                Debug("---------------> " + EventString + " <---------------");
             break;
 
             case 4:
                 //Video and/or audio playback has begun
                 EventString = 'STATUS_PLAYING';
+                Debug('Estado del multicast'+EventString);
+                Debug('Direccion multicast'+ipMulticastTest);
                 if(ActiveDigitalChannel==false){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99' && URLLog !== ''){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
                         var x24Today = new Date();	
                         var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_PLAYING '+URLLog);
+                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_PLAYING '+URLLog);
                     }
                 }
                 if(Executing === false){
@@ -141,15 +144,15 @@ window.stbEvent = {
                     UpdateQuickInfoDevice();
                 }
                 if(PlayingChannel == true){
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e'){
                         x24Today = new Date();	
                         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_STREAM '+URLLog);
+                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_ERROR_STREAM '+URLLog);
                     }
                     if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
                         GetDigitalChannel();
                     }else if(PlayingRecording==false){
-                        setTimeout(PlayChannel2(URLLog),5000);
+                        //setTimeout(PlayChannel2(URLLog),5000);
                     }
                     
                 }else if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
@@ -686,11 +689,12 @@ function UpdateProgramDeleteInformir(ProgramId, OperationId, AssetId){
 
 function HandlerPvrInformir(){
     
-    GetProgramsSerie();
+    
 
     GetProgramsToScheduleInformir();
 
     GetSchedulesToDeleteInformir();
+    GetProgramsSerie();
     
     setTimeout(HandlerPvrInformir,30000);
     

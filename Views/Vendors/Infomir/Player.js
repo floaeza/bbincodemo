@@ -82,7 +82,7 @@
     * ****************************************************************************/
 
     function PlayChannel(Source, Port, ProgramIdChannnel, ProgramIdPosition){
-        Debug("Source: asdasd   "+Source);
+        //Debug("Source: asdasd   "+Source);
         var CheckPort = '';
         
         if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
@@ -134,8 +134,8 @@
         Source = Source.replace('igmp','udp');
         Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
         URLLog = Source+CheckPort;
-        
-        Debug("Source "+ Source +" Port "+CheckPort);
+        ipMulticastTest = Source;
+       
         
         StopVideo();
         
@@ -143,17 +143,18 @@
         if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
             player.play({
                 uri: Source + CheckPort,
-                solution: 'rtp',
+                solution: 'extTimeShift',
                 //program: ProgramIdPosition
             });
         }else{
+            Debug("Source aa"+ Source +" Port "+CheckPort);
+
             player.play({
                 uri: Source + CheckPort,
-                solution: 'rtp',
+                solution: 'auto',
                 //program: ProgramIdPosition
             });
         }
-
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
         // Activamos la bandera
@@ -232,10 +233,10 @@
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
         chapters = [];
-        if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1')){
-            var source2 = Source.split('/');
-            Source = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
-        }
+        //if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1')){
+        //    var source2 = Source.split('/');
+        //    Source = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
+        //}
 
         var conti = false;
         if(PlayingRecording===true){
@@ -262,6 +263,7 @@
                 //alert(Source);
                 Source = Source.replace(/\s+/g, '');
                 Debug('--------------->>> '+Source);
+                //ShowRecorderMessage(Source);
                 //Reproduce el video
                 //alert(Source);
                 player.play({
@@ -304,7 +306,7 @@
         
         // if((gSTB.GetDeviceModel() !== "MAG424" && gSTB.GetDeviceModel() !=="MAG524") && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' && gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' && gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' && gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1'){
         //     var source2 = filename.split('/');
-        //     filename = "http://10.0.3.9/INFOMIR_RECORDINGS/" + source2[4]; 
+        //     filename = "http://10.30.0.15/INFOMIR_RECORDINGS/" + source2[4]; 
         // }
         RecordsPlaylist = [filename];
         durationFull = parseFloat(durationParts) * 60;
@@ -439,9 +441,9 @@
 
     function MinimizeTV(){
         //player.setViewport({x: (20*WindowMaxWidth)/100, y: (8*WindowMaxWidth)/100, width: WindowMinWidth, height: WindowMinHeight});
-            player.setViewport({
-            x: Math.round((12*WindowMaxWidth)/100),
-              y: Math.round((8*WindowMaxHeight)/100), 
+        player.setViewport({
+            x: Math.round((2*WindowMaxWidth)/100),
+              y: Math.round((7.1*WindowMaxHeight)/100), 
               width: WindowMinWidth, 
               height: WindowMinHeight});
     }

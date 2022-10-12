@@ -85,7 +85,7 @@
         } else if(NUMBER_EVENT === CONNECTION_STOPPED){ 
             //
             EventString = 'CONNECTION_STOPPED';
-
+            Debug(EventString);
             if(Executing === false){
                 UpdateQuickInfoDevice();
             }
@@ -94,7 +94,7 @@
         } else if(NUMBER_EVENT === IGMP_STATUS_END_OF_STREAM){ 
             //
             EventString = 'STATUS_ERROR_STREAM';
-
+            Debug(EventString);
             if(Executing === false){
                 UpdateQuickInfoDevice();
             }
@@ -104,7 +104,7 @@
             //
             EventString = 'STATUS_PLAYING';
 
-            //Debug('----> HANDLE EVENTS VIDEO_STARTED');
+            Debug('----> HANDLE EVENTS VIDEO_STARTED');
             if(Executing === false){
                 UpdateQuickInfoDevice();
             }
@@ -139,7 +139,7 @@
             }
 
             EventString = 'STATUS_END_OF_STREAM';
-
+            Debug(EventString);
             if(Executing === false){
                 UpdateQuickInfoDevice();
             }
@@ -467,7 +467,7 @@ function HandlerPvr(){
 
     //Debug('-------> HandlerPvr');
     
-    GetProgramsSerie();
+    //GetProgramsSerie();
 
     setTimeout(HandlerPvr,50000);
 }

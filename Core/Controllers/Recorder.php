@@ -13,7 +13,7 @@ require_once './../DataAccess/DiskInfo.php';
 
 $CurrentController = 'RecorderController';
 
-$Option         = !empty($_POST['Option']) ? $_POST['Option'] : 'GetPvrInfoInfomir';
+$Option         = !empty($_POST['Option']) ? $_POST['Option'] : 'SendLog';
 $MacAddress     = !empty($_POST['MacAddress']) ? $_POST['MacAddress'] : '00:00:00:00:00:00'; // 00:00:00:00:00:00
 $OperationId     = !empty($_POST['OperationId']) ? $_POST['OperationId'] : '';
 $LocationId     = !empty($_POST['LocationId']) ? $_POST['LocationId'] : '1';
@@ -153,7 +153,7 @@ switch ($Option){
                         }
                     } else {
                         if($ProgramsRecorded[$i]['file'] !== null){
-                            $Url = 'http://'.$ProgramsRecorded[$i]['ip'].':8080'.substr($ProgramsRecorded[$i]['file'],6);
+                            $Url = 'ftp://root:930920@'.$ProgramsRecorded[$i]['ip'].':21'.substr($ProgramsRecorded[$i]['file'],6);
                         }else{
                             $Url = 'rtsp://'.$ProgramsRecorded[$i]['ip'].':554/'.str_pad($ProgramsRecorded[$i]['id_asset'],10,'0', STR_PAD_LEFT);
                         }
@@ -596,15 +596,15 @@ switch ($Option){
         $Response = array($Result, $TypeResult);
     break;
     case 'SendLog':
-        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : '';
-        $Commandfiles = 'sudo /usr/bin/python3 CreateLog.py '.$LogInfo;
+        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : 'multicast,infomir,er,3e4,78u';
+        $Commandfiles = '/usr/bin/python3 CreateLog.py '.$LogInfo;
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);
         break;
     case 'RecorderFiles':
         $FilesData   = !empty($_POST['FilesData']) ? $_POST['FilesData'] : '';
-        $Commandfiles = 'sudo /usr/bin/python3 RecorderFiles.py '.$FilesData.'';
+        $Commandfiles = '/usr/bin/python3 RecorderFiles.py '.$FilesData.'';
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);

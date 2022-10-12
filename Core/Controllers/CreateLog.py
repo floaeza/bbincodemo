@@ -13,9 +13,9 @@ parametro = parametro.split(',')
 
 try:
     file = open("/var/www/html/BBINCO/TV/Core/Controllers/logInformir.txt", "w")
-    file.write(listToStr + parametro[0] + ' -----> ' + parametro[1] + ' | ' + parametro[2] + ' | ' + parametro[3] + ' | ' + parametro[4]+'\n')
+    file.write(listToStr + parametro[0] + ' -----> ' + parametro[1] + ' | ' + parametro[2] + ' | ' + parametro[3] + ' | ' + parametro[4]+'|'+ parametro[5]+'\n')
     file.close()
 except:
     file = open("/var/www/html/BBINCO/TV/Core/Controllers/logInformir.txt", "w")
-    file.write(listToStr + parametro[0] + ' | ' + parametro[1] + ' | ' + parametro[2] + ' | ' + parametro[3]+ '\n')
+    file.write(listToStr + parametro[0] + ' | ' + parametro[1] + ' | ' + parametro[2] + ' | ' + parametro[3]+'|'+ parametro[4]+ '\n')
     file.close()

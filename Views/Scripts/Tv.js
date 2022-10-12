@@ -10,7 +10,7 @@
  * Kamai 500x: Safari 538.1
  * Lg UV770H: Chrome 53 
  *******************************************************************************/
-  window.history.forward(1);
+  //window.history.forward(1);
     /* Funcion para dar formato a la fecha */
     Date.prototype.yyyymmdd = function () {
         var mm = this.getMonth() + 1;
@@ -1216,4 +1216,18 @@ function TvChannelDown(){
     } else {
         OpenRecordPlayOptions();
     }
+}
+
+function setInfomirLog(DataPVRLog){
+    $.ajax({
+        type: 'POST',
+        url: 'Core/Controllers/Recorder.php',
+        data: {
+            Option: 'SendLog',
+            LogInfo: DataPVRLog
+        },
+        success: function (response) {
+            Debug('Log set');
+        }
+    });
 }
