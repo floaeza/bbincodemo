@@ -1,15 +1,15 @@
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
-<!-- <link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
+<!-- <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
 
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
 
 
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
 
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
-<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
+<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
 
 <section class="department_section layout_padding" style="background: white; height: 100%;">
     <div class="department_container">
@@ -27,7 +27,7 @@
           <div class="col-md-3">
             <div class="box ">
               <div class="img-box">
-                <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/s1.png" alt="">
+                <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/s1.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -42,7 +42,7 @@
           <div class="col-md-3">
             <div class="box ">
               <div class="img-box">
-                <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/s2.png" alt="">
+                <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/s2.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -57,7 +57,7 @@
           <div class="col-md-3">
             <div class="box ">
               <div class="img-box">
-                <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/s3.png" alt="">
+                <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/s3.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -72,7 +72,7 @@
           <div class="col-md-3">
             <div class="box ">
               <div class="img-box">
-                <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/s4.png" alt="">
+                <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/s4.png" alt="">
               </div>
               <div class="detail-box">
                 <h5>
@@ -91,6 +91,6 @@
 
 
 
-<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
-<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
-<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>
+<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
+<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
+<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>

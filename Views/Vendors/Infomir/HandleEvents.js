@@ -117,10 +117,10 @@ window.stbEvent = {
                 if(actualVideoPlay != null){
     
                     if (actualVideoPlay == 'paquetes') {
-                        PlayVideo('http://storage.bbincovatio.com/Multimedia/Hospital/0.mp4');
+                        PlayVideo('http://storage.bbinco.com/Multimedia/Hospital/0.mp4');
                     }
                     if (actualVideoPlay == 'precios') {
-                        PlayVideo('http://storage.bbincovatio.com/Multimedia/Hospital/1.mp4');
+                        PlayVideo('http://storage.bbinco.com/Multimedia/Hospital/1.mp4');
                     }
                 }
             break;

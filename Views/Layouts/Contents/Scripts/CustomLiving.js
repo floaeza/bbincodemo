@@ -1,4 +1,4 @@
-var sourceVideo = 'http://storage.bbincovatio.com/Multimedia/caboSol/0.mp4';
+var sourceVideo = 'http://storage.bbinco.com/Multimedia/caboSol/0.mp4';
 
 
 $(function() {
