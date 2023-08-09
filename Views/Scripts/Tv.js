@@ -119,10 +119,19 @@
     //setTimeout(SetChannel,1800, '');
 function SetEpgFile(){
     /* Consulta la fecha actual cada vez que actualiza la guia */
+    if(typeof(ASTB) !== 'undefined'){
+        ASTB.DebugString('2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CONSULTA DE DATOS FECHA');
+        Debug('2~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~CONSULTA DE DATOS FECHA');
+
+    }
     CurrentDateFormat = new Date();
     CurrentDate = CurrentDateFormat.yyyymmdd();
     NewDate     = CurrentDate;
-    
+    if(typeof(ASTB) !== 'undefined'){
+        ASTB.DebugString('3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FECHA DEL JS= '+NewDate);
+        Debug('3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~FECHA DEL JS= '+NewDate);
+
+    }
     /* Si tiene activa EPG actualiza la variable que por defecto tiene el valor de general */
     if(Device['Services']['ActiveEpg'] === true){
             //if(MacAddress === '00:00:00:00:00:01'){
@@ -130,58 +139,167 @@ function SetEpgFile(){
             // } else {
                 SourceEpgFile = Libraries['EpgDaysPath'] + 'epg_' + CurrentDate + '_' + Device['Services']['PackageId'] + '.json';
             // }
+        if(typeof(ASTB) !== 'undefined'){
+            ASTB.DebugString('3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LLAMANDO FUNCION PARA DESCARGAR INFO DE SERVER CON URL= '+SourceEpgFile);
+            Debug('3~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~LLAMANDO FUNCION PARA DESCARGAR INFO DE SERVER CON URL= '+SourceEpgFile);
             
-        Debug('------- SetEpgFile ->>> SourceEpgFile: ' + SourceEpgFile);
+        }
+        //Debug('------- SetEpgFile ->>> SourceEpgFile: ' + SourceEpgFile);
         GetJsonEpg(SourceEpgFile, 0);
     } else {
         EpgDataActive = false;
 
         //////Debug('------- EpgDataActive: FALSE');
         GetJsonChannels();
+        
     }
-    SetChannel('');
+    // SetChannel('');
 }
     
 function GetJsonEpg(Sour, rest){
-    $.ajax({
-        cache: false,
-        async: false,
-        url: ServerSource + Sour,
-        success: function (response){
+
+    if(typeof(ASTB) !== 'undefined'){
+        ASTB.DebugString('4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PREPARANDO AJAX');
+        Debug('4~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PREPARANDO AJAX');
+
+    }
+     jqxhr =  $.getJSON( Sour )
+        .done(function( json ) {
+            // console.log( json );
             SourceEpgFile = Sour;
+            if(typeof(ASTB) !== 'undefined'){
+                ASTB.DebugString('5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE SOURCEEPGFILE= '+SourceEpgFile);
+                Debug('5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE SOURCEEPGFILE= '+SourceEpgFile);
+            }
             ChannelsJson = [];
-            ChannelsJson = response;
+            ChannelsJson = json;
             EpgDataActive = true;
+            if(typeof(ASTB) !== 'undefined'){
+                ASTB.DebugString('6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANNELSJSON= '+ChannelsJson[0]['NAME']);
+                Debug('6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANNELSJSON= '+ChannelsJson[0]['NAME']);
+            }
             ////Debug(Sour);
             ChannelsLength = ChannelsJson.C_Length - 1;
-            ChannelMax     = parseInt(ChannelsJson[ChannelsLength].CHNL, 10);
-            
-            ////Debug('------- GetJsonEpg -> ChannelsLength: '+ChannelsLength);
-        },
-        error: function (response){
-            if(rest!==-1){
-                if(rest<2){
-                    rest++;
-                    var d = new Date();
-                    d.setDate(d.getDate() - rest);
-                    Sour = Libraries['EpgDaysPath'] + 'epg_' + d.yyyymmdd() + '_' + Device['Services']['PackageId'] + '.json';
-                    
-                    ////Debug("NO SE ENCONTRO EL ARCHIVO, BUSCANDO: " + SourceEpgFile);
-                    GetJsonEpg(Sour, rest);
-                }else{
-                    Sour = Libraries['EpgDaysPath'] + 'Default/epg_default_' + Device['Services']['PackageId'] + '.json';
-                    
-                    ////Debug("NO SE ENCONTRO EL ARCHIVO, BUSCANDO: " + SourceEpgFile);
-                    GetJsonEpg(Sour, -1);
-                
-                }
-            }else{
-                // El archivo no se encuentra o viene vacio, consulta a la base de datos
-                EpgDataActive = false;
-                GetJsonChannels();
+            if(typeof(ASTB) !== 'undefined'){
+                ASTB.DebugString('7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANELSLENGHT= '+ChannelsLength.toString());
+                Debug('7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANELSLENGHT= '+ChannelsLength.toString());
             }
-        }
-    });
+            ChannelMax     = parseInt(ChannelsJson[ChannelsLength].CHNL, 10);
+            if(typeof(ASTB) !== 'undefined'){
+                ASTB.DebugString('8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE ChannelMax= '+ChannelMax.toString());
+                Debug('8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE ChannelMax= '+ChannelMax.toString());
+            }
+            SetChannel('');
+            if(typeof(ASTB) !== 'undefined'){
+                ASTB.DebugString('9~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES Se termina de cargar la guia y se cambia de canal ');
+                Debug('9~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES Se termina de cargar la guia y se cambia de canal ');
+            }
+        })
+        .fail(function( jqxhr, DFDDtextStatus, error ) {
+            var err = textStatus + ", " + error;
+            console.log( "Request Failed: " + err );
+        });
+    jqxhr = null;
+       
+
+    // $.ajax({
+    //     cache: false,
+    //     type: 'GET',
+    //     url: ServerSource + Sour,
+    //     success: function (response){
+    //         // console.log(response[0]);
+    //         SourceEpgFile = Sour;
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE SOURCEEPGFILE= '+SourceEpgFile);
+    //             Debug('5~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE SOURCEEPGFILE= '+SourceEpgFile);
+    //         }
+    //         ChannelsJson = [];
+    //         ChannelsJson = response;
+    //         EpgDataActive = true;
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANNELSJSON= '+ChannelsJson[0]['NAME']);
+    //             Debug('6~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANNELSJSON= '+ChannelsJson[0]['NAME']);
+    //         }
+    //         ////Debug(Sour);
+    //         ChannelsLength = ChannelsJson.C_Length - 1;
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANELSLENGHT= '+ChannelsLength.toString());
+    //             Debug('7~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE CHANELSLENGHT= '+ChannelsLength.toString());
+            
+    //         }
+    //         ChannelMax     = parseInt(ChannelsJson[ChannelsLength].CHNL, 10);
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE ChannelMax= '+ChannelMax.toString());
+    //             Debug('8~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES AJAX/VARIABLE ChannelMax= '+ChannelMax.toString());
+    //         }
+    //         SetChannel('');
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('9~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES Se termina de cargar la guia y se cambia de canal ');
+    //             Debug('9~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~SUCCES Se termina de cargar la guia y se cambia de canal ');
+    //         }
+    //     },
+    //     error: function (response){
+    //         if(typeof(ASTB) !== 'undefined'){
+    //             ASTB.DebugString('10~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR LA RESPUESTA DEL SERVIDOR NO TRAE INFORMACION O LA URL ESTA MAL');
+    //             Debug('10~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR LA RESPUESTA DEL SERVIDOR NO TRAE INFORMACION O LA URL ESTA MAL');
+            
+    //         }
+    //         if(rest!==-1){
+    //             if(rest<2){
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('11~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ENTRA A FUNCION PARA MANDAR A TRAER LA INFO DE LA GUIA DE DIAS ATRAS');
+    //                     Debug('11~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ENTRA A FUNCION PARA MANDAR A TRAER LA INFO DE LA GUIA DE DIAS ATRAS');
+    //                 }
+    //                 rest++;
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('12~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE REST='+rest.toString());
+    //                     Debug('12~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE REST='+rest.toString());
+
+    //                 }
+    //                 var d = new Date();
+    //                 d.setDate(d.getDate() - rest);
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('13~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE FECHA RESTADA='+d.toString());
+    //                     Debug('13~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE FECHA RESTADA='+d.toString());
+
+    //                 }
+    //                 Sour = Libraries['EpgDaysPath'] + 'epg_' + d.yyyymmdd() + '_' + Device['Services']['PackageId'] + '.json';
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('14~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE Sour='+Sour);
+    //                     Debug('14~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR AJAX/VARIABLE Sour='+Sour);
+
+    //                 }
+    //                 ////Debug("NO SE ENCONTRO EL ARCHIVO, BUSCANDO: " + SourceEpgFile);
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('15~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR Se vuelve a llamar getjsonepg con fecha cambiada='+d.toString());
+    //                     Debug('15~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR Se vuelve a llamar getjsonepg con fecha cambiada='+d.toString());
+
+    //                 }
+    //                 GetJsonEpg(Sour, rest);
+
+    //             }else{
+    //                 Sour = Libraries['EpgDaysPath'] + 'Default/epg_default_' + Device['Services']['PackageId'] + '.json';
+                    
+    //                 if(typeof(ASTB) !== 'undefined'){
+    //                     ASTB.DebugString('17~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR SIGUE BUSCANDO GUIA CON DIAS ATRAS'+Sour);
+    //                     Debug('17~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR SIGUE BUSCANDO GUIA CON DIAS ATRAS'+Sour);
+
+    //                 }
+    //                 ////Debug("NO SE ENCONTRO EL ARCHIVO, BUSCANDO: " + SourceEpgFile);
+    //                 GetJsonEpg(Sour, -1);
+                
+    //             }
+    //         }else{
+    //             // El archivo no se encuentra o viene vacio, consulta a la base de datos
+    //             EpgDataActive = false;
+    //             GetJsonChannels();
+    //             if(typeof(ASTB) !== 'undefined'){
+    //                 ASTB.DebugString('16~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR Si no encuentra nada de guia consilta la BD');
+    //                 Debug('16~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ERROR Si no encuentra nada de guia consilta la BD');k
+    //             }
+    //         }
+    //     }
+    // });
 }
 function CheckUpdatedJson(){
     if (typeof ChannelsJson[0].PROGRAMS === 'undefined') {
@@ -198,7 +316,7 @@ function CheckUpdatedJson(){
 function GetJsonChannels(){ 
     $.ajax({
         type: 'POST',
-        async: false,
+        // async: false,
         cache: false,
         url: ServerSource + 'Core/Controllers/Packages.php',
         data: { 
@@ -215,12 +333,13 @@ function GetJsonChannels(){
             if(Device['Services']['ActiveEpg'] === true){
                 SetLog(ErrorLoadGuide);
             }
+            SetChannel('');
         }
     });
 }
     
 /*******************************************************************************
- * Reproduce canal y abre informacion del canal en reproduccion
+ * Reproduce canal y abre informacion del canal en reproduccionk
  *******************************************************************************/
 
 function SetChannel(NewDirection){

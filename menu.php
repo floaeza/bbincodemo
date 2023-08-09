@@ -110,7 +110,7 @@
         $Footer = new Templates($Libraries['LayoutsPhpPath'].'Footer.tpl');
 
             // Librerias javascript generales
-            //$Footer->set('TvScript', $Libraries['Void']);
+            $Footer->set('TvScript', $Libraries['Void']);
 
             if($Vendor === 'Amino' || $Vendor === 'Generic'){
                 $Footer->set('Time', $Libraries['ClockScript']);
@@ -126,7 +126,7 @@
 
             
             // Librerias javascript por marca
-            //$Footer->set('Player', $VendorFolder.$Libraries['Player']);
+            $Footer->set('Player', $VendorFolder.$Libraries['Player']);
             $Footer->set('EventsScript', $VendorFolder.$Libraries['Events']);
 
         // Imprime en HTML todo lo asignado en el pie de pagina

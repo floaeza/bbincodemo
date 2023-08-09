@@ -596,8 +596,8 @@ switch ($Option){
         $Response = array($Result, $TypeResult);
     break;
     case 'SendLog':
-        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : 'multicast,infomir,er,3e4,78u';
-        $Commandfiles = '/usr/bin/python3 CreateLog.py '.$LogInfo;
+        $LogInfo   = !empty($_POST['LogInfo']) ? $_POST['LogInfo'] : 'd';
+        $Commandfiles = '/usr/bin/python3 /var/www/html/BBINCO/TVCHL/Core/Controllers/CreateLog.py '.$LogInfo;
         echo $Commandfiles;
         $command = escapeshellcmd($Commandfiles);
         $output = shell_exec($command);

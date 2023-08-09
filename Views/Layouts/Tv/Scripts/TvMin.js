@@ -150,8 +150,8 @@ function OpenEpg(){
         GetWeather();
 
         MinimizeTV();
-
-        EpgTimer = setTimeout(CloseEpg,TimeoutEpg);
+        // dateInterval = setInterval(SetDate,1000);
+        EpgTimer     = setTimeout(CloseEpg,TimeoutEpg);
 
         SetChannelLogo();
         Debug('------- OpenEpg 2 (Min) -> EpgDataActive: '+EpgDataActive);
@@ -203,6 +203,9 @@ function CloseEpg(){
         EpgDayNumber        =  0;
 
         clearTimeout(EpgTimer);
+        
+        
+        // dateInterval = null;
     }
 }
 

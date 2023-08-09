@@ -150,10 +150,20 @@ if (window.tizen !== undefined) {
         // console.log(CurrentStbDate);
 
 
-        //CurrentStbDate = moment().subtract('hours', Offset).format('Y-MM-DD h:mm:ss');
-        CurrentStbDate = 'UPDATED';
+        // CurrentStbDate = moment().subtract('hours', Offset).format('Y-MM-DD h:mm:ss');
+        // CurrentStbDate = 'UPDATED';
 
         //Debug('CurrentStbDate = '+CurrentStbDate);
+
+        var Offset = 5; // Numero de horas a restar
+
+        var fecha = new Date(); 
+            fecha.setHours(fecha.getHours() - Offset); 
+        
+        var fechaFormateada = fecha.toISOString().slice(0,19).replace('T', ' ');
+            CurrentStbDate = fechaFormateada;
+            console.log(CurrentStbDate);
+
     }
 
     //Debug(ServerSource + 'Core/Controllers/Device.php');

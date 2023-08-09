@@ -131,10 +131,10 @@
             CheckPort = ':' + Port;
         }
         // Detiene el proceso de la reproduccion anterior
-        Source = Source.replace('igmp','udp');
-        Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
-        URLLog = Source+CheckPort;
-        ipMulticastTest = Source;
+        // Source = Source.replace('igmp','udp');
+        // Source = (Source).slice(0, 6) + "@" + (Source).slice(6);
+        // URLLog = Source+CheckPort;
+        // ipMulticastTest = Source;
        
         
         StopVideo();
@@ -147,10 +147,15 @@
                 //program: ProgramIdPosition
             });
         }else{
-            Debug("Source aa"+ Source +" Port "+CheckPort);
-
+            // Debug("Source aa"+ Source +" Port "+CheckPort);
+            Debug("Source aa"+ Source);
+            // player.play({
+            //     uri: Source + CheckPort,
+            //     solution: 'auto',
+            //     //program: ProgramIdPosition
+            // });
             player.play({
-                uri: Source + CheckPort,
+                uri: Source,
                 solution: 'auto',
                 //program: ProgramIdPosition
             });
@@ -207,15 +212,15 @@
         //};
         // Maximiza el video en caso de que no este en pantalla completa
         MaximizeTV();
-        // Activamos la bandera
-        PlayingChannel = true;
+        // // Activamos la bandera
+        // PlayingChannel = true;
 
-        // Si tiene una fecha ya registrada guarda estadisticas en la BD
-        if(StartDateChannel !== ''){
-            SetChannelStatistics();
-        }
-        // Actualiza la fecha inicio de la reproduccion del canal */
-        StartDateChannel = new Date();
+        // // Si tiene una fecha ya registrada guarda estadisticas en la BD
+        // if(StartDateChannel !== ''){
+        //     SetChannelStatistics();
+        // }
+        // // Actualiza la fecha inicio de la reproduccion del canal */
+        // StartDateChannel = new Date();
     }
 
     /* *****************************************************************************
@@ -232,20 +237,24 @@
         //Source = 'http://10.0.3.10/Recordings/prueba.m3u8';
         //Source = 'http://10.30.11.217:80/USB-E0D55EA57493F560A93E1A6B-1/Final_edit.mp4'
         //Source = 'https://youtu.be/wB_i1DL5SPc';
-        chapters = [];
+        // chapters = [];
         //if((gSTB.GetDeviceModel() != 'MAG424' && gSTB.GetDeviceModel() !='MAG524') && (gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' && gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() != '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() != '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() != '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() != '00:1a:79:70:06:f1')){
         //    var source2 = Source.split('/');
         //    Source = "http://10.0.3.241/INFOMIR_RECORDINGS/" + source2[4]; 
         //}
+        Debug('----------------------->0');
 
-        var conti = false;
-        if(PlayingRecording===true){
-            conti = true;
-        }
+
+        // var conti = false;
+        // Debug('----------------------->1');
+
+        // if(PlayingRecording===true){
+        //     conti = true;
+        // }
+
+
         StopVideo();
-        if(conti == true){
-            PlayingRecording = true;
-        }
+
         
         //Debug(Source);
         if(CurrentModule === 'Tv'){
@@ -262,7 +271,14 @@
             }else{
                 //alert(Source);
                 Source = Source.replace(/\s+/g, '');
-                Debug('--------------->>> '+Source);
+                sintonizandoGrabacion = true;
+                urlFromrecord = Source;
+                if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
+                    var x24Today = new Date();	
+                    var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                    setInfomirLog(gSTB.GetDeviceMacAddress()+'|'+gSTB.RDir('IPAddress')+'|'+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+'|'+x24Hour+'|CONSULTANDO|'+Source);
+                }
+                Debug('--------------->>>'+Source);
                 //ShowRecorderMessage(Source);
                 //Reproduce el video
                 //alert(Source);
@@ -276,10 +292,14 @@
         } else {
             //Reproduce el video
             //alert(Source);
+            Debug('----------------------->1');
+           
             player.play({
                 uri: Source,
                 solution: 'ffrt3'
             });
+            Debug('----------------------->2');
+
         }
 
         // player.onPlayEnd = function () {
@@ -461,25 +481,58 @@
     * ****************************************************************************/
 
     function StopVideo(){
+        
         if(UpdateSecondsRecord !== null){
             clearInterval(UpdateSecondsRecord);
             UpdateSecondsRecord = null;
         }
+
+
         player.stop();
-        if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'  && gSTB.GetDeviceModel() !=='MAG522v2'){
-            if(player2.state !== 0){
-                player2.stop();
-            }
-        }
-        PlayingRecording = false;
-        PlayingRecordPlaylist = false;
-        PlayingRecordPlaylist2 = false;
-        firstPause = true;
+
+        // if(gSTB.GetDeviceModel() !== 'MAG520' && gSTB.GetDeviceModel() !=='MAG524'  && gSTB.GetDeviceModel() !=='MAG522v2'){
+        //     if(player2.state !== 0){
+        //         player2.stop();
+        //     }
+        // }
+
+
+        // PlayingRecording = false;
+        // PlayingRecordPlaylist = false;
+        // PlayingRecordPlaylist2 = false;
+        // firstPause = true;
+
+
         //PauseLive = false;
     }
 
     function PauseVideo(){
         if((gSTB.GetDeviceModel() == 'MAG424' || gSTB.GetDeviceModel() =='MAG524' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:03' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d1:a3' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:c6:ff' || gSTB.GetDeviceMacAddress() == '00:1a:79:6d:d0:7a' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:f7' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:4a:9d' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:99' || gSTB.GetDeviceMacAddress() == '00:1a:79:74:b7:66' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:c7:13' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cc:79' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:de' || gSTB.GetDeviceMacAddress() == '00:1a:79:72:cb:e7' || gSTB.GetDeviceMacAddress() == '00:1a:79:70:06:f1') && (USB.length !== 0)){
+            if(firstPause == true){
+                if(idPosition !== null){
+                    clearInterval(idPosition);
+                    idPosition = null;
+                    Position = 0;
+                    idPosition = setInterval(updatePosition,1000);
+                }else{
+                    Position = 0;
+                    idPosition = setInterval(updatePosition,1000);
+                }
+                if(idSeconds !== null){
+                    clearInterval(idSeconds);
+                    seconds = 0;
+                    Position = 0;
+                    idSeconds = null;
+                    idSeconds = setInterval(updateSeconds,1000);
+                }else{
+                    Debug("############################################");
+                    seconds = 0;
+                    Position = 0;
+                    idSeconds = null;
+                    idSeconds = setInterval(updateSeconds,1000);
+                }
+
+            }
             timeShift.EnterTimeShift();
             TimeShiftStart = Position;
         }
@@ -489,11 +542,6 @@
             NewSpeed = 0;
         }
         firstPause = false;
-        if(UpdateSecondsRecord !== null){
-            clearInterval(UpdateSecondsRecord);
-            UpdateSecondsRecord = null;
-        }
-
         player.pause();
     }
     function updateSeconds(){
@@ -556,8 +604,13 @@
     function updateRewFor(){
         //Debug("############3    "+player.position + "   E############");
         Debug('PauseLive = '+PauseLive);
+        var aux  = parseInt(Position) + (parseInt(NewSpeed)-1);
+        var aux2 = parseInt(TimeShiftStart)+2;
+        Debug('Speed = '+parseInt(NewSpeed));
+        Debug('Position'+parseInt(Position));
+        Debug('PauseLive = '+PauseLive);
         if(PauseLive === true && PlayingRecording === false){
-            if(parseInt(Position) + (parseInt(NewSpeed)-1) >=parseInt(seconds) || (parseInt(Position) + (parseInt(NewSpeed)-1) <=parseInt(TimeShiftStart)+2)){
+            if(parseInt(Position) + (parseInt(NewSpeed)-1) >= parseInt(seconds) || aux < 0){
                 Debug("############3    Se Pasa: "+parseInt(player.position) + "   E############");
                 clearInterval(RewFor);
                 TvPlay();
@@ -584,7 +637,7 @@
                     //Debug("############3    player.position "+parseInt(player.position) + "   E############");
                 }
             }else{
-                if(parseInt(SecondsOfRecord) + parseInt(NewSpeed) >= (durationFull-5) || parseInt(SecondsOfRecord) + parseInt(NewSpeed) <= 0){
+                if(parseInt(SecondsOfRecord) + parseInt(NewSpeed) >= (durationFull-5) || (parseInt(SecondsOfRecord) + parseInt(NewSpeed)) < 0){
                     Debug("############3    Se Pasa: "+parseInt(durationFull) + "############");
                     clearInterval(RewFor);
                     TvPlay();

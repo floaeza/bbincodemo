@@ -21,88 +21,107 @@ window.stbEvent = {
                 //The player reached the end of the media content or detected a discontinuity of the stream
                 EventString = 'STATUS_END_OF_STREAM';
                 Debug(EventString);
-                if(Executing === false){
-                    UpdateQuickInfoDevice();
-                }
-                if(PlayingRecording == true){
-                    //ShowRecorderMessage(PlayingRecordPlaylist);
-                    if(PlayingRecordPlaylist === true){
-                        //ShowRecorderMessage(RecordsPlaylist[positionFile]);
-                        //ShowRecorderMessage(NewSpeed);
-                        if(NewSpeed < 0 && RewFor != null){
-                            if(positionFile > 1){
-                                positionFile = positionFile-1;
-                                player.play({
-                                    uri: RecordsPlaylist[positionFile],
-                                    solution: 'auto',
-                                });
-                                player.position = player.duration - 5;
-                                SecondsOfRecord = SecondsOfRecord - 5;
-                            }else{
-                                // play again
-                                ClearSpeed();
-                                PlayingRecording = true;
-                                if(parseInt(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles) === 0){
-                                    PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
-                                }else{
-                                    PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
-                                }
-                                ShowPvrInfo();
-                                SetSpeed('play');
-                            }
-                            if(positionFile == numberFilesGlobal){
-                                PlayingRecordPlaylist = false;
-                                PlayingRecordPlaylist2 = true;
-                            }
-                        }else if(RewFor != null){
-                            positionFile++;
-                            player.play({
-                                uri: RecordsPlaylist[positionFile],
-                                solution: 'auto'
-                            });
-                            if(positionFile == numberFilesGlobal){
-                                PlayingRecordPlaylist = false;
-                                PlayingRecordPlaylist2 = true;
-                            }
-                        }
+                // if(Executing === false){
+                //     UpdateQuickInfoDevice();
+                // }
+                // if(PlayingRecording == true){
+                //     //ShowRecorderMessage(PlayingRecordPlaylist);
+                //     if(PlayingRecordPlaylist === true){
+                //         //ShowRecorderMessage(RecordsPlaylist[positionFile]);
+                //         //ShowRecorderMessage(NewSpeed);
+                //         if(NewSpeed < 0 && RewFor != null){
+                //             if(positionFile > 1){
+                //                 positionFile = positionFile-1;
+                //                 player.play({
+                //                     uri: RecordsPlaylist[positionFile],
+                //                     solution: 'auto',
+                //                 });
+                //                 player.position = player.duration - 5;
+                //                 SecondsOfRecord = SecondsOfRecord - 5;
+                //             }else{
+                //                 // play again
+                //                 ClearSpeed();
+                //                 PlayingRecording = true;
+                //                 if(parseInt(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles) === 0){
+                //                     PlayVideo(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url);
+                //                 }else{
+                //                     PlayRecordsPlaylist(RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].url, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].numberFiles, RecordingsList[IndexRecordedFocus][IndexRecordedProgFocus].duration);
+                //                 }
+                //                 ShowPvrInfo();
+                //                 SetSpeed('play');
+                //             }
+                //             if(positionFile == numberFilesGlobal){
+                //                 PlayingRecordPlaylist = false;
+                //                 PlayingRecordPlaylist2 = true;
+                //             }
+                //         }else if(RewFor != null){
+                //             positionFile++;
+                //             player.play({
+                //                 uri: RecordsPlaylist[positionFile],
+                //                 solution: 'auto'
+                //             });
+                //             if(positionFile == numberFilesGlobal){
+                //                 PlayingRecordPlaylist = false;
+                //                 PlayingRecordPlaylist2 = true;
+                //             }
+                //         }
                         
-                    }else{
-                        //ShowRecorderMessage(NewSpeed);
-                        PlayingRecording = true;
-                        if(NewSpeed < 0 && RewFor != null){
-                            if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
-                                positionFile = positionFile-1;
-                                player.play({
-                                    uri: RecordsPlaylist[positionFile],
-                                    solution: 'auto',
-                                });
-                                player.position = player.duration - 5;
-                                SecondsOfRecord = SecondsOfRecord - 5;
-                            }
-                        }else{
-                            if(PlayingRecordPlaylist2 == true){
-                                SecondsOfRecord = 0;
-                                positionFile = 0;
-                                numberFilesGlobal = 0;
-                                clearInterval(UpdateSecondsRecord);
-                                UpdateSecondsRecord = null;
-                                PlayingRecordPlaylist2 = false;
-                            }
-                            OpenRecordPlayOptions();
-                        }
+                //     }else{
+                //         //ShowRecorderMessage(NewSpeed);
+                //         PlayingRecording = true;
+                //         if(NewSpeed < 0 && RewFor != null){
+                //             if(PlayingRecordPlaylist == true || PlayingRecordPlaylist2 == true){
+                //                 positionFile = positionFile-1;
+                //                 player.play({
+                //                     uri: RecordsPlaylist[positionFile],
+                //                     solution: 'auto',
+                //                 });
+                //                 player.position = player.duration - 5;
+                //                 SecondsOfRecord = SecondsOfRecord - 5;
+                //             }
+                //         }else{
+                //             if(PlayingRecordPlaylist2 == true){
+                //                 SecondsOfRecord = 0;
+                //                 positionFile = 0;
+                //                 numberFilesGlobal = 0;
+                //                 clearInterval(UpdateSecondsRecord);
+                //                 UpdateSecondsRecord = null;
+                //                 PlayingRecordPlaylist2 = false;
+                //             }
+                //             OpenRecordPlayOptions();
+                //         }
                         
+                //     }
+                // }else if(PlayingChannel == true && ActiveDigitalChannel==false){
+                //     //gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'
+                //     if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e'){
+                //         x24Today = new Date();	
+                //         x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                //         setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
+                //     }
+                //     //setTimeout(PlayChannel2(URLLog),5000);
+                // }else if(sintonizandoGrabacion === true){
+                //     sintonizandoGrabacion = false;
+                //     urlFromrecord = null;
+                //     if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
+                //         var x24Today = new Date();	
+                //         var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                //         setInfomirLog(gSTB.GetDeviceMacAddress()+'|'+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+','+x24Hour+',TERMINO LA REPRODUCCION DE RECORD,'+urlFromrecord);
+                //     }
+                // }
+                // if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
+                //     GetDigitalChannel();
+                // }
+
+                Debug('----------->'+actualVideoPlay)
+                if(actualVideoPlay != null){
+    
+                    if (actualVideoPlay == 'paquetes') {
+                        PlayVideo('http://storage.bbincovatio.com/Multimedia/Hospital/0.mp4');
                     }
-                }else if(PlayingChannel == true && ActiveDigitalChannel==false){
-                    //gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:d4' || gSTB.GetDeviceMacAddress() === '00:1a:79:74:b7:5b' || gSTB.GetDeviceMacAddress() === '00:1a:79:6d:d2:99'
-                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e'){
-                        x24Today = new Date();	
-                        x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',STATUS_END_OF_STREAM '+URLLog);
+                    if (actualVideoPlay == 'precios') {
+                        PlayVideo('http://storage.bbincovatio.com/Multimedia/Hospital/1.mp4');
                     }
-                    //setTimeout(PlayChannel2(URLLog),5000);
-                }
-                if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
-                    GetDigitalChannel();
                 }
             break;
             case 2:
@@ -113,7 +132,11 @@ window.stbEvent = {
                     if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
                         var x24Today = new Date();	
                         var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
-                        setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',INFORMATION_RECEIVED '+URLLog);
+                        if(sintonizandoGrabacion === true){
+                            setInfomirLog(gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+','+x24Hour+',CONSULTA EXITOSA REPRODUCIENDO,'+urlFromrecord);
+                        }else{
+                            setInfomirLog('MULTICAST,'+ipMulticastTest+','+gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+' '+x24Hour+',INFORMATION_RECEIVED '+URLLog);
+                        }
                     }
                 }
             break;
@@ -157,6 +180,14 @@ window.stbEvent = {
                     
                 }else if(ActiveDigitalChannel==true && PlayingRecording == false && PlayingRecordPlaylist == false){
                     GetDigitalChannel();
+                }else if(sintonizandoGrabacion === true){
+                    if(gSTB.GetDeviceMacAddress() === '00:1a:79:70:06:f1' || gSTB.GetDeviceMacAddress() === '00:1a:79:6c:cc:3e' && URLLog !== ''){
+                        sintonizandoGrabacion = false;
+                        urlFromrecord = null;
+                        var x24Today = new Date();	
+                        var x24Hour = x24Today.getHours() + ':' + x24Today.getMinutes() + ':' + x24Today.getSeconds();
+                        setInfomirLog(gSTB.GetDeviceMacAddress()+','+gSTB.RDir('IPAddress')+','+x24Today.getDate() + "/" + (x24Today.getMonth() +1) + "/" + x24Today.getFullYear()+'|'+x24Hour+',NO SE OBTUVO RESPUESTA DE LA CONSULTA,'+urlFromrecord);
+                    }
                 }
             break;
 

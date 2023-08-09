@@ -58,19 +58,22 @@ function Back(){
 }
 
 function Menu(){
-    Debug('--------------------------MENU() CurrentModule:: ' +CurrentModule + ' DEVICE[SERVICES][ACTIVEMENU] '+ Device['Services']['ActiveMenu']);
-    if(CurrentModule !== 'Menu' && Device['Services']['ActiveMenu'] === true){
-        //alert("Menu");
-        Debug('----------- GOPAGE');
-        //if(CurrentModule == 'Tv'){
-           //document.getElementById('loadingTV').style.display = "block"; 
-        //}
+    Debug('---------------bfdbdbdf----------MENU() CurrentModule:: ' +CurrentModule + ' DEVICE[SERVICES][ACTIVEMENU] '+ Device['Services']['ActiveMenu']);
+    StopVideo();
+    GoPage('menu.php', Device['MenuId'], 'Menu');
+    
+    // if(CurrentModule !== 'Menu' && Device['Services']['ActiveMenu'] === true){
+    //     alert("Menu");
+    //     Debug('----------- GOPAGE');
+    //     //if(CurrentModule == 'Tv'){
+    //        //document.getElementById('loadingTV').style.display = "block"; 
+    //     //}
         
-        //GoPage('menu.php', Device['MenuId'], 'Menu');
-        GoPage('menu.php', Device['MenuId'], 'Menu');
+    //     //GoPage('menu.php', Device['MenuId'], 'Menu');
+    //     GoPage('menu.php', Device['MenuId'], 'Menu');
         
-    } else if(CurrentModule === 'Tv' && Device['Services']['ActiveMenu'] === false){
-        Debug('----------- TV RECORDER');
-        TvRecorder();
-    }
+    // } else if(CurrentModule === 'Tv' && Device['Services']['ActiveMenu'] === false){
+    //     Debug('----------- TV RECORDER');
+    //     TvRecorder();
+    // }
 }

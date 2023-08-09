@@ -13,6 +13,7 @@
         SM_EndDateModuleMM     = '',
         SM_MinSeconds          = 10000, // 30 segundos
         SM_DifferenceInSec     = '';
+    var dateInterval         = null;
         
     var FormatStartDate     = '',
         EndDateModule       = '',
@@ -35,22 +36,34 @@
     var ObjectWeather =[];
     var ipMulticastTest = '';
         window.localStorage;
+    var jqxhr = null;
+    var sintonizandoGrabacion = false;
+    var urlFromrecord = null;
+    var actualVideoPlay = null;
 
     function GoPage(Page, ModuleId, ChangeModule){
-        //alert('Pagina: '+ Page+'Module Id: '+ ModuleId+'CangeModule: '+ChangeModule);
+        Debug('Pagina: '+Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule);
         ////Debug(ModuleId + "  " + OnScreen + "  " + ChannelPosition);
         updateDataModule(ModuleId);
+        Debug('GoPage ---> 1');
 
         ////Debug('GoPage ---> '+Page);
-        if(CurrentModule !== 'Menu'){
-        }
+        // if(CurrentModule !== 'Menu'){
+
+        // }
+        // Debug('GoPage ---> 2');
+
         //if(CurrentModule === 'Tv' && StartDateChannel !== ''){
         if(CurrentModule === 'Tv'){
+            Debug('GoPage ---> 3');
+
             //Debug('TVCLOSE & SETCHANNELSTATISTICS');
             StopVideo();
             TvClose();
             //SetChannelStatistics();
         }
+        Debug('GoPage ---> 4');
+
         ////Debug('StopVideo ---> ');
 
         //SetModuleStatistics();
@@ -96,7 +109,7 @@
                 if(typeof(ASTB) !== 'undefined'){
                     location.href= Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule;
                 }else{
-                    window.location.href = Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule;
+                     window.location.href = Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule;
                 }
                 
             }

@@ -459,7 +459,7 @@ var CheckInfo = 0;
                         if(DelaySkip == false){
                             DelaySkip = true;
                             TvPlay();
-                            TvPlay();
+                            // TvPlay();
                             SkipChapterRecord("forward");  
                             setTimeout(function(){
                                 DelaySkip = false;

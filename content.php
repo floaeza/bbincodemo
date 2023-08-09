@@ -106,19 +106,21 @@
         /** PIE DE PAGINA **/
 
         // Librerias javascript generales
-        $Footer->set('TvScript', $Libraries['Void']);
+        // $Footer->set('TvScript', $Libraries['Tv']);
         $Footer->set('Time', $Libraries['TimeScript']);
         $Footer->set('Settings', $Libraries['Settings']);
 
-        // Libreria para maniputal el template asignado
+        // Libreria para manipular el template asignado
         $Footer->set('LayoutScript', $Libraries['ContentScripts'].$ModuleInfo['opcion_template'].'.js' );
         $Footer->set('LayoutRecorderScript', $Libraries['Void']);
         
         // Librerias javascript por marca
         $Footer->set('Player', $VendorFolder.$Libraries['Player']);
-        
+        if($ModuleInfo['id_modulo'] === '1'){
+            $Footer->set('TvScript', $Libraries['Tv']);
+        }
         if($ModuleInfo['modulo_canal'] === '1'){
-            $Footer->set('EventsScript', $Libraries['Void']);
+            $Footer->set('EventsScript', $VendorFolder.$Libraries['Events']);
         } else {
             $Footer->set('EventsScript', $VendorFolder.$Libraries['Events']);
         }
