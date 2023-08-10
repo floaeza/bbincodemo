@@ -65,7 +65,7 @@
                         <div class="col-md-7">
                         <div class="detail-box">
                             <h1>
-                                Entertainment
+                                Entretenimiento
                             </h1>
                             <p>
                                 Le invitamos a conocer más sobre nosotros y a experimentar de primera mano el cuidado y la atención que nos definen.
