@@ -33,9 +33,42 @@
         <script src='[@RemoteControl]'></script>
         <!-- <script src='[@AppControl]'></script> -->
         <!-- <script src='./Views/Scripts/AppControl.js'></script> -->
-
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     </head>
     <body>
         <div class='GeneralBox'>
             <div id="DebugText"></div> 
+            <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="background-container"></div>
+                    <div class="custom-grid">
+                      <div class="custom-item"></div>
+                      <div id="UP_BTN"    class="custom-item"></div>
+                      <div id="INFO_BTN"  class="custom-item"></div>
+                      <div id="LEFT_BTN"  class="custom-item"></div>
+                      <div id="OK_BTN"    class="custom-item"></div>
+                      <div id="RIGHT_BTN" class="custom-item"></div>
+                      <div id="BACK_BTN"  class="custom-item"></div>
+                      <div id="DOWN_BTN"  class="custom-item"></div>
+                      <div                class="custom-item"></div>
+                    </div>
+                    <div class="custom-grid-menu">
+                      <div class="custom-item-menu"></div>
+                      <div id="MENU_BTN" class="custom-item-menu"></div>
+                      <div class="custom-item-menu"></div>
+                    </div>
+                    <div class="custom-grid-guide">
+                      <div id="VOLUMENPLUS_BTN"   class="custom-item-guide"></div>
+                      <div id="GUIDE_BTN"         class="custom-item-guide"></div>
+                      <div id="CHANNELUP_BTN"            class="custom-item-guide"></div>
+                    </div>
+                    <div class="custom-grid-volumen">
+                      <div id="VOLUMENLESS_BTN" class="custom-item-volumen"></div>
+                      <div class="custom-item-volumen"></div>
+                      <div id="CHANNELDOWN_BTN"class="custom-item-volumen"></div>
+                    </div>
+                  </div>
+                </div>
+            </div>
             

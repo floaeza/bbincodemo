@@ -11,7 +11,7 @@
 <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
 <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
 
-<section class="doctor_section layout_padding">
+<section class="doctor_section">
     <div class="container">
       <div class="heading_container heading_center">
         <h2>
@@ -21,7 +21,7 @@
             En nuestro hospital, la educación y la capacitación también son pilares fundamentales. Fomentamos el crecimiento profesional de nuestro equipo y ofrecemos oportunidades de aprendizaje para estudiantes y profesionales de la salud en formación, con el objetivo de contribuir al desarrollo de futuros líderes en el campo de la medicina.
         </p>
       </div>
-      <div style="margin-top: 5%;" class="row">
+      <div class="row">
         <div class="col-sm-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">

@@ -40,6 +40,87 @@
     var sintonizandoGrabacion = false;
     var urlFromrecord = null;
     var actualVideoPlay = null;
+    $(document).ready(function() {
+        $(".custom-item").click(function() {
+          var itemId = this.id;
+          switch (itemId) {
+            case "UP_BTN":
+                var keyCode = 38;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+              break;
+            case "INFO_BTN":
+                var keyCode = 73;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+              break;
+            case "LEFT_BTN":
+                var keyCode = 37;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+              break;
+            case "OK_BTN":
+                var keyCode = 13;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+            case "RIGHT_BTN":
+                var keyCode = 39;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+            case "BACK_BTN":
+                // alert('BACK');
+                break;
+            case "DOWN_BTN":
+                var keyCode = 40;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+          }
+        });
+        $(".custom-item-menu").click(function() {
+            var itemId = this.id;
+            switch (itemId) {
+              case "MENU_BTN":
+                var keyCode = 77;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+            }
+          });
+          $(".custom-item-guide").click(function() {
+            var itemId = this.id;
+            switch (itemId) {
+              case "VOLUMENPLUS_BTN":
+                // alert('PLUS');
+                break;
+              case "GUIDE_BTN":
+                var keyCode = 69;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+              case "CHANNELUP_BTN":
+                var keyCode = 85;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+            }
+          });
+          $(".custom-item-volumen").click(function() {
+            var itemId = this.id;
+            switch (itemId) {
+              case "VOLUMENLESS_BTN":
+                // alert('LESS');
+                break;
+              case "CHANNELDOWN_BTN":
+                var keyCode = 74;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
+                break;
+            }
+          });
+      });
 
     function GoPage(Page, ModuleId, ChangeModule){
         Debug('Pagina: '+Page+'?MacAddress='+MacAddress+'&ModuleId='+ModuleId+'&CurrentModule='+ChangeModule);

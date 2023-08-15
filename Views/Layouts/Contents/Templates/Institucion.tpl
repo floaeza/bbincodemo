@@ -12,7 +12,7 @@
 <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
 
 
-<section class="about_section layout_padding" style="background: white;">
+<section class="about_section" style="background: white;">
     <div class="container  ">
       <div class="row">
         <div class="col-md-6 ">

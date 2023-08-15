@@ -14,11 +14,11 @@
         WindowMinWidth  = 0,
         WindowMinHeight = 0;
 
-    var Sources = ['http://201.116.203.114/MULTIMEDIA_DMO/ChannelsVideos/AAA.mp4',
-                  'http://201.116.203.114/MULTIMEDIA_DMO/ChannelsVideos/ABC.mp4',
-                  'http://201.116.203.114/MULTIMEDIA_DMO/ChannelsVideos/CN.mp4',
-                  'http://201.116.203.114/MULTIMEDIA_DMO/ChannelsVideos/CNM.mp4',
-                  'http://201.116.203.114/MULTIMEDIA_DMO/ChannelsVideos/ESPN.mp4'
+    var Sources = ['http://storage.bbinco.com/Multimedia/ChannelsVideos/AAA.mp4',
+                   'http://storage.bbinco.com/Multimedia/ChannelsVideos/ABC.mp4',
+                   'http://storage.bbinco.com/Multimedia/ChannelsVideos/CN.mp4',
+                   'http://storage.bbinco.com/Multimedia/ChannelsVideos/CNM.mp4',
+                   'http://storage.bbinco.com/Multimedia/ChannelsVideos/ESPN.mp4'
                  ];
 
     var IndexChannel = 0;
@@ -74,8 +74,10 @@
 
     function PlayVideo(Source){
         Debug('Playing: '+Source);
-        Debug('GETRAWS: '+Source);
-        GetRaws(Source);
+        // Debug('GETRAWS: '+Source);
+        // GetRaws(Source);
+        document.getElementById('DigitalChannel').innerHTML = '<video id="VideoPlaying" autoplay loop><source src='+Source+' type="video/mp4"></video>';
+        document.getElementById('DigitalChannel').style.display = 'inline';
     }
     
     function GetRaws(Source){

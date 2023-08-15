@@ -3,3 +3,4 @@ $(function() {
     actualVideoPlay = 'paquetes';
     PlayVideo(sourceVideoPaquetes);
 });
+
