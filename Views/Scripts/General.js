@@ -41,7 +41,7 @@
     var urlFromrecord = null;
     var actualVideoPlay = null;
     $(document).ready(function() {
-        $(".custom-item").click(function() {
+        $("i").click(function() {
           var itemId = this.id;
           switch (itemId) {
             case "UP_BTN":
@@ -70,56 +70,51 @@
                             document.dispatchEvent(event);
                 break;
             case "BACK_BTN":
-                // alert('BACK');
+                var keyCode = 67;
+                var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
+                            document.dispatchEvent(event);
                 break;
             case "DOWN_BTN":
                 var keyCode = 40;
                 var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
                             document.dispatchEvent(event);
                 break;
-          }
-        });
-        $(".custom-item-menu").click(function() {
-            var itemId = this.id;
-            switch (itemId) {
-              case "MENU_BTN":
+            case "MENU_BTN":
                 var keyCode = 77;
                 var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
                             document.dispatchEvent(event);
                 break;
-            }
-          });
-          $(".custom-item-guide").click(function() {
-            var itemId = this.id;
-            switch (itemId) {
-              case "VOLUMENPLUS_BTN":
+            case "VOLUMENPLUS_BTN":
                 // alert('PLUS');
                 break;
-              case "GUIDE_BTN":
+            case "GUIDE_BTN":
                 var keyCode = 69;
                 var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
                             document.dispatchEvent(event);
                 break;
-              case "CHANNELUP_BTN":
+            case "CHANNELUP_BTN":
                 var keyCode = 85;
                 var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
                             document.dispatchEvent(event);
                 break;
-            }
-          });
-          $(".custom-item-volumen").click(function() {
-            var itemId = this.id;
-            switch (itemId) {
-              case "VOLUMENLESS_BTN":
+            case "VOLUMENLESS_BTN":
                 // alert('LESS');
                 break;
-              case "CHANNELDOWN_BTN":
+            case "CHANNELDOWN_BTN":
                 var keyCode = 74;
                 var event   = new KeyboardEvent("keydown", { keyCode: keyCode });
                             document.dispatchEvent(event);
                 break;
-            }
-          });
+            case "INPUT_BTN":
+                let control = document.getElementById('controlDemo');
+                    control.style.display = 'none';
+                break;
+          }
+        });
+        $("#controlBtn").click(function() {
+            let control = document.getElementById('controlDemo');
+            control.style.display = 'inline';
+        });
       });
 
     function GoPage(Page, ModuleId, ChangeModule){
