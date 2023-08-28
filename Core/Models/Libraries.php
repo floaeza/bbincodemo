@@ -24,7 +24,7 @@ if($GetJson == true || $GetJson == "true"){
 // if(empty($ServerIp)){
 //     $ServerIp = !empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : '';
 // }
-$ServerIp               = 'demo.bbinco.com';
+$ServerIp               = 'dev.bbincovatio.com';
 $storage                = 'storage.bbinco.com';
 
 $JsonLibraries['ServerRoot']        = 'http://'.$ServerIp.'/';

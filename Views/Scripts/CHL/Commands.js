@@ -25,6 +25,7 @@ function Blue(){
     }
 }
 function Green(){
+    alert('Caballo bailarín');
 }
 
 function Yellow(){

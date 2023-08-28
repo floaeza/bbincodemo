@@ -30,18 +30,18 @@
         // Activamos la bandera
         PlayingChannel = true;
         
-        Debug('Playing: '+Source + ':'+Port);
+        // Debug('Playing: '+Source + ':'+Port);
 
 
 
-        document.getElementById('DigitalChannel').innerHTML = '<video id="VideoPlaying" autoplay loop><source src='+Sources[IndexChannel]+' type="video/mp4"></video>';
-        document.getElementById('DigitalChannel').style.display = 'inline';
+        // document.getElementById('DigitalChannel').innerHTML = '<video id="VideoPlaying" autoplay loop><source src='+Sources[IndexChannel]+' type="video/mp4"></video>';
+        // document.getElementById('DigitalChannel').style.display = 'inline';
 
-        IndexChannel++;
+        // IndexChannel++;
 
-        if(IndexChannel > Sources.length - 1){
-            IndexChannel = 0;
-        }
+        // if(IndexChannel > Sources.length - 1){
+        //     IndexChannel = 0;
+        // }
         
         // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
         ShowInfo();
@@ -55,14 +55,14 @@
         // Activamos la bandera
         PlayingChannel = true;
 
-        document.getElementById('DigitalChannel').innerHTML = '<video id="VideoPlaying" autoplay loop><source src='+Sources[IndexChannel]+' type="video/mp4"></video>';
-        document.getElementById('DigitalChannel').style.display = 'inline';
+        // document.getElementById('DigitalChannel').innerHTML = '<video id="VideoPlaying" autoplay loop><source src='+Sources[IndexChannel]+' type="video/mp4"></video>';
+        // document.getElementById('DigitalChannel').style.display = 'inline';
 
-        IndexChannel++;
+        // IndexChannel++;
 
-        if(IndexChannel > Sources.length - 1){
-            IndexChannel = 0;
-        }
+        // if(IndexChannel > Sources.length - 1){
+        //     IndexChannel = 0;
+        // }
 
         // Si la guia esta cerrada muestra cuadro con informacion del canal en reproduccion
         ShowInfo();

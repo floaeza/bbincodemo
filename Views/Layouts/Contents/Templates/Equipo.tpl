@@ -1,15 +1,15 @@
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
-<!-- <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
+<!-- <link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
 
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
 
 <section class="doctor_section">
     <div class="container">
@@ -25,7 +25,7 @@
         <div class="col-sm-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/d1.jpg" alt="">
+              <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/d1.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
@@ -40,7 +40,7 @@
         <div class="col-sm-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/d2.jpg" alt="">
+              <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/d2.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
@@ -55,7 +55,7 @@
         <div class="col-sm-6 col-lg-4 mx-auto">
           <div class="box">
             <div class="img-box">
-              <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/d3.jpg" alt="">
+              <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/d3.jpg" alt="">
             </div>
             <div class="detail-box">
               <h5>
@@ -72,6 +72,6 @@
 </section>
 
 
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>

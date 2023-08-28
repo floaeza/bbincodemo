@@ -1,15 +1,15 @@
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
-<!-- <link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/bootstrap.css'>
+<!-- <link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-cabodelsol.min.css'> -->
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/font-awesome.min.css'>
 
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/responsive.css'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/css/style.css'>
 
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
-<link rel="stylesheet" href='http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.ttf'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff'>
+<link rel="stylesheet" href='http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/fonts/fontawesome-webfont.woff2'>
 
 
 <section class="about_section" style="background: white;">
@@ -17,7 +17,7 @@
       <div class="row">
         <div class="col-md-6 ">
           <div class="img-box">
-            <img src="http://demo.bbinco.com/Views/Layouts/Menu/Styles/demo/images/about-img.jpg" alt="">
+            <img src="http://dev.bbincovatio.com/Views/Layouts/Menu/Styles/demo/images/about-img.jpg" alt="">
           </div>
         </div>
         <div class="col-md-6">
@@ -58,6 +58,6 @@
 
 
 
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
-<script src='http://demo.bbinco.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/custom.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/jquery-3.4.1.min.js'></script>
+<script src='http://dev.bbincovatio.com/Views/Layouts/Menu/Scripts/demo/js/bootstrap.js'></script>

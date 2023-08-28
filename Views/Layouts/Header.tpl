@@ -31,18 +31,18 @@
         <script src='[@Keys]'></script>
         <script src='[@Commands]'></script>
         <script src='[@RemoteControl]'></script>
-        <link rel="stylesheet" href="http://demo.bbinco.com/Views/Styles/ControlDemo.css" type="text/css">
-        <!-- <script src='[@AppControl]'></script> -->
+        <link rel="stylesheet" href="http://dev.bbincovatio.com/Views/Styles/ControlDemo.css" type="text/css">
+        <script src='[@AppControl]'></script>
         <!-- <script src='./Views/Scripts/AppControl.js'></script> -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     </head>
     <body>
         <div class='GeneralBox'>
             <div id="DebugText"></div> 
-            <button id="controlBtn" class="floating-button">
+            <button id="controlBtn" style="display: none;" class="floating-button">
               <i class="fas fa-plus"></i> <!-- Icono de Font Awesome, puedes cambiarlo -->
             </button>
-            <div id = "controlDemo" class="containerV2">
+            <div id = "controlDemo" style="display: none;" class="containerV2">
               <div class="d-flex flex-row justify-content-between px-3 py-4 align-items-center">
                   <i class="fas"></i>
                   <span>BBINCO TV</span>

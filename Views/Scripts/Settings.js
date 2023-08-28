@@ -162,7 +162,7 @@ if (window.tizen !== undefined) {
         
         var fechaFormateada = fecha.toISOString().slice(0,19).replace('T', ' ');
             CurrentStbDate = fechaFormateada;
-            console.log(CurrentStbDate);
+            // console.log(CurrentStbDate);
 
     }
 

@@ -25,7 +25,7 @@ var PlayingRecording            = false,
     PvrTimer=0;
 
 /* Variables a utilizar con grabador activo */
-console.log(Device['Type']);
+// console.log(Device['Type']);
 if(Device['Type'] !== 'NONE'){
 
     /* Panel pvr en la guia */
